@@ -3,365 +3,916 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RYXON RBX • VOID</title>
+
+<title>RYXON RBX</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-  background:#050507;color:white;font-family:Arial,sans-serif;
+  background:#030305;
+  color:white;
+  font-family:Arial,sans-serif;
   overflow:hidden;
 }
-button,a{font-family:inherit}
+
+/* ================= INTRO ================= */
 
 #intro{
-  position:fixed;inset:0;z-index:9999;
+  position:fixed;
+  inset:0;
+  z-index:9999;
   background:#020204;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   flex-direction:column;
-  transition:1s;
-}
-
-.error{
-  color:#ff1744;
-  font-size:clamp(45px,13vw,110px);
-  font-weight:900;
-  letter-spacing:8px;
-  text-shadow:0 0 25px #ff1744;
-}
-.errorText{
-  color:#aaa;
-  margin:15px 0 30px;
-  letter-spacing:3px;
-  text-align:center;
-}
-
-.enter{
-  padding:15px 35px;
-  border:1px solid #9b00ff;
-  border-radius:12px;
-  background:#12001d;
-  color:white;
-  font-weight:bold;
-  letter-spacing:3px;
-  box-shadow:0 0 25px #7500ff;
-  cursor:pointer;
-}
-
-#loading,#cinematic{
-  display:none;
-  position:absolute;inset:0;
-  align-items:center;justify-content:center;
-  flex-direction:column;
-}
-
-#loading{background:#030305}
-
-.logo{
-  font-size:42px;font-weight:900;
-  letter-spacing:7px;
-  text-shadow:0 0 25px #8d00ff;
-}
-
-.percent{
-  margin-top:25px;font-size:22px;color:#aaa;
-}
-
-.bar{
-  width:75%;max-width:500px;height:6px;
-  margin-top:15px;background:#17131c;
-  border-radius:20px;overflow:hidden;
-}
-.bar span{
-  display:block;height:100%;width:0;
-  background:linear-gradient(90deg,#7200ff,#ff1744);
-  box-shadow:0 0 20px #a000ff;
-}
-
-#cinematic{
-  background:radial-gradient(circle,#180018,#020204 65%);
   overflow:hidden;
-}
-
-.animal{
-  position:absolute;
-  left:-25%;
-  font-size:clamp(100px,25vw,260px);
-  filter:drop-shadow(0 0 30px #8d00ff);
-  transform:scale(.4);
-}
-
-.cineText{
-  position:absolute;
-  top:12%;
-  font-size:clamp(18px,5vw,35px);
-  letter-spacing:8px;
-  opacity:.7;
-}
-
-#main{
-  min-height:100vh;
-  overflow:auto;
-  background:
-    radial-gradient(circle at 20% 10%,#260047 0,transparent 30%),
-    radial-gradient(circle at 90% 70%,#33000d 0,transparent 30%),
-    #050507;
-  opacity:0;
   transition:1.2s;
 }
 
+/* Background glow */
+
+#intro::before{
+  content:"";
+  position:absolute;
+  width:500px;
+  height:500px;
+  border-radius:50%;
+  background:#6b00ff;
+  filter:blur(180px);
+  opacity:.25;
+  animation:bgMove 5s infinite alternate;
+}
+
+@keyframes bgMove{
+  from{
+    transform:translate(-150px,-80px);
+    background:#6b00ff;
+  }
+
+  to{
+    transform:translate(150px,80px);
+    background:#ff003c;
+  }
+}
+
+/* ERROR */
+
+#errorScreen{
+  position:relative;
+  z-index:5;
+  text-align:center;
+}
+
+.error{
+  font-size:clamp(55px,15vw,130px);
+  font-weight:1000;
+  letter-spacing:12px;
+  color:#ff1744;
+  text-shadow:
+    0 0 10px #ff1744,
+    0 0 30px #ff1744,
+    0 0 70px #ff1744;
+  animation:errorGlitch .8s infinite;
+}
+
+@keyframes errorGlitch{
+  0%,100%{
+    transform:translate(0);
+  }
+
+  20%{
+    transform:translate(-4px,2px);
+  }
+
+  40%{
+    transform:translate(5px,-2px);
+  }
+
+  60%{
+    transform:translate(-2px,3px);
+  }
+}
+
+.errorText{
+  margin:15px 0 35px;
+  color:#aaa;
+  letter-spacing:4px;
+  font-size:13px;
+}
+
+.enter{
+  padding:16px 38px;
+  border:1px solid #9b00ff;
+  border-radius:12px;
+  background:#100019;
+  color:white;
+  font-weight:bold;
+  letter-spacing:3px;
+  box-shadow:
+    0 0 15px #7500ff,
+    inset 0 0 15px #35005c;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.enter:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 40px #9b00ff;
+}
+
+/* ================= LOADING ================= */
+
+#loading{
+  display:none;
+  position:absolute;
+  inset:0;
+  z-index:10;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:
+    radial-gradient(circle,#18002c,#020204 70%);
+}
+
+.logo{
+  font-size:clamp(32px,8vw,60px);
+  font-weight:1000;
+  letter-spacing:8px;
+  text-shadow:
+    0 0 15px #9b00ff,
+    0 0 40px #9b00ff;
+}
+
+.loadingText{
+  margin-top:15px;
+  color:#777;
+  letter-spacing:5px;
+  font-size:12px;
+}
+
+.percent{
+  margin-top:25px;
+  font-size:25px;
+  color:white;
+}
+
+.bar{
+  width:75%;
+  max-width:520px;
+  height:7px;
+  margin-top:15px;
+  background:#16131c;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 0 15px #220033;
+}
+
+.bar span{
+  display:block;
+  height:100%;
+  width:0%;
+  background:linear-gradient(
+    90deg,
+    #6500ff,
+    #b000ff,
+    #ff003c
+  );
+  box-shadow:0 0 25px #a000ff;
+}
+
+/* ================= CINEMATIC ================= */
+
+#cinematic{
+  display:none;
+  position:absolute;
+  inset:0;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  overflow:hidden;
+
+  background:
+    radial-gradient(circle at center,#30003f,#09000d 45%,#010103 100%);
+
+  transition:background 1s;
+}
+
+/* cinematic stars */
+
+.particle{
+  position:absolute;
+  width:3px;
+  height:3px;
+  background:white;
+  border-radius:50%;
+  opacity:.6;
+  animation:particleMove 4s linear infinite;
+}
+
+@keyframes particleMove{
+  from{
+    transform:translateY(100vh);
+    opacity:0;
+  }
+
+  30%{
+    opacity:1;
+  }
+
+  to{
+    transform:translateY(-100vh);
+    opacity:0;
+  }
+}
+
+/* text */
+
+.cineText{
+  position:absolute;
+  top:13%;
+  z-index:3;
+
+  font-size:clamp(15px,4vw,30px);
+  letter-spacing:8px;
+  color:#ddd;
+
+  text-shadow:0 0 20px #9b00ff;
+
+  animation:textPulse 1.5s infinite alternate;
+}
+
+@keyframes textPulse{
+  from{
+    opacity:.35;
+  }
+
+  to{
+    opacity:1;
+  }
+}
+
+/* WOLF */
+
+.animal{
+  position:absolute;
+  left:-30%;
+  z-index:4;
+
+  font-size:clamp(130px,30vw,330px);
+
+  filter:
+    drop-shadow(0 0 20px #9b00ff)
+    drop-shadow(0 0 60px #6b00ff);
+
+  transform:scale(.25);
+}
+
+/* wolf running toward camera */
+
+@keyframes wolfRun{
+
+  0%{
+    left:-30%;
+    transform:scale(.25) rotate(-5deg);
+  }
+
+  20%{
+    left:5%;
+    transform:scale(.38) rotate(2deg);
+  }
+
+  45%{
+    left:30%;
+    transform:scale(.65) rotate(-2deg);
+  }
+
+  65%{
+    left:40%;
+    transform:scale(1);
+  }
+
+  80%{
+    left:42%;
+    transform:scale(1.8);
+  }
+
+  92%{
+    left:42%;
+    transform:scale(4);
+  }
+
+  100%{
+    left:42%;
+    transform:scale(9);
+  }
+
+}
+
+/* speed lines */
+
+.speedLine{
+  position:absolute;
+  width:180px;
+  height:2px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    #a000ff,
+    transparent
+  );
+
+  opacity:0;
+
+  animation:speed .8s linear infinite;
+}
+
+@keyframes speed{
+  0%{
+    transform:translateX(300px);
+    opacity:0;
+  }
+
+  30%{
+    opacity:1;
+  }
+
+  100%{
+    transform:translateX(-500px);
+    opacity:0;
+  }
+}
+
+/* ================= FLASH ================= */
+
+#flash{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  background:#ff003c;
+  opacity:0;
+  pointer-events:none;
+}
+
+.redFlash{
+  animation:redFlash .8s forwards;
+}
+
+@keyframes redFlash{
+
+  0%{
+    opacity:0;
+  }
+
+  30%{
+    opacity:.95;
+  }
+
+  55%{
+    opacity:.3;
+  }
+
+  100%{
+    opacity:0;
+  }
+
+}
+
+/* ================= MAIN ================= */
+
+#main{
+  min-height:100vh;
+
+  opacity:0;
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      #35005c 0,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 70%,
+      #35000d 0,
+      transparent 30%
+    ),
+    #050507;
+
+  transition:1.5s;
+  overflow:auto;
+}
+
+/* NAV */
+
 nav{
-  position:sticky;top:0;z-index:20;
+  position:sticky;
+  top:0;
+  z-index:20;
+
   padding:18px 7%;
-  display:flex;justify-content:space-between;align-items:center;
-  background:rgba(5,5,7,.75);
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid #222;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  background:rgba(5,5,7,.72);
+  backdrop-filter:blur(18px);
+
+  border-bottom:1px solid #24242a;
 }
 
 .brand{
-  font-weight:900;letter-spacing:3px;
-  color:#fff;
+  font-weight:1000;
+  letter-spacing:4px;
 }
-.brand span{color:#a000ff}
+
+.brand span{
+  color:#a000ff;
+}
 
 nav a{
-  color:#aaa;text-decoration:none;
-  margin-left:20px;font-size:13px;
+  color:#aaa;
+  text-decoration:none;
+  margin-left:20px;
+  font-size:13px;
+  transition:.2s;
 }
-nav a:hover{color:white}
+
+nav a:hover{
+  color:#fff;
+}
+
+/* HERO */
 
 .hero{
   min-height:88vh;
-  display:flex;align-items:center;
+
+  display:flex;
+  align-items:center;
+
   padding:60px 8%;
 }
-.heroBox{max-width:750px}
+
+.heroBox{
+  max-width:800px;
+}
 
 .small{
-  color:#a000ff;
-  letter-spacing:5px;
+  color:#b000ff;
+  letter-spacing:6px;
   font-size:13px;
 }
+
 h1{
   font-size:clamp(55px,13vw,125px);
-  line-height:.9;
-  margin:20px 0;
+  line-height:.88;
+  margin:22px 0;
+
   font-weight:1000;
-  text-shadow:0 0 35px rgba(150,0,255,.35);
+
+  text-shadow:
+    0 0 35px rgba(150,0,255,.35);
 }
+
 h1 span{
   color:#a000ff;
 }
+
 .desc{
-  color:#aaa;max-width:580px;
+  color:#aaa;
+  max-width:600px;
   line-height:1.7;
 }
 
-.buttons{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+.buttons{
+  margin-top:30px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
 .btn{
-  padding:15px 23px;border-radius:10px;
-  text-decoration:none;color:white;
-  border:1px solid #3b3b3b;
+  padding:15px 23px;
+
+  border-radius:10px;
+
+  text-decoration:none;
+  color:white;
+
+  border:1px solid #333;
   background:#0d0d11;
+
   transition:.25s;
 }
+
 .btn:hover{
   transform:translateY(-4px);
   border-color:#a000ff;
   box-shadow:0 0 25px #7000aa;
 }
+
 .primary{
-  background:linear-gradient(90deg,#6500ff,#a000ff);
+  background:linear-gradient(
+    90deg,
+    #6500ff,
+    #a000ff
+  );
+
   border:0;
 }
+
+/* SECTIONS */
 
 section{
   padding:80px 8%;
 }
+
 .title{
-  font-size:35px;margin-bottom:30px;
+  font-size:35px;
+  margin-bottom:30px;
 }
+
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
   gap:18px;
 }
+
 .card{
   padding:28px;
   min-height:170px;
+
   border:1px solid #202025;
   border-radius:18px;
-  background:linear-gradient(145deg,#0e0e13,#08080b);
+
+  background:
+    linear-gradient(
+      145deg,
+      #0e0e13,
+      #08080b
+    );
+
   transition:.3s;
 }
+
 .card:hover{
   transform:translateY(-7px);
+
   border-color:#8d00ff;
-  box-shadow:0 0 30px rgba(130,0,255,.2);
+
+  box-shadow:
+    0 0 30px rgba(130,0,255,.25);
 }
-.icon{font-size:35px;margin-bottom:15px}
-.card h3{margin-bottom:10px}
-.card p{color:#888;line-height:1.5}
+
+.icon{
+  font-size:35px;
+  margin-bottom:15px;
+}
+
+.card h3{
+  margin-bottom:10px;
+}
+
+.card p{
+  color:#888;
+  line-height:1.5;
+}
 
 .social{
-  display:flex;align-items:center;
+  display:flex;
+  align-items:center;
   justify-content:space-between;
 }
+
 .social a{
-  color:white;text-decoration:none;
-  padding:10px 15px;border-radius:9px;
+  color:white;
+  text-decoration:none;
+
+  padding:10px 15px;
+
+  border-radius:9px;
+
   background:#15151b;
 }
 
 footer{
-  text-align:center;padding:50px;
-  color:#666;border-top:1px solid #19191d;
+  text-align:center;
+  padding:50px;
+  color:#666;
+
+  border-top:1px solid #19191d;
 }
 
-.flash{
-  position:fixed;inset:0;
-  background:#ff003c;
-  z-index:10000;
-  opacity:0;
-  pointer-events:none;
-}
-
-.shake{animation:shake .55s}
-@keyframes shake{
-  0%,100%{transform:translate(0)}
-  20%{transform:translate(-15px,8px)}
-  40%{transform:translate(12px,-8px)}
-  60%{transform:translate(-8px,5px)}
-  80%{transform:translate(8px,-5px)}
-}
-
-@keyframes run{
-  0%{left:-25%;transform:scale(.4) rotate(-5deg)}
-  55%{left:38%;transform:scale(1) rotate(3deg)}
-  80%{left:43%;transform:scale(1.4)}
-  100%{left:43%;transform:scale(8)}
-}
-
-@keyframes flash{
-  0%{opacity:0}
-  35%{opacity:.9}
-  100%{opacity:0}
-}
+/* MOBILE */
 
 @media(max-width:600px){
-  nav div:last-child{display:none}
-  .hero{padding:40px 7%}
-  section{padding:60px 7%}
+
+  nav div:last-child{
+    display:none;
+  }
+
+  .hero{
+    padding:40px 7%;
+  }
+
+  section{
+    padding:60px 7%;
+  }
+
+  .cineText{
+    letter-spacing:4px;
+  }
+
 }
 </style>
 </head>
 
 <body>
 
+<!-- ================= INTRO ================= -->
+
 <div id="intro">
 
+  <!-- ERROR -->
+
   <div id="errorScreen">
-    <div class="error">ERROR</div>
-    <div class="errorText">SYSTEM CONNECTION FAILED</div>
-    <button class="enter" onclick="start()">ENTER SYSTEM</button>
+
+    <div class="error">
+      ERROR
+    </div>
+
+    <div class="errorText">
+      SYSTEM CONNECTION FAILED
+    </div>
+
+    <button class="enter" onclick="start()">
+      ENTER SYSTEM
+    </button>
+
   </div>
+
+
+  <!-- LOADING -->
 
   <div id="loading">
-    <div class="logo">RYXON RBX</div>
-    <div class="percent" id="percent">0%</div>
-    <div class="bar"><span id="bar"></span></div>
+
+    <div class="logo">
+      RYXON RBX
+    </div>
+
+    <div class="loadingText">
+      INITIALIZING SYSTEM...
+    </div>
+
+    <div class="percent" id="percent">
+      0%
+    </div>
+
+    <div class="bar">
+      <span id="bar"></span>
+    </div>
+
   </div>
 
+
+  <!-- CINEMATIC -->
+
   <div id="cinematic">
-    <div class="cineText">SOMETHING IS COMING...</div>
-    <div class="animal" id="animal">🐺</div>
+
+    <div class="cineText">
+      SOMETHING IS COMING...
+    </div>
+
+    <!-- speed lines -->
+
+    <div class="speedLine" style="top:25%;animation-delay:.1s"></div>
+    <div class="speedLine" style="top:35%;animation-delay:.4s"></div>
+    <div class="speedLine" style="top:55%;animation-delay:.2s"></div>
+    <div class="speedLine" style="top:70%;animation-delay:.6s"></div>
+
+    <!-- WOLF -->
+
+    <div class="animal" id="animal">
+      🐺
+    </div>
+
   </div>
 
 </div>
 
-<div class="flash" id="flash"></div>
+
+<div id="flash"></div>
+
+
+<!-- ================= MAIN SITE ================= -->
 
 <main id="main">
 
 <nav>
-  <div class="brand">RYXON <span>RBX</span></div>
-  <div>
-    <a href="#home">HOME</a>
-    <a href="#links">LINKS</a>
-    <a href="#hub">HUB</a>
+
+  <div class="brand">
+    RYXON <span>RBX</span>
   </div>
+
+  <div>
+
+    <a href="#home">
+      HOME
+    </a>
+
+    <a href="#links">
+      LINKS
+    </a>
+
+    <a href="#hub">
+      HUB
+    </a>
+
+  </div>
+
 </nav>
 
-<section class="hero" id="home">
-  <div class="heroBox">
-    <div class="small">WELCOME TO MY WORLD</div>
 
-    <h1>PLAY.<br><span>DOMINATE.</span></h1>
+<section class="hero" id="home">
+
+  <div class="heroBox">
+
+    <div class="small">
+      WELCOME TO MY WORLD
+    </div>
+
+    <h1>
+      PLAY.<br>
+      <span>DOMINATE.</span>
+    </h1>
 
     <p class="desc">
-      Gaming • Roblox • Edits • Projects<br>
+      Gaming • Roblox • Edits • Projects
+      <br>
       Everything from RYXON RBX in one place.
     </p>
 
     <div class="buttons">
-      <a class="btn primary" href="#hub">ENTER HUB</a>
-      <a class="btn" href="#links">MY SOCIALS</a>
+
+      <a class="btn primary" href="#hub">
+        ENTER HUB
+      </a>
+
+      <a class="btn" href="#links">
+        MY SOCIALS
+      </a>
+
     </div>
+
   </div>
+
 </section>
+
 
 <section id="hub">
-  <div class="title">⚡ RYXON HUB</div>
+
+  <div class="title">
+    ⚡ RYXON HUB
+  </div>
 
   <div class="grid">
-    <div class="card">
-      <div class="icon">🎮</div>
-      <h3>GAMING</h3>
-      <p>Roblox projects, games and future releases.</p>
-    </div>
 
     <div class="card">
-      <div class="icon">⚡</div>
-      <h3>PROJECTS</h3>
-      <p>New ideas and projects are coming soon.</p>
+
+      <div class="icon">
+        🎮
+      </div>
+
+      <h3>
+        GAMING
+      </h3>
+
+      <p>
+        Roblox projects, games and future releases.
+      </p>
+
     </div>
 
+
     <div class="card">
-      <div class="icon">✦</div>
-      <h3>UPDATES</h3>
-      <p>Stay connected for the latest updates.</p>
+
+      <div class="icon">
+        ⚡
+      </div>
+
+      <h3>
+        PROJECTS
+      </h3>
+
+      <p>
+        New ideas and projects are coming soon.
+      </p>
+
     </div>
+
+
+    <div class="card">
+
+      <div class="icon">
+        ✦
+      </div>
+
+      <h3>
+        UPDATES
+      </h3>
+
+      <p>
+        Stay connected for the latest updates.
+      </p>
+
+    </div>
+
   </div>
+
 </section>
+
 
 <section id="links">
-  <div class="title">✦ SOCIALS</div>
+
+  <div class="title">
+    ✦ SOCIALS
+  </div>
 
   <div class="grid">
 
     <div class="card social">
+
       <div>
-        <div class="icon">▶️</div>
-        <h3>YouTube</h3>
-        <p>@ryxon_rbx</p>
+
+        <div class="icon">
+          ▶️
+        </div>
+
+        <h3>
+          YouTube
+        </h3>
+
+        <p>
+          @ryxon_rbx
+        </p>
+
       </div>
-      <a href="https://www.youtube.com/@ryxon_rbx"
-         target="_blank">OPEN</a>
+
+      <a
+        href="https://www.youtube.com/@ryxon_rbx"
+        target="_blank">
+
+        OPEN
+
+      </a>
+
     </div>
 
+
     <div class="card social">
+
       <div>
-        <div class="icon">♪</div>
-        <h3>TikTok</h3>
-        <p>@ryxon_rbx</p>
+
+        <div class="icon">
+          ♪
+        </div>
+
+        <h3>
+          TikTok
+        </h3>
+
+        <p>
+          @ryxon_rbx
+        </p>
+
       </div>
-      <a href="https://www.tiktok.com/@ryxon_rbx"
-         target="_blank">OPEN</a>
+
+      <a
+        href="https://www.tiktok.com/@ryxon_rbx"
+        target="_blank">
+
+        OPEN
+
+      </a>
+
     </div>
 
   </div>
+
 </section>
+
 
 <footer>
   RYXON RBX • ALL RIGHTS RESERVED
@@ -369,74 +920,193 @@ footer{
 
 </main>
 
+
 <script>
-function speak(text){
+
+/* ================= VOICE ================= */
+
+function speakHello(){
+
   if("speechSynthesis" in window){
+
     speechSynthesis.cancel();
-    const voice = new SpeechSynthesisUtterance(text);
-    voice.lang="en-US";
-    voice.rate=.9;
-    voice.pitch=.8;
+
+    const voice =
+      new SpeechSynthesisUtterance(
+        "Hello... RYXON... RBX."
+      );
+
+    voice.lang = "en-US";
+
+    /* slower so it is understandable */
+
+    voice.rate = 0.65;
+    voice.pitch = 0.85;
+    voice.volume = 1;
+
     speechSynthesis.speak(voice);
   }
+
 }
+
+
+/* ================= START ================= */
 
 function start(){
 
-  document.getElementById("errorScreen").style.display="none";
-  document.getElementById("loading").style.display="flex";
+  document.getElementById(
+    "errorScreen"
+  ).style.display="none";
 
-  speak("HELLO RYXON RBX");
+  document.getElementById(
+    "loading"
+  ).style.display="flex";
+
+
+  /* Say it clearly */
+
+  setTimeout(()=>{
+    speakHello();
+  },300);
+
 
   let p=0;
-  const percent=document.getElementById("percent");
-  const bar=document.getElementById("bar");
+
+  const percent =
+    document.getElementById("percent");
+
+  const bar =
+    document.getElementById("bar");
+
 
   const timer=setInterval(()=>{
 
     p++;
+
     percent.textContent=p+"%";
+
     bar.style.width=p+"%";
 
+
     if(p>=100){
+
       clearInterval(timer);
 
+
       setTimeout(()=>{
-        document.getElementById("loading").style.display="none";
-        document.getElementById("cinematic").style.display="flex";
 
-        const animal=document.getElementById("animal");
+        document.getElementById(
+          "loading"
+        ).style.display="none";
+
+
+        document.getElementById(
+          "cinematic"
+        ).style.display="flex";
+
+
+        const wolf =
+          document.getElementById("animal");
+
+
+        /* Wolf starts running */
 
         setTimeout(()=>{
-          animal.style.animation="run 2.5s cubic-bezier(.2,.8,.2,1) forwards";
-        },200);
+
+          wolf.style.animation =
+            "wolfRun 3.2s cubic-bezier(.15,.8,.2,1) forwards";
+
+        },400);
+
+
+        /* Color changes while wolf approaches */
 
         setTimeout(()=>{
-          document.getElementById("flash").style.animation=
-            "flash .7s forwards";
 
-          document.body.classList.add("shake");
+          document.getElementById(
+            "cinematic"
+          ).style.background =
+            "radial-gradient(circle,#520000,#160008 45%,#010103)";
 
-        },2300);
+        },1700);
+
+
+        /* Red flash */
 
         setTimeout(()=>{
-          document.getElementById("intro").style.opacity="0";
-          document.getElementById("main").style.opacity="1";
+
+          document.getElementById(
+            "flash"
+          ).classList.add("redFlash");
+
+
+          document.getElementById(
+            "cinematic"
+          ).animate(
+            [
+              {
+                transform:"translate(0)"
+              },
+              {
+                transform:"translate(-15px,8px)"
+              },
+              {
+                transform:"translate(12px,-8px)"
+              },
+              {
+                transform:"translate(-8px,5px)"
+              },
+              {
+                transform:"translate(8px,-5px)"
+              },
+              {
+                transform:"translate(0)"
+              }
+            ],
+            {
+              duration:650
+            }
+          );
+
+        },3200);
+
+
+        /* Open main site */
+
+        setTimeout(()=>{
+
+          document.getElementById(
+            "intro"
+          ).style.opacity="0";
+
+
+          document.getElementById(
+            "main"
+          ).style.opacity="1";
+
+
           document.body.style.overflow="auto";
 
-          speak("he he");
 
           setTimeout(()=>{
-            document.getElementById("intro").style.display="none";
-          },1200);
 
-        },2800);
+            document.getElementById(
+              "intro"
+            ).style.display="none";
 
-      },500);
+          },1300);
+
+        },3900);
+
+
+      },600);
+
     }
 
   },25);
+
 }
+
 </script>
 
 </body>
