@@ -7,293 +7,404 @@
 
 <style>
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#08080d;
-  color:white;
-  height:100vh;
-  overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#050507;
+    color:white;
+    height:100vh;
+    overflow:hidden;
 }
 
 .app{
-  display:flex;
-  height:100vh;
+    display:flex;
+    width:100%;
+    height:100vh;
 }
 
 /* SIDEBAR */
+
 .sidebar{
-  width:250px;
-  background:#0d0d14;
-  border-right:1px solid #252533;
-  padding:15px;
-  display:flex;
-  flex-direction:column;
-  gap:15px;
+    width:260px;
+    background:#09090d;
+    border-right:1px solid #24242d;
+    padding:15px;
+    display:flex;
+    flex-direction:column;
+    transition:.3s;
 }
 
 .logo{
-  font-size:22px;
-  font-weight:bold;
-  padding:10px;
-  background:linear-gradient(90deg,#9b5cff,#ff3b81);
-  -webkit-background-clip:text;
-  color:transparent;
+    font-size:24px;
+    font-weight:900;
+    color:#a855f7;
+    margin-bottom:20px;
+    text-align:center;
+    letter-spacing:1px;
 }
 
-.newchat{
-  border:1px solid #353546;
-  background:#171720;
-  color:white;
-  padding:13px;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:15px;
+.new-chat{
+    border:1px solid #34343f;
+    background:#111117;
+    color:white;
+    padding:13px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+    margin-bottom:18px;
 }
 
-.newchat:hover{
-  background:#222230;
+.new-chat:hover{
+    background:#191923;
+}
+
+.history-title{
+    color:#777783;
+    font-size:12px;
+    margin:5px 8px 10px;
 }
 
 .history{
-  color:#888;
-  font-size:13px;
-  padding:10px;
+    overflow:auto;
+}
+
+.history-item{
+    padding:11px;
+    border-radius:10px;
+    color:#bdbdc7;
+    margin-bottom:4px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.history-item:hover{
+    background:#15151d;
 }
 
 /* MAIN */
+
 .main{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  position:relative;
-  background:
-    radial-gradient(circle at 50% 0%,#29104d 0%,transparent 35%),
-    #08080d;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    min-width:0;
 }
 
 .topbar{
-  height:60px;
-  border-bottom:1px solid #252533;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 20px;
+    height:60px;
+    border-bottom:1px solid #22222a;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 15px;
+    background:#08080b;
 }
 
-.toplogo{
-  font-weight:bold;
-  letter-spacing:1px;
+.brand{
+    font-size:18px;
+    font-weight:bold;
 }
 
-.status{
-  font-size:12px;
-  color:#a970ff;
+.brand span{
+    color:#a855f7;
+}
+
+.menu-btn{
+    display:none;
+    background:none;
+    border:0;
+    color:white;
+    font-size:25px;
 }
 
 /* CHAT */
+
 .chat{
-  flex:1;
-  overflow-y:auto;
-  padding:30px 18%;
-  padding-bottom:130px;
+    flex:1;
+    overflow-y:auto;
+    padding:25px 15px 150px;
 }
 
 .welcome{
-  text-align:center;
-  margin-top:12vh;
-}
-
-.avatar{
-  width:70px;
-  height:70px;
-  margin:auto;
-  border-radius:22px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:35px;
-  background:linear-gradient(135deg,#8b42ff,#ff3b81);
-  box-shadow:0 0 40px #8b42ff55;
+    max-width:750px;
+    margin:80px auto 0;
+    text-align:center;
 }
 
 .welcome h1{
-  margin-top:20px;
-  font-size:34px;
+    font-size:42px;
+    margin-bottom:12px;
+    background:linear-gradient(90deg,#fff,#a855f7,#7c3aed);
+    -webkit-background-clip:text;
+    color:transparent;
 }
 
 .welcome p{
-  color:#888;
-  margin-top:8px;
+    color:#8d8d98;
+    margin-bottom:30px;
 }
 
 .suggestions{
-  margin:30px auto;
-  max-width:600px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
 }
 
 .suggestion{
-  background:#11111a;
-  border:1px solid #292938;
-  padding:15px;
-  border-radius:14px;
-  color:#ddd;
-  cursor:pointer;
+    background:#0e0e14;
+    border:1px solid #272732;
+    color:#ddd;
+    border-radius:13px;
+    padding:15px;
+    cursor:pointer;
+    text-align:left;
 }
 
 .suggestion:hover{
-  border-color:#8b42ff;
+    border-color:#8b5cf6;
 }
 
+/* MESSAGES */
+
 .message{
-  display:flex;
-  gap:12px;
-  margin:25px 0;
+    max-width:850px;
+    margin:0 auto 20px;
+    display:flex;
+    gap:10px;
 }
 
 .message.user{
-  justify-content:flex-end;
+    justify-content:flex-end;
+}
+
+.avatar{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:#7c3aed;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    font-weight:bold;
+}
+
+.message.ai .avatar{
+    background:#171720;
+    border:1px solid #34343e;
 }
 
 .bubble{
-  max-width:75%;
-  padding:14px 17px;
-  border-radius:17px;
-  line-height:1.5;
-  white-space:pre-wrap;
-}
-
-.bot .bubble{
-  background:#14141e;
-  border:1px solid #282837;
+    max-width:75%;
+    padding:12px 15px;
+    border-radius:15px;
+    line-height:1.5;
+    white-space:pre-wrap;
+    word-break:break-word;
 }
 
 .user .bubble{
-  background:linear-gradient(135deg,#713cff,#a329ff);
+    background:#6d28d9;
 }
 
-.miniavatar{
-  min-width:36px;
-  height:36px;
-  border-radius:12px;
-  background:#252533;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.ai .bubble{
+    background:#111118;
+    border:1px solid #272731;
 }
 
-/* INPUT */
-.inputarea{
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  padding:20px 18%;
-  background:linear-gradient(transparent,#08080d 35%);
+/* ATTACHMENT */
+
+.attachment-preview{
+    max-width:850px;
+    margin:0 auto 8px;
 }
 
-.inputbox{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  background:#15151e;
-  border:1px solid #353546;
-  border-radius:18px;
-  padding:8px;
-  box-shadow:0 10px 40px #0008;
+.attachment-card{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#111118;
+    border:1px solid #30303b;
+    padding:8px;
+    border-radius:12px;
 }
 
-.inputbox textarea{
-  flex:1;
-  resize:none;
-  border:0;
-  outline:0;
-  background:transparent;
-  color:white;
-  font-size:15px;
-  padding:10px;
-  height:42px;
-  font-family:inherit;
+.attachment-card img{
+    width:55px;
+    height:55px;
+    object-fit:cover;
+    border-radius:8px;
 }
 
-.send{
-  width:42px;
-  height:42px;
-  border:0;
-  border-radius:13px;
-  background:linear-gradient(135deg,#783cff,#d52dff);
-  color:white;
-  cursor:pointer;
-  font-size:18px;
+.file-info{
+    flex:1;
+    overflow:hidden;
 }
 
-.voice{
-  width:42px;
-  height:42px;
-  border:0;
-  border-radius:13px;
-  background:#252532;
-  color:white;
-  cursor:pointer;
+.file-name{
+    font-size:13px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
-/* MOBILE */
-@media(max-width:700px){
+.file-type{
+    color:#777783;
+    font-size:11px;
+}
 
-  .sidebar{
-    display:none;
-  }
-
-  .chat{
-    padding:25px 12px 130px;
-  }
-
-  .inputarea{
-    padding:12px;
-  }
-
-  .welcome h1{
-    font-size:28px;
-  }
-
-  .suggestions{
-    grid-template-columns:1fr;
-  }
-
-  .bubble{
-    max-width:85%;
-  }
-
+.remove-file{
+    border:0;
+    background:#292932;
+    color:white;
+    width:30px;
+    height:30px;
+    border-radius:8px;
+    cursor:pointer;
 }
 
 /* TYPING */
+
 .typing{
-  display:flex;
-  gap:5px;
-  padding:5px;
+    display:flex;
+    gap:4px;
+    padding:5px;
 }
 
 .dot{
-  width:7px;
-  height:7px;
-  background:#9b5cff;
-  border-radius:50%;
-  animation:blink 1s infinite;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#aaa;
+    animation:typing 1s infinite;
 }
 
-.dot:nth-child(2){animation-delay:.2s}
-.dot:nth-child(3){animation-delay:.4s}
+.dot:nth-child(2){
+    animation-delay:.15s;
+}
 
-@keyframes blink{
-  0%,100%{opacity:.2}
-  50%{opacity:1}
+.dot:nth-child(3){
+    animation-delay:.3s;
+}
+
+@keyframes typing{
+    0%,100%{opacity:.2}
+    50%{opacity:1}
+}
+
+/* INPUT */
+
+.input-area{
+    position:fixed;
+    bottom:0;
+    left:260px;
+    right:0;
+    padding:12px 15px 18px;
+    background:linear-gradient(transparent,#050507 25%);
+}
+
+.input-box{
+    max-width:850px;
+    margin:auto;
+    background:#101016;
+    border:1px solid #30303b;
+    border-radius:18px;
+    padding:8px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.tool-btn,
+.send-btn{
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:12px;
+    background:#191922;
+    color:white;
+    cursor:pointer;
+    font-size:18px;
+    flex-shrink:0;
+}
+
+.tool-btn:hover{
+    background:#272733;
+}
+
+.send-btn{
+    background:#7c3aed;
+}
+
+.send-btn:hover{
+    background:#8b5cf6;
+}
+
+#messageInput{
+    flex:1;
+    background:transparent;
+    border:0;
+    outline:none;
+    color:white;
+    font-size:15px;
+    min-width:0;
+}
+
+#messageInput::placeholder{
+    color:#70707b;
+}
+
+.hidden{
+    display:none;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .sidebar{
+        position:fixed;
+        left:-270px;
+        top:0;
+        bottom:0;
+        z-index:100;
+    }
+
+    .sidebar.open{
+        left:0;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .input-area{
+        left:0;
+    }
+
+    .welcome{
+        margin-top:60px;
+    }
+
+    .welcome h1{
+        font-size:32px;
+    }
+
+    .suggestions{
+        grid-template-columns:1fr;
+    }
+
+    .bubble{
+        max-width:85%;
+    }
+
+    .chat{
+        padding-bottom:145px;
+    }
 }
 </style>
 </head>
@@ -302,265 +413,671 @@ body{
 
 <div class="app">
 
-  <aside class="sidebar">
-    <div class="logo">✦ RYXONGPT</div>
+<!-- SIDEBAR -->
 
-    <button class="newchat" onclick="newChat()">
-      ＋ New Chat
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo">RYXONGPT</div>
+
+    <button class="new-chat" onclick="newChat()">
+        ＋ New Chat
     </button>
 
-    <div class="history">
-      CHAT HISTORY
-    </div>
-  </aside>
+    <div class="history-title">CHAT HISTORY</div>
 
-  <main class="main">
+    <div class="history" id="history"></div>
 
-    <div class="topbar">
-      <div class="toplogo">RYXONGPT</div>
-      <div class="status">● ONLINE</div>
-    </div>
+</aside>
 
-    <div class="chat" id="chat">
+<!-- MAIN -->
 
-      <div class="welcome" id="welcome">
+<main class="main">
 
-        <div class="avatar">✦</div>
+    <header class="topbar">
 
-        <h1>Welcome to RYXONGPT</h1>
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
 
-        <p>Your personal AI assistant.</p>
+        <div class="brand">
+            RYXON<span>GPT</span>
+        </div>
 
-        <div class="suggestions">
+        <div>✦</div>
 
-          <div class="suggestion"
-               onclick="useSuggestion('Give me a cool Roblox game idea')">
-            🎮 Roblox game idea
-          </div>
+    </header>
 
-          <div class="suggestion"
-               onclick="useSuggestion('Give me a cool website idea')">
-            🌐 Website idea
-          </div>
+    <section class="chat" id="chat">
 
-          <div class="suggestion"
-               onclick="useSuggestion('Help me with coding')">
-            💻 Coding help
-          </div>
+        <div class="welcome" id="welcome">
 
-          <div class="suggestion"
-               onclick="useSuggestion('Give me a gaming name')">
-            ⚡ Gaming name
-          </div>
+            <h1>RYXONGPT</h1>
+
+            <p>
+                Your personal AI-style assistant.
+            </p>
+
+            <div class="suggestions">
+
+                <button class="suggestion"
+                    onclick="suggest('Give me a Roblox game idea')">
+                    🎮 Roblox game idea
+                </button>
+
+                <button class="suggestion"
+                    onclick="suggest('Help me create a website')">
+                    🌐 Create a website
+                </button>
+
+                <button class="suggestion"
+                    onclick="suggest('Give me a cool gaming name')">
+                    👾 Gaming name
+                </button>
+
+                <button class="suggestion"
+                    onclick="suggest('Write me a cool bio')">
+                    ✨ Cool bio
+                </button>
+
+            </div>
 
         </div>
-      </div>
+
+    </section>
+
+</main>
+
+<!-- INPUT -->
+
+<div class="input-area">
+
+    <div class="attachment-preview" id="attachmentPreview"></div>
+
+    <div class="input-box">
+
+        <!-- CAMERA -->
+        <button class="tool-btn"
+                onclick="openCamera()"
+                title="Camera">
+            📷
+        </button>
+
+        <!-- PHOTO -->
+        <button class="tool-btn"
+                onclick="openPhoto()"
+                title="Photo">
+            🖼️
+        </button>
+
+        <!-- FILE -->
+        <button class="tool-btn"
+                onclick="openFile()"
+                title="File">
+            📎
+        </button>
+
+        <!-- VOICE -->
+        <button class="tool-btn"
+                onclick="startVoice()"
+                title="Voice">
+            🎤
+        </button>
+
+        <input
+            id="messageInput"
+            type="text"
+            placeholder="Message RYXONGPT..."
+            autocomplete="off"
+        >
+
+        <button class="send-btn"
+                onclick="sendMessage()">
+            ➤
+        </button>
 
     </div>
-
-    <div class="inputarea">
-
-      <div class="inputbox">
-
-        <button class="voice" onclick="voiceInput()">🎤</button>
-
-        <textarea
-          id="input"
-          placeholder="Message RYXONGPT..."
-          onkeydown="handleKey(event)"
-        ></textarea>
-
-        <button class="send" onclick="sendMessage()">➤</button>
-
-      </div>
-
-    </div>
-
-  </main>
 
 </div>
 
+</div>
+
+
+<!-- HIDDEN INPUTS -->
+
+<input
+    id="cameraInput"
+    class="hidden"
+    type="file"
+    accept="image/*"
+    capture="environment"
+    onchange="handleAttachment(this)"
+>
+
+<input
+    id="photoInput"
+    class="hidden"
+    type="file"
+    accept="image/*"
+    onchange="handleAttachment(this)"
+>
+
+<input
+    id="fileInput"
+    class="hidden"
+    type="file"
+    accept="*/*"
+    onchange="handleAttachment(this)"
+>
+
+
 <script>
 
-const input = document.getElementById("input");
-const chat = document.getElementById("chat");
-const welcome = document.getElementById("welcome");
+let selectedAttachment = null;
+let chatStarted = false;
 
-function handleKey(e){
-  if(e.key === "Enter" && !e.shiftKey){
-    e.preventDefault();
-    sendMessage();
-  }
+
+/* SIDEBAR */
+
+function toggleSidebar(){
+    document.getElementById("sidebar")
+        .classList.toggle("open");
 }
 
-function useSuggestion(text){
-  input.value = text;
-  sendMessage();
-}
 
-function addMessage(text,type){
-
-  const message = document.createElement("div");
-  message.className = "message " + type;
-
-  if(type === "bot"){
-    message.innerHTML = `
-      <div class="miniavatar">✦</div>
-      <div class="bubble">${escapeHTML(text)}</div>
-    `;
-  }else{
-    message.innerHTML = `
-      <div class="bubble">${escapeHTML(text)}</div>
-    `;
-  }
-
-  chat.appendChild(message);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function showTyping(){
-
-  const typing = document.createElement("div");
-  typing.className = "message bot";
-  typing.id = "typing";
-
-  typing.innerHTML = `
-    <div class="miniavatar">✦</div>
-    <div class="bubble">
-      <div class="typing">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-      </div>
-    </div>
-  `;
-
-  chat.appendChild(typing);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function sendMessage(){
-
-  const text = input.value.trim();
-
-  if(!text) return;
-
-  welcome.style.display = "none";
-
-  addMessage(text,"user");
-
-  input.value = "";
-
-  showTyping();
-
-  setTimeout(()=>{
-
-    const typing = document.getElementById("typing");
-
-    if(typing) typing.remove();
-
-    const reply = getReply(text);
-
-    addMessage(reply,"bot");
-
-  },900);
-}
-
-function getReply(text){
-
-  const t = text.toLowerCase();
-
-  if(t.includes("roblox")){
-    return "🔥 Roblox-ի համար կարող ես սարքել Speed Rush, Escape կամ Combat game։ Եթե ուզես՝ կարող եմ քեզ ամբողջ system-ի գաղափարը և script-երը տալ։";
-  }
-
-  if(t.includes("website") || t.includes("կայք")){
-    return "🌐 Կարանք սարքենք RYXON-ի սեփական gaming website՝ loading screen, animations, YouTube/TikTok buttons և dark neon design-ով։";
-  }
-
-  if(t.includes("coding") || t.includes("code") || t.includes("script")){
-    return "💻 Ուղարկիր քո code-ը կամ ասա՝ ինչ system ես ուզում սարքել։ Ես կօգնեմ քայլ առ քայլ։";
-  }
-
-  if(t.includes("name")){
-    return "⚡ Ահա մի քանի dark gaming անուն՝ RYXON, ONYX, VANTA, UMBRA, VOID, GRIM.";
-  }
-
-  return "✦ Ես RYXONGPT-ն եմ։ Քո հարցը հասկացա։ Կարող եմ օգնել Roblox-ի, coding-ի, website-ի և gaming գաղափարների հարցերով։";
-}
-
-function escapeHTML(text){
-
-  const div = document.createElement("div");
-  div.textContent = text;
-  return div.innerHTML;
-}
+/* NEW CHAT */
 
 function newChat(){
 
-  chat.innerHTML = `
-    <div class="welcome" id="welcome">
+    const chat = document.getElementById("chat");
 
-      <div class="avatar">✦</div>
+    chat.innerHTML = `
+        <div class="welcome" id="welcome">
 
-      <h1>Welcome to RYXONGPT</h1>
+            <h1>RYXONGPT</h1>
 
-      <p>Your personal AI assistant.</p>
+            <p>
+                What can I help you with?
+            </p>
 
-      <div class="suggestions">
+            <div class="suggestions">
 
-        <div class="suggestion"
-          onclick="useSuggestion('Give me a cool Roblox game idea')">
-          🎮 Roblox game idea
+                <button class="suggestion"
+                    onclick="suggest('Give me a Roblox game idea')">
+                    🎮 Roblox game idea
+                </button>
+
+                <button class="suggestion"
+                    onclick="suggest('Help me create a website')">
+                    🌐 Create a website
+                </button>
+
+                <button class="suggestion"
+                    onclick="suggest('Give me a cool gaming name')">
+                    👾 Gaming name
+                </button>
+
+                <button class="suggestion"
+                    onclick="suggest('Write me a cool bio')">
+                    ✨ Cool bio
+                </button>
+
+            </div>
+
         </div>
+    `;
 
-        <div class="suggestion"
-          onclick="useSuggestion('Give me a cool website idea')">
-          🌐 Website idea
-        </div>
+    selectedAttachment = null;
 
-        <div class="suggestion"
-          onclick="useSuggestion('Help me with coding')">
-          💻 Coding help
-        </div>
+    document.getElementById("attachmentPreview")
+        .innerHTML = "";
 
-        <div class="suggestion"
-          onclick="useSuggestion('Give me a gaming name')">
-          ⚡ Gaming name
-        </div>
+    document.getElementById("messageInput")
+        .value = "";
+}
 
-      </div>
 
-    </div>
-  `;
+/* SUGGESTION */
+
+function suggest(text){
+
+    document.getElementById("messageInput").value = text;
+
+    sendMessage();
+}
+
+
+/* CAMERA */
+
+function openCamera(){
+
+    document.getElementById("cameraInput").click();
 
 }
 
-function voiceInput(){
 
-  const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
+/* PHOTO */
 
-  if(!SpeechRecognition){
-    alert("Voice input is not supported in this browser.");
-    return;
-  }
+function openPhoto(){
 
-  const recognition = new SpeechRecognition();
+    document.getElementById("photoInput").click();
 
-  recognition.lang = "en-US";
-  recognition.start();
-
-  recognition.onresult = function(event){
-
-    input.value =
-      event.results[0][0].transcript;
-
-  };
 }
 
-</script>
 
-</body>
-</html>
+/* FILE */
+
+function openFile(){
+
+    document.getElementById("fileInput").click();
+
+}
+
+
+/* ATTACHMENT */
+
+function handleAttachment(input){
+
+    if(!input.files || !input.files[0]){
+        return;
+    }
+
+    selectedAttachment = input.files[0];
+
+    showAttachment(selectedAttachment);
+
+    input.value = "";
+}
+
+
+/* SHOW ATTACHMENT */
+
+function showAttachment(file){
+
+    const preview =
+        document.getElementById("attachmentPreview");
+
+    preview.innerHTML = "";
+
+    const card =
+        document.createElement("div");
+
+    card.className = "attachment-card";
+
+    const info =
+        document.createElement("div");
+
+    info.className = "file-info";
+
+    const name =
+        document.createElement("div");
+
+    name.className = "file-name";
+
+    name.textContent = file.name;
+
+    const type =
+        document.createElement("div");
+
+    type.className = "file-type";
+
+    type.textContent =
+        file.type || "File";
+
+    info.appendChild(name);
+    info.appendChild(type);
+
+    const remove =
+        document.createElement("button");
+
+    remove.className = "remove-file";
+
+    remove.textContent = "×";
+
+    remove.onclick = function(){
+
+        selectedAttachment = null;
+
+        preview.innerHTML = "";
+
+    };
+
+    if(file.type.startsWith("image/")){
+
+        const img =
+            document.createElement("img");
+
+        img.src =
+            URL.createObjectURL(file);
+
+        card.appendChild(img);
+
+    }
+
+    card.appendChild(info);
+    card.appendChild(remove);
+
+    preview.appendChild(card);
+}
+
+
+/* SEND */
+
+function sendMessage(){
+
+    const input =
+        document.getElementById("messageInput");
+
+    const text =
+        input.value.trim();
+
+    if(!text && !selectedAttachment){
+        return;
+    }
+
+    const welcome =
+        document.getElementById("welcome");
+
+    if(welcome){
+        welcome.remove();
+    }
+
+    let attachment = selectedAttachment;
+
+    addMessage(
+        "user",
+        text,
+        attachment
+    );
+
+    input.value = "";
+
+    selectedAttachment = null;
+
+    document.getElementById("attachmentPreview")
+        .innerHTML = "";
+
+    saveHistory(text || "Attachment");
+
+    showTyping();
+
+    setTimeout(function(){
+
+        removeTyping();
+
+        const reply =
+            generateReply(text);
+
+        addMessage(
+            "ai",
+            reply
+        );
+
+    },900);
+
+}
+
+
+/* ADD MESSAGE */
+
+function addMessage(type,text,attachment=null){
+
+    const chat =
+        document.getElementById("chat");
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message " + type;
+
+    const avatar =
+        document.createElement("div");
+
+    avatar.className = "avatar";
+
+    avatar.textContent =
+        type === "user" ? "U" : "R";
+
+    const bubble =
+        document.createElement("div");
+
+    bubble.className = "bubble";
+
+    if(text){
+        bubble.textContent = text;
+    }
+
+    if(attachment){
+
+        if(attachment.type.startsWith("image/")){
+
+            const img =
+                document.createElement("img");
+
+            img.src =
+                URL.createObjectURL(attachment);
+
+            img.style.maxWidth = "230px";
+            img.style.maxHeight = "250px";
+            img.style.borderRadius = "10px";
+            img.style.display = "block";
+            img.style.marginTop =
+                text ? "10px" : "0";
+
+            bubble.appendChild(img);
+
+        }else{
+
+            const fileBox =
+                document.createElement("div");
+
+            fileBox.style.marginTop =
+                text ? "10px" : "0";
+
+            fileBox.textContent =
+                "📎 " + attachment.name;
+
+            bubble.appendChild(fileBox);
+        }
+    }
+
+    message.appendChild(avatar);
+    message.appendChild(bubble);
+
+    if(type === "user"){
+        message.innerHTML = "";
+        message.appendChild(bubble);
+        message.appendChild(avatar);
+    }
+
+    chat.appendChild(message);
+
+    chat.scrollTop =
+        chat.scrollHeight;
+}
+
+
+/* TYPING */
+
+function showTyping(){
+
+    const chat =
+        document.getElementById("chat");
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message ai";
+
+    message.id =
+        "typingMessage";
+
+    message.innerHTML = `
+        <div class="avatar">R</div>
+
+        <div class="bubble">
+
+            <div class="typing">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+
+        </div>
+    `;
+
+    chat.appendChild(message);
+
+    chat.scrollTop =
+        chat.scrollHeight;
+}
+
+
+function removeTyping(){
+
+    const typing =
+        document.getElementById("typingMessage");
+
+    if(typing){
+        typing.remove();
+    }
+}
+
+
+/* BASIC AI DEMO */
+
+function generateReply(text){
+
+    const t =
+        (text || "").toLowerCase();
+
+    if(t.includes("roblox")){
+
+        return "🎮 RYXONGPT idea:\n\nCreate a fast Roblox escape game with checkpoints, coins, speed upgrades and random events.\n\nIf you want, you can build it completely from Roblox Studio Lite.";
+
+    }
+
+    if(t.includes("website") ||
+       t.includes("html")){
+
+        return "🌐 I can help you build an HTML website.\n\nRYXONGPT can make a mobile-friendly dark/purple design with buttons, animations, sections and effects.";
+
+    }
+
+    if(t.includes("name")){
+
+        return "👾 Some dark gaming names:\n\nONYX\nRYXON\nVANTA\nUMBRA\nVOID\nGRIM\nVEIL\nCRYPT";
+
+    }
+
+    if(t.includes("bio")){
+
+        return "🖤 RYXON RBX\n🎮 Roblox Creator\n⚡ Gaming & Scripts\n🌑 Dark Style\n🚀 Road to 100 Subscribers";
+
+    }
+
+    if(t.includes("hello") ||
+       t.includes("hi") ||
+       t.includes("barev")){
+
+        return "👋 Barev! Ես RYXONGPT-ն եմ։ Ինչո՞վ օգնեմ քեզ։";
+
+    }
+
+    return "🤖 RYXONGPT-ը պատրաստ է օգնել։\n\nԳրիր ինչ ես ուզում ստեղծել, և ես կփորձեմ օգնել քայլ առ քայլ։";
+
+}
+
+
+/* VOICE */
+
+function startVoice(){
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if(!SpeechRecognition){
+
+        alert(
+            "Voice input-ը այս browser-ում չի աջակցվում։"
+        );
+
+        return;
+    }
+
+    const recognition =
+        new SpeechRecognition();
+
+    recognition.lang = "hy-AM";
+
+    recognition.interimResults = false;
+
+    recognition.continuous = false;
+
+    recognition.onstart = function(){
+
+        document.getElementById("messageInput")
+            .placeholder =
+            "Listening... 🎤";
+
+    };
+
+    recognition.onresult = function(event){
+
+        const result =
+            event.results[0][0].transcript;
+
+        document.getElementById("messageInput")
+            .value = result;
+
+    };
+
+    recognition.onend = function(){
+
+        document.getElementById("messageInput")
+            .placeholder =
+            "Message RYXONGPT...";
+
+    };
+
+    recognition.onerror = function(){
+
+        document.getElementById("messageInput")
+            .placeholder =
+            "Message RYXONGPT...";
+
+    };
+
+    recognition.start();
+}
+
+
+/* ENTER */
+
+document.getElementById("messageInput")
+    .addEventListener("keydown",function(event){
+
+        if(event.key === "Enter"){
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    });
+
+
+/* HISTORY */
+
+function saveHistory(text){
+
+    if(!text){
+        return;
+    }
+
+    const history =
+        document.getElementById("history");
+
+    const item =
+        document.createElement("
