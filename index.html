@@ -39,37 +39,34 @@ body{
   transition:1.2s;
 }
 
-/* Background glow */
-
 #intro::before{
   content:"";
   position:absolute;
-  width:500px;
-  height:500px;
+  width:600px;
+  height:600px;
   border-radius:50%;
-  background:#6b00ff;
+  background:#7000ff;
   filter:blur(180px);
-  opacity:.25;
-  animation:bgMove 5s infinite alternate;
+  opacity:.22;
+  animation:bgMove 4s infinite alternate;
 }
 
 @keyframes bgMove{
   from{
-    transform:translate(-150px,-80px);
-    background:#6b00ff;
+    transform:translate(-180px,-100px);
   }
 
   to{
-    transform:translate(150px,80px);
+    transform:translate(180px,100px);
     background:#ff003c;
   }
 }
 
-/* ERROR */
+/* ================= ERROR ================= */
 
 #errorScreen{
   position:relative;
-  z-index:5;
+  z-index:20;
   text-align:center;
 }
 
@@ -82,7 +79,7 @@ body{
     0 0 10px #ff1744,
     0 0 30px #ff1744,
     0 0 70px #ff1744;
-  animation:errorGlitch .8s infinite;
+  animation:errorGlitch .7s infinite;
 }
 
 @keyframes errorGlitch{
@@ -91,15 +88,15 @@ body{
   }
 
   20%{
-    transform:translate(-4px,2px);
+    transform:translate(-6px,3px);
   }
 
   40%{
-    transform:translate(5px,-2px);
+    transform:translate(5px,-4px);
   }
 
   60%{
-    transform:translate(-2px,3px);
+    transform:translate(-3px,5px);
   }
 }
 
@@ -111,23 +108,39 @@ body{
 }
 
 .enter{
-  padding:16px 38px;
-  border:1px solid #9b00ff;
-  border-radius:12px;
-  background:#100019;
+  padding:17px 42px;
+  border:1px solid #a000ff;
+  border-radius:14px;
+  background:#110019;
   color:white;
   font-weight:bold;
   letter-spacing:3px;
+  cursor:pointer;
   box-shadow:
     0 0 15px #7500ff,
     inset 0 0 15px #35005c;
-  cursor:pointer;
   transition:.3s;
 }
 
 .enter:hover{
   transform:scale(1.08);
-  box-shadow:0 0 40px #9b00ff;
+  box-shadow:0 0 45px #a000ff;
+}
+
+/* extra buttons */
+
+.warning{
+  margin-top:18px;
+  font-size:10px;
+  color:#ff3157;
+  letter-spacing:3px;
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  50%{
+    opacity:.25;
+  }
 }
 
 /* ================= LOADING ================= */
@@ -136,18 +149,20 @@ body{
   display:none;
   position:absolute;
   inset:0;
-  z-index:10;
+  z-index:30;
   justify-content:center;
   align-items:center;
   flex-direction:column;
+
   background:
-    radial-gradient(circle,#18002c,#020204 70%);
+    radial-gradient(circle,#21003d,#020204 70%);
 }
 
 .logo{
   font-size:clamp(32px,8vw,60px);
   font-weight:1000;
   letter-spacing:8px;
+
   text-shadow:
     0 0 15px #9b00ff,
     0 0 40px #9b00ff;
@@ -163,31 +178,32 @@ body{
 .percent{
   margin-top:25px;
   font-size:25px;
-  color:white;
 }
 
 .bar{
   width:75%;
   max-width:520px;
-  height:7px;
+  height:8px;
   margin-top:15px;
   background:#16131c;
   border-radius:20px;
   overflow:hidden;
-  box-shadow:0 0 15px #220033;
 }
 
 .bar span{
   display:block;
   height:100%;
   width:0%;
-  background:linear-gradient(
-    90deg,
-    #6500ff,
-    #b000ff,
-    #ff003c
-  );
-  box-shadow:0 0 25px #a000ff;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6500ff,
+      #c000ff,
+      #ff003c
+    );
+
+  box-shadow:0 0 30px #a000ff;
 }
 
 /* ================= CINEMATIC ================= */
@@ -198,62 +214,40 @@ body{
   inset:0;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
   overflow:hidden;
 
   background:
-    radial-gradient(circle at center,#30003f,#09000d 45%,#010103 100%);
+    radial-gradient(
+      circle at center,
+      #35004b,
+      #08000d 50%,
+      #010103
+    );
 
   transition:background 1s;
 }
 
-/* cinematic stars */
-
-.particle{
-  position:absolute;
-  width:3px;
-  height:3px;
-  background:white;
-  border-radius:50%;
-  opacity:.6;
-  animation:particleMove 4s linear infinite;
-}
-
-@keyframes particleMove{
-  from{
-    transform:translateY(100vh);
-    opacity:0;
-  }
-
-  30%{
-    opacity:1;
-  }
-
-  to{
-    transform:translateY(-100vh);
-    opacity:0;
-  }
-}
-
-/* text */
+/* cinematic text */
 
 .cineText{
   position:absolute;
-  top:13%;
-  z-index:3;
+  top:10%;
+  z-index:20;
 
-  font-size:clamp(15px,4vw,30px);
-  letter-spacing:8px;
-  color:#ddd;
+  font-size:clamp(14px,4vw,28px);
+  letter-spacing:7px;
+  color:#eee;
 
-  text-shadow:0 0 20px #9b00ff;
+  text-shadow:
+    0 0 15px #9b00ff,
+    0 0 35px #9b00ff;
 
-  animation:textPulse 1.5s infinite alternate;
+  animation:textPulse 1s infinite alternate;
 }
 
 @keyframes textPulse{
   from{
-    opacity:.35;
+    opacity:.3;
   }
 
   to{
@@ -261,94 +255,440 @@ body{
   }
 }
 
-/* WOLF */
+/* ================= CARTOON WOLF ================= */
 
-.animal{
+.wolf{
   position:absolute;
-  left:-30%;
-  z-index:4;
+  left:-35%;
+  bottom:22%;
 
-  font-size:clamp(130px,30vw,330px);
+  width:240px;
+  height:190px;
+
+  z-index:15;
+
+  transform:scale(.35);
 
   filter:
-    drop-shadow(0 0 20px #9b00ff)
-    drop-shadow(0 0 60px #6b00ff);
-
-  transform:scale(.25);
+    drop-shadow(0 0 15px #9b00ff)
+    drop-shadow(0 0 45px #5d00ff);
 }
 
-/* wolf running toward camera */
+/* body */
 
-@keyframes wolfRun{
+.wolfBody{
+  position:absolute;
+  width:150px;
+  height:95px;
+
+  left:45px;
+  top:55px;
+
+  border-radius:55% 45% 45% 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #b9bcc7,
+      #555865 55%,
+      #252732
+    );
+
+  border:4px solid #151620;
+}
+
+/* head */
+
+.wolfHead{
+  position:absolute;
+
+  width:100px;
+  height:90px;
+
+  left:130px;
+  top:20px;
+
+  border-radius:55% 50% 45% 55%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #d0d2dc,
+      #686b78 60%,
+      #282a35
+    );
+
+  border:4px solid #151620;
+
+  z-index:5;
+}
+
+/* ears */
+
+.ear{
+  position:absolute;
+
+  width:38px;
+  height:55px;
+
+  top:-35px;
+
+  background:#707481;
+
+  border:4px solid #151620;
+
+  clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+
+.ear.left{
+  left:8px;
+  transform:rotate(-18deg);
+}
+
+.ear.right{
+  right:8px;
+  transform:rotate(18deg);
+}
+
+/* eyes */
+
+.eye{
+  position:absolute;
+
+  width:13px;
+  height:13px;
+
+  border-radius:50%;
+
+  background:#ffea00;
+
+  box-shadow:
+    0 0 8px #ffe600,
+    0 0 20px #ff9d00;
+}
+
+.eye.left{
+  left:27px;
+  top:35px;
+}
+
+.eye.right{
+  right:27px;
+  top:35px;
+}
+
+/* nose */
+
+.nose{
+  position:absolute;
+
+  width:22px;
+  height:17px;
+
+  background:#08090d;
+
+  border-radius:50%;
+
+  right:-10px;
+  top:52px;
+
+  box-shadow:0 0 10px #000;
+}
+
+/* mouth */
+
+.mouth{
+  position:absolute;
+
+  width:35px;
+  height:16px;
+
+  right:-3px;
+  top:65px;
+
+  border-bottom:3px solid #171820;
+  border-radius:50%;
+}
+
+/* tail */
+
+.tail{
+  position:absolute;
+
+  width:80px;
+  height:32px;
+
+  left:-30px;
+  top:55px;
+
+  background:#777b88;
+
+  border:4px solid #151620;
+
+  border-radius:80%;
+
+  transform:rotate(-25deg);
+
+  transform-origin:right center;
+}
+
+/* legs */
+
+.leg{
+  position:absolute;
+
+  width:25px;
+  height:75px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #555966,
+      #b4b7c0,
+      #444752
+    );
+
+  border:4px solid #151620;
+
+  border-radius:15px;
+
+  top:125px;
+
+  transform-origin:top center;
+
+  z-index:-1;
+}
+
+.leg::after{
+  content:"";
+
+  position:absolute;
+
+  width:32px;
+  height:18px;
+
+  left:-8px;
+  bottom:-8px;
+
+  border-radius:50%;
+
+  background:#292b35;
+
+  border:3px solid #151620;
+}
+
+.leg1{
+  left:65px;
+}
+
+.leg2{
+  left:100px;
+}
+
+.leg3{
+  left:145px;
+}
+
+.leg4{
+  left:180px;
+}
+
+/* RUNNING ANIMATION */
+
+.wolf.running .leg1{
+  animation:legA .22s infinite alternate;
+}
+
+.wolf.running .leg2{
+  animation:legB .22s infinite alternate;
+}
+
+.wolf.running .leg3{
+  animation:legB .22s infinite alternate;
+}
+
+.wolf.running .leg4{
+  animation:legA .22s infinite alternate;
+}
+
+.wolf.running .tail{
+  animation:tailMove .25s infinite alternate;
+}
+
+.wolf.running .head{
+  animation:headMove .22s infinite alternate;
+}
+
+@keyframes legA{
+  from{
+    transform:rotate(35deg);
+  }
+
+  to{
+    transform:rotate(-35deg);
+  }
+}
+
+@keyframes legB{
+  from{
+    transform:rotate(-35deg);
+  }
+
+  to{
+    transform:rotate(35deg);
+  }
+}
+
+@keyframes tailMove{
+  from{
+    transform:rotate(-40deg);
+  }
+
+  to{
+    transform:rotate(25deg);
+  }
+}
+
+@keyframes headMove{
+  from{
+    transform:rotate(-3deg);
+  }
+
+  to{
+    transform:rotate(5deg);
+  }
+}
+
+/* WOLF CHARGE */
+
+@keyframes wolfCharge{
 
   0%{
-    left:-30%;
-    transform:scale(.25) rotate(-5deg);
+    left:-35%;
+    bottom:22%;
+    transform:scale(.35) rotate(-4deg);
   }
 
-  20%{
-    left:5%;
-    transform:scale(.38) rotate(2deg);
+  18%{
+    left:3%;
+    transform:scale(.45) rotate(3deg);
   }
 
-  45%{
-    left:30%;
+  40%{
+    left:25%;
     transform:scale(.65) rotate(-2deg);
   }
 
-  65%{
-    left:40%;
-    transform:scale(1);
+  60%{
+    left:39%;
+    transform:scale(.95);
   }
 
-  80%{
-    left:42%;
-    transform:scale(1.8);
+  75%{
+    left:41%;
+    transform:scale(1.6);
   }
 
-  92%{
-    left:42%;
-    transform:scale(4);
+  88%{
+    left:41%;
+    transform:scale(3);
   }
 
   100%{
-    left:42%;
-    transform:scale(9);
+    left:41%;
+    transform:scale(8);
   }
-
 }
 
-/* speed lines */
+/* ================= GROUND ================= */
 
-.speedLine{
+.ground{
   position:absolute;
-  width:180px;
-  height:2px;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    #a000ff,
-    transparent
-  );
+  bottom:13%;
+  width:100%;
+  height:3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #9b00ff,
+      #ff003c,
+      transparent
+    );
+
+  box-shadow:
+    0 0 20px #9b00ff,
+    0 0 50px #ff003c;
+}
+
+/* ================= PARTICLES ================= */
+
+.particle{
+  position:absolute;
+
+  width:4px;
+  height:4px;
+
+  border-radius:50%;
+
+  background:#fff;
+
+  opacity:.7;
+
+  animation:
+    particleMove 3s linear infinite;
+}
+
+@keyframes particleMove{
+
+  from{
+    transform:translateY(100vh);
+  }
+
+  to{
+    transform:translateY(-100vh);
+  }
+}
+
+/* sparks */
+
+.spark{
+  position:absolute;
+
+  width:7px;
+  height:7px;
+
+  background:#ffea00;
+
+  border-radius:50%;
+
+  box-shadow:
+    0 0 10px #ffea00,
+    0 0 20px #ff6a00;
 
   opacity:0;
-
-  animation:speed .8s linear infinite;
 }
 
-@keyframes speed{
-  0%{
-    transform:translateX(300px);
-    opacity:0;
-  }
+.spark.active{
+  animation:sparkFly .7s forwards;
+}
 
-  30%{
+@keyframes sparkFly{
+
+  0%{
     opacity:1;
+    transform:translate(0,0) scale(1);
   }
 
   100%{
-    transform:translateX(-500px);
     opacity:0;
+    transform:
+      translate(
+        calc(-100px + 200px * var(--x)),
+        calc(-100px + 200px * var(--y))
+      )
+      scale(.1);
   }
 }
 
@@ -357,9 +697,13 @@ body{
 #flash{
   position:fixed;
   inset:0;
+
   z-index:10000;
+
   background:#ff003c;
+
   opacity:0;
+
   pointer-events:none;
 }
 
@@ -384,7 +728,6 @@ body{
   100%{
     opacity:0;
   }
-
 }
 
 /* ================= MAIN ================= */
@@ -408,6 +751,7 @@ body{
     #050507;
 
   transition:1.5s;
+
   overflow:auto;
 }
 
@@ -424,7 +768,8 @@ nav{
   justify-content:space-between;
   align-items:center;
 
-  background:rgba(5,5,7,.72);
+  background:rgba(5,5,7,.75);
+
   backdrop-filter:blur(18px);
 
   border-bottom:1px solid #24242a;
@@ -448,7 +793,7 @@ nav a{
 }
 
 nav a:hover{
-  color:#fff;
+  color:white;
 }
 
 /* HERO */
@@ -474,7 +819,9 @@ nav a:hover{
 
 h1{
   font-size:clamp(55px,13vw,125px);
+
   line-height:.88;
+
   margin:22px 0;
 
   font-weight:1000;
@@ -495,8 +842,11 @@ h1 span{
 
 .buttons{
   margin-top:30px;
+
   display:flex;
+
   gap:12px;
+
   flex-wrap:wrap;
 }
 
@@ -506,26 +856,31 @@ h1 span{
   border-radius:10px;
 
   text-decoration:none;
+
   color:white;
 
   border:1px solid #333;
+
   background:#0d0d11;
 
   transition:.25s;
 }
 
 .btn:hover{
-  transform:translateY(-4px);
+  transform:translateY(-5px);
+
   border-color:#a000ff;
+
   box-shadow:0 0 25px #7000aa;
 }
 
 .primary{
-  background:linear-gradient(
-    90deg,
-    #6500ff,
-    #a000ff
-  );
+  background:
+    linear-gradient(
+      90deg,
+      #6500ff,
+      #a000ff
+    );
 
   border:0;
 }
@@ -552,9 +907,11 @@ section{
 
 .card{
   padding:28px;
+
   min-height:170px;
 
   border:1px solid #202025;
+
   border-radius:18px;
 
   background:
@@ -592,12 +949,15 @@ section{
 
 .social{
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
 }
 
 .social a{
   color:white;
+
   text-decoration:none;
 
   padding:10px 15px;
@@ -605,11 +965,19 @@ section{
   border-radius:9px;
 
   background:#15151b;
+
+  transition:.2s;
+}
+
+.social a:hover{
+  background:#8500ff;
 }
 
 footer{
   text-align:center;
+
   padding:50px;
+
   color:#666;
 
   border-top:1px solid #19191d;
@@ -635,6 +1003,9 @@ footer{
     letter-spacing:4px;
   }
 
+  .wolf{
+    bottom:23%;
+  }
 }
 </style>
 </head>
@@ -644,8 +1015,6 @@ footer{
 <!-- ================= INTRO ================= -->
 
 <div id="intro">
-
-  <!-- ERROR -->
 
   <div id="errorScreen">
 
@@ -660,6 +1029,10 @@ footer{
     <button class="enter" onclick="start()">
       ENTER SYSTEM
     </button>
+
+    <div class="warning">
+      ⚠ UNKNOWN ENTITY DETECTED
+    </div>
 
   </div>
 
@@ -692,20 +1065,45 @@ footer{
   <div id="cinematic">
 
     <div class="cineText">
-      SOMETHING IS COMING...
+      ⚠ SOMETHING IS COMING...
     </div>
 
-    <!-- speed lines -->
+    <div class="ground"></div>
 
-    <div class="speedLine" style="top:25%;animation-delay:.1s"></div>
-    <div class="speedLine" style="top:35%;animation-delay:.4s"></div>
-    <div class="speedLine" style="top:55%;animation-delay:.2s"></div>
-    <div class="speedLine" style="top:70%;animation-delay:.6s"></div>
+    <!-- PARTICLES -->
 
-    <!-- WOLF -->
+    <div class="particle" style="left:10%;animation-delay:.2s"></div>
+    <div class="particle" style="left:25%;animation-delay:1s"></div>
+    <div class="particle" style="left:45%;animation-delay:.5s"></div>
+    <div class="particle" style="left:65%;animation-delay:1.5s"></div>
+    <div class="particle" style="left:85%;animation-delay:.8s"></div>
 
-    <div class="animal" id="animal">
-      🐺
+    <!-- CARTOON WOLF -->
+
+    <div class="wolf" id="wolf">
+
+      <div class="tail"></div>
+
+      <div class="wolfBody"></div>
+
+      <div class="leg leg1"></div>
+      <div class="leg leg2"></div>
+      <div class="leg leg3"></div>
+      <div class="leg leg4"></div>
+
+      <div class="wolfHead">
+
+        <div class="ear left"></div>
+        <div class="ear right"></div>
+
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+
+        <div class="nose"></div>
+        <div class="mouth"></div>
+
+      </div>
+
     </div>
 
   </div>
@@ -716,7 +1114,7 @@ footer{
 <div id="flash"></div>
 
 
-<!-- ================= MAIN SITE ================= -->
+<!-- ================= MAIN ================= -->
 
 <main id="main">
 
@@ -728,17 +1126,9 @@ footer{
 
   <div>
 
-    <a href="#home">
-      HOME
-    </a>
-
-    <a href="#links">
-      LINKS
-    </a>
-
-    <a href="#hub">
-      HUB
-    </a>
+    <a href="#home">HOME</a>
+    <a href="#links">LINKS</a>
+    <a href="#hub">HUB</a>
 
   </div>
 
@@ -767,11 +1157,11 @@ footer{
     <div class="buttons">
 
       <a class="btn primary" href="#hub">
-        ENTER HUB
+        ⚡ ENTER HUB
       </a>
 
       <a class="btn" href="#links">
-        MY SOCIALS
+        ✦ MY SOCIALS
       </a>
 
     </div>
@@ -790,53 +1180,35 @@ footer{
   <div class="grid">
 
     <div class="card">
-
-      <div class="icon">
-        🎮
-      </div>
-
-      <h3>
-        GAMING
-      </h3>
-
+      <div class="icon">🎮</div>
+      <h3>GAMING</h3>
       <p>
         Roblox projects, games and future releases.
       </p>
-
     </div>
 
-
     <div class="card">
-
-      <div class="icon">
-        ⚡
-      </div>
-
-      <h3>
-        PROJECTS
-      </h3>
-
+      <div class="icon">⚡</div>
+      <h3>PROJECTS</h3>
       <p>
         New ideas and projects are coming soon.
       </p>
-
     </div>
 
-
     <div class="card">
-
-      <div class="icon">
-        ✦
-      </div>
-
-      <h3>
-        UPDATES
-      </h3>
-
+      <div class="icon">✦</div>
+      <h3>UPDATES</h3>
       <p>
         Stay connected for the latest updates.
       </p>
+    </div>
 
+    <div class="card">
+      <div class="icon">🐺</div>
+      <h3>WOLF MODE</h3>
+      <p>
+        The RYXON wolf has entered the system.
+      </p>
     </div>
 
   </div>
@@ -856,26 +1228,18 @@ footer{
 
       <div>
 
-        <div class="icon">
-          ▶️
-        </div>
+        <div class="icon">▶️</div>
 
-        <h3>
-          YouTube
-        </h3>
+        <h3>YouTube</h3>
 
-        <p>
-          @ryxon_rbx
-        </p>
+        <p>@ryxon_rbx</p>
 
       </div>
 
       <a
         href="https://www.youtube.com/@ryxon_rbx"
         target="_blank">
-
         OPEN
-
       </a>
 
     </div>
@@ -885,26 +1249,18 @@ footer{
 
       <div>
 
-        <div class="icon">
-          ♪
-        </div>
+        <div class="icon">♪</div>
 
-        <h3>
-          TikTok
-        </h3>
+        <h3>TikTok</h3>
 
-        <p>
-          @ryxon_rbx
-        </p>
+        <p>@ryxon_rbx</p>
 
       </div>
 
       <a
         href="https://www.tiktok.com/@ryxon_rbx"
         target="_blank">
-
         OPEN
-
       </a>
 
     </div>
@@ -915,7 +1271,7 @@ footer{
 
 
 <footer>
-  RYXON RBX • ALL RIGHTS RESERVED
+  🐺 RYXON RBX • ALL RIGHTS RESERVED
 </footer>
 
 </main>
@@ -923,29 +1279,59 @@ footer{
 
 <script>
 
-/* ================= VOICE ================= */
+/* ================= SOUND ================= */
 
-function speakHello(){
+let audioContext;
 
-  if("speechSynthesis" in window){
+function wolfSound(){
 
-    speechSynthesis.cancel();
+  try{
 
-    const voice =
-      new SpeechSynthesisUtterance(
-        "Hello... RYXON... RBX."
-      );
+    audioContext =
+      audioContext ||
+      new (window.AudioContext ||
+      window.webkitAudioContext)();
 
-    voice.lang = "en-US";
+    const osc =
+      audioContext.createOscillator();
 
-    /* slower so it is understandable */
+    const gain =
+      audioContext.createGain();
 
-    voice.rate = 0.65;
-    voice.pitch = 0.85;
-    voice.volume = 1;
+    osc.type="sawtooth";
 
-    speechSynthesis.speak(voice);
-  }
+    osc.frequency.setValueAtTime(
+      110,
+      audioContext.currentTime
+    );
+
+    osc.frequency.exponentialRampToValueAtTime(
+      65,
+      audioContext.currentTime + .45
+    );
+
+    gain.gain.setValueAtTime(
+      .0001,
+      audioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .12,
+      audioContext.currentTime + .05
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .0001,
+      audioContext.currentTime + .5
+    );
+
+    osc.connect(gain);
+    gain.connect(audioContext.destination);
+
+    osc.start();
+    osc.stop(audioContext.currentTime + .5);
+
+  }catch(e){}
 
 }
 
@@ -962,14 +1348,6 @@ function start(){
     "loading"
   ).style.display="flex";
 
-
-  /* Say it clearly */
-
-  setTimeout(()=>{
-    speakHello();
-  },300);
-
-
   let p=0;
 
   const percent =
@@ -977,7 +1355,6 @@ function start(){
 
   const bar =
     document.getElementById("bar");
-
 
   const timer=setInterval(()=>{
 
@@ -987,11 +1364,9 @@ function start(){
 
     bar.style.width=p+"%";
 
-
     if(p>=100){
 
       clearInterval(timer);
-
 
       setTimeout(()=>{
 
@@ -999,39 +1374,63 @@ function start(){
           "loading"
         ).style.display="none";
 
-
         document.getElementById(
           "cinematic"
         ).style.display="flex";
 
 
         const wolf =
-          document.getElementById("animal");
+          document.getElementById("wolf");
 
+        /* Start running */
 
-        /* Wolf starts running */
+        wolf.classList.add("running");
 
         setTimeout(()=>{
 
           wolf.style.animation =
-            "wolfRun 3.2s cubic-bezier(.15,.8,.2,1) forwards";
+            "wolfCharge 3.2s cubic-bezier(.15,.8,.2,1) forwards";
 
-        },400);
+        },300);
 
 
-        /* Color changes while wolf approaches */
+        /* Wolf sound */
+
+        setTimeout(()=>{
+          wolfSound();
+        },1800);
+
+        setTimeout(()=>{
+          wolfSound();
+        },2500);
+
+
+        /* Change background */
 
         setTimeout(()=>{
 
           document.getElementById(
             "cinematic"
           ).style.background =
-            "radial-gradient(circle,#520000,#160008 45%,#010103)";
+            "radial-gradient(circle,#650000,#180008 45%,#010103)";
 
-        },1700);
+        },1800);
 
 
-        /* Red flash */
+        /* Sparks */
+
+        setTimeout(()=>{
+
+          document
+            .querySelectorAll(".particle")
+            .forEach(p=>{
+              p.style.background="#ff003c";
+            });
+
+        },2200);
+
+
+        /* Flash */
 
         setTimeout(()=>{
 
@@ -1040,38 +1439,29 @@ function start(){
           ).classList.add("redFlash");
 
 
+          /* camera shake */
+
           document.getElementById(
             "cinematic"
           ).animate(
             [
-              {
-                transform:"translate(0)"
-              },
-              {
-                transform:"translate(-15px,8px)"
-              },
-              {
-                transform:"translate(12px,-8px)"
-              },
-              {
-                transform:"translate(-8px,5px)"
-              },
-              {
-                transform:"translate(8px,-5px)"
-              },
-              {
-                transform:"translate(0)"
-              }
+              {transform:"translate(0,0)"},
+              {transform:"translate(-18px,8px)"},
+              {transform:"translate(15px,-10px)"},
+              {transform:"translate(-10px,6px)"},
+              {transform:"translate(8px,-5px)"},
+              {transform:"translate(0,0)"}
             ],
             {
-              duration:650
+              duration:700,
+              easing:"ease-out"
             }
           );
 
         },3200);
 
 
-        /* Open main site */
+        /* Main website */
 
         setTimeout(()=>{
 
@@ -1079,14 +1469,11 @@ function start(){
             "intro"
           ).style.opacity="0";
 
-
           document.getElementById(
             "main"
           ).style.opacity="1";
 
-
           document.body.style.overflow="auto";
-
 
           setTimeout(()=>{
 
@@ -1097,7 +1484,6 @@ function start(){
           },1300);
 
         },3900);
-
 
       },600);
 
