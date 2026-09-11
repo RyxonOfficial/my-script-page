@@ -2,21 +2,24 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>NEXORA • Gaming Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANIMAL RUN 🐾</title>
 
 <style>
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:Arial,Helvetica,sans-serif;
+}
+
+html{
   scroll-behavior:smooth;
 }
 
 body{
-  background:#050509;
+  background:#050507;
   color:white;
+  font-family:Arial,Helvetica,sans-serif;
   overflow-x:hidden;
 }
 
@@ -25,19 +28,19 @@ body:before{
   content:"";
   position:fixed;
   inset:0;
-  z-index:-2;
+  z-index:-3;
   background:
-    radial-gradient(circle at 20% 20%,#5b0018 0,transparent 28%),
-    radial-gradient(circle at 80% 70%,#28005c 0,transparent 30%),
-    linear-gradient(135deg,#030305,#09000d,#030305);
+    radial-gradient(circle at 20% 20%,#35115d55,transparent 30%),
+    radial-gradient(circle at 80% 70%,#8b101055,transparent 30%),
+    #050507;
 }
 
 body:after{
   content:"";
   position:fixed;
   inset:0;
-  z-index:-1;
-  opacity:.18;
+  z-index:-2;
+  opacity:.12;
   background-image:
     linear-gradient(#fff 1px,transparent 1px),
     linear-gradient(90deg,#fff 1px,transparent 1px);
@@ -48,422 +51,404 @@ body:after{
 #loader{
   position:fixed;
   inset:0;
-  z-index:9999;
+  background:#030304;
   display:flex;
   align-items:center;
   justify-content:center;
   flex-direction:column;
-  background:#020204;
-  transition:1s;
+  z-index:9999;
 }
 
-.loaderLogo{
-  font-size:42px;
+.loader-title{
+  font-size:38px;
   font-weight:900;
   letter-spacing:5px;
-  color:#fff;
-  text-shadow:0 0 20px red,0 0 50px #770018;
-  animation:pulse 1s infinite alternate;
+  text-align:center;
 }
 
-.loaderText{
-  margin-top:8px;
-  color:#aaa;
-  letter-spacing:3px;
-  font-size:12px;
+.loader-title span{
+  color:#ff1744;
 }
 
-/* RUNNER */
-.runnerBox{
-  width:180px;
-  height:100px;
-  margin:25px 0 15px;
-  position:relative;
-  overflow:hidden;
-}
-
-.runner{
-  position:absolute;
-  left:-50px;
-  top:25px;
-  font-size:45px;
-  animation:run 1.1s linear infinite;
-  filter:drop-shadow(0 0 12px red);
+.animal-run{
+  font-size:55px;
+  margin:25px 0;
+  animation:run 0.45s infinite alternate;
 }
 
 @keyframes run{
-  0%{left:-55px;transform:scaleX(1)}
-  49%{transform:scaleX(1)}
-  50%{transform:scaleX(-1)}
-  99%{transform:scaleX(-1)}
-  100%{left:180px;transform:scaleX(1)}
+  from{transform:translateX(-45px) rotate(-4deg)}
+  to{transform:translateX(45px) rotate(4deg)}
 }
 
-@keyframes pulse{
-  from{transform:scale(1)}
-  to{transform:scale(1.06)}
-}
-
-.progressBox{
-  width:270px;
+.loading-bar{
+  width:280px;
   height:8px;
+  background:#1a1a20;
   border-radius:20px;
-  background:#222;
   overflow:hidden;
 }
 
-.progress{
+.loading-progress{
   width:0%;
   height:100%;
-  background:linear-gradient(90deg,#ff003c,#ff174f,#8b00ff);
-  box-shadow:0 0 20px red;
+  background:linear-gradient(90deg,#ff1744,#9c27ff);
+  box-shadow:0 0 20px #ff1744;
 }
 
-.percent{
+.loading-percent{
   margin-top:12px;
-  font-size:18px;
-  font-weight:bold;
+  font-size:14px;
+  color:#aaa;
 }
 
-/* RED TRANSITION */
-#redFlash{
+/* ERROR */
+#errorScreen{
   position:fixed;
   inset:0;
-  z-index:9998;
-  background:#ff003c;
-  opacity:0;
-  pointer-events:none;
+  background:#080000;
+  z-index:9000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:25px;
+}
+
+.error-box{
+  max-width:400px;
+  border:1px solid #ff1744;
+  padding:35px 25px;
+  border-radius:20px;
+  background:#120507;
+  box-shadow:0 0 40px #ff174455;
+}
+
+.error-icon{
+  font-size:60px;
+  margin-bottom:15px;
+}
+
+.error-box h2{
+  color:#ff1744;
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.error-box p{
+  color:#aaa;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.retry{
+  border:0;
+  background:#ff1744;
+  color:white;
+  padding:13px 25px;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 /* NAV */
 nav{
-  position:fixed;
+  position:sticky;
   top:0;
-  left:0;
-  right:0;
+  z-index:1000;
   height:70px;
-  z-index:100;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   padding:0 7%;
-  background:rgba(3,3,8,.72);
+  background:#050507dd;
   backdrop-filter:blur(15px);
-  border-bottom:1px solid rgba(255,0,60,.18);
+  border-bottom:1px solid #ffffff12;
 }
 
 .logo{
-  font-weight:900;
   font-size:21px;
-  letter-spacing:2px;
+  font-weight:900;
 }
 
-.logo span{color:#ff174f}
+.logo span{
+  color:#ff1744;
+}
 
-.navLinks{
+nav ul{
   display:flex;
-  gap:25px;
+  gap:22px;
+  list-style:none;
 }
 
-.navLinks a{
-  color:#bbb;
+nav a{
+  color:#aaa;
   text-decoration:none;
-  font-size:13px;
-  transition:.3s;
+  font-size:14px;
+  transition:.2s;
 }
 
-.navLinks a:hover{
-  color:#ff174f;
-  text-shadow:0 0 12px red;
-}
-
-@media(max-width:700px){
-  .navLinks{gap:10px}
-  .navLinks a{font-size:10px}
+nav a:hover{
+  color:white;
 }
 
 /* HERO */
 .hero{
-  min-height:100vh;
+  min-height:90vh;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   text-align:center;
-  padding:100px 20px 60px;
+  padding:70px 20px;
+  position:relative;
 }
 
-.heroContent{
+.hero-content{
   max-width:850px;
-  animation:heroIn 1.2s ease;
-}
-
-@keyframes heroIn{
-  from{opacity:0;transform:translateY(50px)}
-  to{opacity:1;transform:translateY(0)}
 }
 
 .badge{
   display:inline-block;
-  padding:8px 15px;
-  border:1px solid #ff174f;
+  padding:8px 14px;
+  border:1px solid #ffffff20;
   border-radius:30px;
-  color:#ff4770;
-  font-size:11px;
-  letter-spacing:2px;
+  background:#ffffff08;
+  color:#aaa;
   margin-bottom:20px;
-  box-shadow:0 0 20px rgba(255,0,60,.15);
 }
 
 .hero h1{
-  font-size:clamp(45px,9vw,95px);
+  font-size:clamp(48px,11vw,110px);
   line-height:.9;
   font-weight:1000;
-  letter-spacing:-4px;
+  letter-spacing:-5px;
 }
 
 .hero h1 span{
-  color:#ff174f;
-  text-shadow:0 0 25px #ff003c;
+  color:#ff1744;
+  text-shadow:0 0 35px #ff174466;
 }
 
 .hero p{
+  color:#999;
   max-width:600px;
   margin:25px auto;
-  color:#999;
   line-height:1.7;
 }
 
 .buttons{
   display:flex;
+  gap:12px;
   justify-content:center;
-  gap:14px;
   flex-wrap:wrap;
 }
 
 .btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:145px;
+  display:inline-block;
   padding:14px 22px;
   border-radius:12px;
   text-decoration:none;
-  color:white;
   font-weight:bold;
-  font-size:13px;
-  border:1px solid #ff174f;
-  transition:.3s;
-  cursor:pointer;
+  border:1px solid #ffffff20;
+  transition:.25s;
 }
 
-.btn.primary{
-  background:linear-gradient(135deg,#ff003c,#85001f);
-  box-shadow:0 0 25px rgba(255,0,60,.3);
+.btn-main{
+  background:#ff1744;
+  color:white;
+  box-shadow:0 0 25px #ff174433;
+}
+
+.btn-dark{
+  background:#ffffff08;
+  color:white;
 }
 
 .btn:hover{
-  transform:translateY(-5px) scale(1.03);
-  box-shadow:0 10px 30px rgba(255,0,60,.3);
+  transform:translateY(-3px);
 }
 
-/* SECTIONS */
+/* RUNNING ANIMALS */
+.running-zone{
+  height:120px;
+  position:relative;
+  overflow:hidden;
+  border-top:1px solid #ffffff0d;
+  border-bottom:1px solid #ffffff0d;
+  background:#00000055;
+}
+
+.runner{
+  position:absolute;
+  font-size:45px;
+  left:-100px;
+  animation:animalMove linear infinite;
+}
+
+.runner:nth-child(1){top:10px;animation-duration:7s}
+.runner:nth-child(2){top:58px;animation-duration:9s;animation-delay:1s}
+.runner:nth-child(3){top:20px;animation-duration:11s;animation-delay:2s}
+.runner:nth-child(4){top:65px;animation-duration:8s;animation-delay:3s}
+
+@keyframes animalMove{
+  from{left:-100px}
+  to{left:110%}
+}
+
+/* SECTION */
 section{
   padding:90px 7%;
 }
 
-.sectionTitle{
+.section-title{
   text-align:center;
   margin-bottom:45px;
 }
 
-.sectionTitle small{
-  color:#ff174f;
-  letter-spacing:3px;
-  font-weight:bold;
+.section-title h2{
+  font-size:40px;
 }
 
-.sectionTitle h2{
-  font-size:42px;
-  margin-top:8px;
+.section-title p{
+  color:#777;
+  margin-top:10px;
 }
 
-/* CARDS */
-.grid{
+/* ANIMAL CARDS */
+.animals{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:18px;
+  max-width:1000px;
+  margin:auto;
 }
 
-@media(max-width:800px){
-  .grid{grid-template-columns:1fr}
+.animal-card{
+  background:#ffffff07;
+  border:1px solid #ffffff12;
+  border-radius:20px;
+  padding:30px 20px;
+  text-align:center;
+  transition:.3s;
 }
 
-.card{
-  position:relative;
-  padding:28px;
-  min-height:230px;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:22px;
-  background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
-  backdrop-filter:blur(10px);
-  overflow:hidden;
-  transition:.4s;
+.animal-card:hover{
+  transform:translateY(-8px);
+  border-color:#ff174466;
+  box-shadow:0 15px 40px #000;
 }
 
-.card:before{
-  content:"";
-  position:absolute;
-  width:130px;
-  height:130px;
-  right:-50px;
-  top:-50px;
-  background:#ff174f;
-  filter:blur(65px);
-  opacity:.25;
+.animal-card .emoji{
+  font-size:65px;
+  margin-bottom:15px;
 }
 
-.card:hover{
-  transform:translateY(-10px);
-  border-color:#ff174f;
-  box-shadow:0 20px 50px rgba(255,0,60,.15);
+.animal-card h3{
+  margin-bottom:8px;
 }
 
-.cardIcon{
-  font-size:42px;
-  margin-bottom:18px;
-}
-
-.card h3{
-  font-size:23px;
-  margin-bottom:10px;
-}
-
-.card p{
-  color:#888;
-  line-height:1.6;
+.animal-card p{
+  color:#777;
   font-size:14px;
 }
 
-.cardBtn{
+/* FEATURES */
+.features{
+  max-width:900px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+
+.feature{
+  padding:25px;
+  border-radius:18px;
+  background:#ffffff06;
+  border:1px solid #ffffff10;
+}
+
+.feature b{
+  display:block;
+  margin-bottom:8px;
+  font-size:18px;
+}
+
+.feature span{
+  color:#777;
+  line-height:1.6;
+}
+
+/* SUBSCRIBE */
+.subscribe{
+  max-width:800px;
+  margin:auto;
+  text-align:center;
+  padding:55px 25px;
+  border-radius:28px;
+  border:1px solid #ff174433;
+  background:
+    radial-gradient(circle at center,#ff174411,transparent 60%),
+    #ffffff05;
+}
+
+.subscribe h2{
+  font-size:42px;
+}
+
+.subscribe p{
+  color:#888;
+  margin:15px auto 25px;
+  max-width:550px;
+}
+
+.sub-btn{
   display:inline-block;
-  margin-top:20px;
-  padding:10px 17px;
-  border-radius:9px;
-  background:#15151d;
+  background:#ff1744;
   color:white;
   text-decoration:none;
-  border:1px solid #333;
-  transition:.3s;
-}
-
-.cardBtn:hover{
-  background:#ff174f;
-  border-color:#ff174f;
-}
-
-/* DOWNLOAD */
-.downloadCard{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  padding:25px;
-  margin-bottom:15px;
-  border-radius:18px;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.08);
-  transition:.3s;
-}
-
-.downloadCard:hover{
-  transform:translateX(6px);
-  border-color:#ff174f;
-}
-
-.downloadInfo{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.downloadIcon{
-  width:55px;
-  height:55px;
-  display:grid;
-  place-items:center;
-  border-radius:15px;
-  background:#150811;
-  font-size:25px;
-}
-
-/* CTA */
-.cta{
-  margin:30px 7% 90px;
-  padding:55px 25px;
-  border-radius:25px;
-  text-align:center;
-  background:
-    linear-gradient(120deg,rgba(255,0,60,.18),rgba(110,0,255,.16)),
-    rgba(255,255,255,.04);
-  border:1px solid rgba(255,0,60,.25);
-}
-
-.cta h2{
-  font-size:38px;
-  margin-bottom:12px;
-}
-
-.cta p{
-  color:#999;
-  margin-bottom:25px;
+  padding:16px 30px;
+  border-radius:12px;
+  font-weight:900;
+  box-shadow:0 0 30px #ff174444;
 }
 
 /* FOOTER */
 footer{
   text-align:center;
   padding:35px 20px;
-  border-top:1px solid rgba(255,255,255,.07);
-  color:#666;
-  font-size:12px;
+  color:#555;
+  border-top:1px solid #ffffff0d;
 }
 
-/* SCROLL REVEAL */
-.reveal{
-  opacity:0;
-  transform:translateY(35px);
-  transition:1s;
-}
-
-.reveal.show{
-  opacity:1;
-  transform:translateY(0);
+footer b{
+  color:#ff1744;
 }
 
 /* MOBILE */
-@media(max-width:600px){
+@media(max-width:650px){
   nav{
-    padding:0 15px;
+    padding:0 5%;
   }
 
-  .logo{
-    font-size:16px;
+  nav ul{
+    gap:10px;
+  }
+
+  nav a{
+    font-size:11px;
   }
 
   .hero h1{
-    letter-spacing:-2px;
+    letter-spacing:-3px;
   }
 
-  .sectionTitle h2{
+  section{
+    padding:65px 5%;
+  }
+
+  .section-title h2{
     font-size:32px;
-  }
-
-  .downloadCard{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .downloadCard .btn{
-    width:100%;
   }
 }
 </style>
@@ -471,228 +456,275 @@ footer{
 
 <body>
 
-<!-- LOADING -->
+<!-- LOADER -->
 <div id="loader">
-  <div class="loaderLogo">NEXORA</div>
-  <div class="loaderText">ENTERING THE GAME</div>
+  <div class="loader-title">ANIMAL <span>RUN</span></div>
+  <div class="animal-run">🐺</div>
 
-  <div class="runnerBox">
-    <div class="runner">🏃</div>
+  <div class="loading-bar">
+    <div class="loading-progress" id="progress"></div>
   </div>
 
-  <div class="progressBox">
-    <div class="progress" id="progress"></div>
-  </div>
-
-  <div class="percent" id="percent">0%</div>
+  <div class="loading-percent" id="percent">0%</div>
 </div>
 
-<div id="redFlash"></div>
+<!-- ERROR SCREEN -->
+<div id="errorScreen">
+  <div class="error-box">
+    <div class="error-icon">⚠️</div>
+    <h2>SOMETHING WENT WRONG</h2>
+    <p>
+      The Animal Run system couldn't load correctly.
+      Try entering the site again.
+    </p>
+    <button class="retry" onclick="retrySite()">TRY AGAIN</button>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
-  <div class="logo">NEX<span>ORA</span></div>
+  <div class="logo">🐾 ANIMAL <span>RUN</span></div>
 
-  <div class="navLinks">
-    <a href="#home">HOME</a>
-    <a href="#games">GAMES</a>
-    <a href="#downloads">DOWNLOAD</a>
-    <a href="#contact">CONTACT</a>
-  </div>
+  <ul>
+    <li><a href="#home">HOME</a></li>
+    <li><a href="#animals">ANIMALS</a></li>
+    <li><a href="#features">FEATURES</a></li>
+    <li><a href="#subscribe">SUBSCRIBE</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
-<header class="hero" id="home">
-  <div class="heroContent">
-    <div class="badge">⚡ NEXT LEVEL GAMING</div>
+<section class="hero" id="home">
+  <div class="hero-content">
+
+    <div class="badge">🐾 WELCOME TO ANIMAL RUN</div>
 
     <h1>
-      PLAY.<br>
-      <span>DOMINATE.</span>
+      RUN<br>
+      <span>WILD.</span>
     </h1>
 
     <p>
-      Discover games, downloads, updates and everything you need
-      in one dark gaming hub.
+      Enter the world of Animal Run.
+      Choose your favorite animal, run faster,
+      beat the others and become the fastest runner.
     </p>
 
     <div class="buttons">
-      <a class="btn primary" href="#games">🎮 EXPLORE GAMES</a>
-      <a class="btn" href="#downloads">📥 DOWNLOADS</a>
-    </div>
-  </div>
-</header>
-
-<!-- GAMES -->
-<section id="games">
-  <div class="sectionTitle reveal">
-    <small>FEATURED</small>
-    <h2>Games</h2>
-  </div>
-
-  <div class="grid">
-
-    <div class="card reveal">
-      <div class="cardIcon">⚔️</div>
-      <h3>DUEL ARENA</h3>
-      <p>
-        Enter the arena, fight your opponents and become
-        the strongest player.
-      </p>
-      <a class="cardBtn" href="#">PLAY NOW →</a>
-    </div>
-
-    <div class="card reveal">
-      <div class="cardIcon">⚡</div>
-      <h3>SPEED RUSH</h3>
-      <p>
-        Run through dangerous obstacles and beat
-        the fastest times.
-      </p>
-      <a class="cardBtn" href="#">PLAY NOW →</a>
-    </div>
-
-    <div class="card reveal">
-      <div class="cardIcon">👁️</div>
-      <h3>VOID ESCAPE</h3>
-      <p>
-        Escape the mysterious void and survive
-        everything waiting inside.
-      </p>
-      <a class="cardBtn" href="#">PLAY NOW →</a>
+      <a class="btn btn-main" href="#animals">🐺 START RUN</a>
+      <a class="btn btn-dark" href="#subscribe">🔔 SUBSCRIBE</a>
     </div>
 
   </div>
 </section>
 
-<!-- DOWNLOADS -->
-<section id="downloads">
-  <div class="sectionTitle reveal">
-    <small>GET READY</small>
-    <h2>Downloads</h2>
-  </div>
-
-  <div class="downloadCard reveal">
-    <div class="downloadInfo">
-      <div class="downloadIcon">🎮</div>
-      <div>
-        <h3>GAME PACK</h3>
-        <p style="color:#777">Latest game files</p>
-      </div>
-    </div>
-
-    <a href="#" class="btn primary">DOWNLOAD</a>
-  </div>
-
-  <div class="downloadCard reveal">
-    <div class="downloadInfo">
-      <div class="downloadIcon">🛠️</div>
-      <div>
-        <h3>TOOLS</h3>
-        <p style="color:#777">Useful gaming tools</p>
-      </div>
-    </div>
-
-    <a href="#" class="btn primary">DOWNLOAD</a>
-  </div>
-
-  <div class="downloadCard reveal">
-    <div class="downloadInfo">
-      <div class="downloadIcon">🚀</div>
-      <div>
-        <h3>UPDATES</h3>
-        <p style="color:#777">Latest version</p>
-      </div>
-    </div>
-
-    <a href="#" class="btn primary">DOWNLOAD</a>
-  </div>
-</section>
-
-<!-- CTA -->
-<div class="cta reveal" id="contact">
-  <h2>READY TO PLAY?</h2>
-  <p>Join the community and don't miss the next update.</p>
-
-  <div class="buttons">
-    <a class="btn primary" href="#">DISCORD</a>
-    <a class="btn" href="#">YOUTUBE</a>
-  </div>
+<!-- RUNNING ANIMALS -->
+<div class="running-zone">
+  <div class="runner">🐺</div>
+  <div class="runner">🐯</div>
+  <div class="runner">🦊</div>
+  <div class="runner">🐰</div>
 </div>
 
+<!-- ANIMALS -->
+<section id="animals">
+
+  <div class="section-title">
+    <h2>CHOOSE YOUR ANIMAL</h2>
+    <p>Every runner has its own style.</p>
+  </div>
+
+  <div class="animals">
+
+    <div class="animal-card">
+      <div class="emoji">🐺</div>
+      <h3>WOLF</h3>
+      <p>Fast and powerful runner.</p>
+    </div>
+
+    <div class="animal-card">
+      <div class="emoji">🦊</div>
+      <h3>FOX</h3>
+      <p>Quick, smart and agile.</p>
+    </div>
+
+    <div class="animal-card">
+      <div class="emoji">🐯</div>
+      <h3>TIGER</h3>
+      <p>Strong and fearless.</p>
+    </div>
+
+    <div class="animal-card">
+      <div class="emoji">🐰</div>
+      <h3>RABBIT</h3>
+      <p>Small but extremely fast.</p>
+    </div>
+
+    <div class="animal-card">
+      <div class="emoji">🦁</div>
+      <h3>LION</h3>
+      <p>The king of the run.</p>
+    </div>
+
+    <div class="animal-card">
+      <div class="emoji">🐼</div>
+      <h3>PANDA</h3>
+      <p>Chill runner with style.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+
+  <div class="section-title">
+    <h2>WHY ANIMAL RUN?</h2>
+    <p>More than just running.</p>
+  </div>
+
+  <div class="features">
+
+    <div class="feature">
+      <b>⚡ SPEED</b>
+      <span>Race against the fastest animals and try to reach the finish first.</span>
+    </div>
+
+    <div class="feature">
+      <b>🏆 RANKINGS</b>
+      <span>Become the fastest runner and show everyone your score.</span>
+    </div>
+
+    <div class="feature">
+      <b>🎮 FUN</b>
+      <span>Simple controls, exciting races and a completely wild experience.</span>
+    </div>
+
+    <div class="feature">
+      <b>🐾 ANIMALS</b>
+      <span>Choose different animals and discover your favorite runner.</span>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SUBSCRIBE -->
+<section id="subscribe">
+
+  <div class="subscribe">
+
+    <h2>JOIN THE PACK 🐺</h2>
+
+    <p>
+      Don't miss new Animal Run updates,
+      games and videos. Subscribe and run with us!
+    </p>
+
+    <!-- Փոխիր միայն այս link-ը քո YouTube link-ով -->
+    <a
+      class="sub-btn"
+      href="https://www.youtube.com/@ryxon_rbx"
+      target="_blank">
+      🔔 SUBSCRIBE NOW
+    </a>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
 <footer>
-  © 2026 NEXORA • GAMING HUB
+  © 2026 <b>ANIMAL RUN</b> • RUN WILD 🐾
 </footer>
 
 <script>
 
-/* LOADING */
+/* LOADING SYSTEM */
+
 let progress = 0;
 
+const loader = document.getElementById("loader");
 const progressBar = document.getElementById("progress");
 const percent = document.getElementById("percent");
-const loader = document.getElementById("loader");
-const redFlash = document.getElementById("redFlash");
 
 const loading = setInterval(() => {
 
-  progress++;
-
-  progressBar.style.width = progress + "%";
-  percent.textContent = progress + "%";
+  progress += Math.floor(Math.random() * 5) + 1;
 
   if(progress >= 100){
-
+    progress = 100;
     clearInterval(loading);
 
-    setTimeout(() => {
+    progressBar.style.width = "100%";
+    percent.textContent = "100%";
 
-      /* RED FLASH */
-      redFlash.style.opacity = "1";
-      redFlash.style.transition = "opacity .35s";
+    setTimeout(() => {
+      loader.style.opacity = "0";
+      loader.style.transition = "opacity .7s";
 
       setTimeout(() => {
-
-        loader.style.opacity = "0";
-        loader.style.pointerEvents = "none";
-
-        setTimeout(() => {
-          loader.style.display = "none";
-          redFlash.style.opacity = "0";
-        },700);
-
-      },300);
+        loader.style.display = "none";
+      },700);
 
     },500);
+
+  }else{
+
+    progressBar.style.width = progress + "%";
+    percent.textContent = progress + "%";
+
   }
 
-},35);
+},80);
 
 
-/* SCROLL ANIMATION */
-const reveals = document.querySelectorAll(".reveal");
+/* ERROR DEMO */
 
-function revealOnScroll(){
+function retrySite(){
 
-  reveals.forEach(element => {
+  const error = document.getElementById("errorScreen");
 
-    const top =
-      element.getBoundingClientRect().top;
+  error.style.display = "none";
 
-    if(top < window.innerHeight - 80){
-      element.classList.add("show");
-    }
-
-  });
+  document.body.style.overflow = "auto";
 
 }
 
-window.addEventListener("scroll", revealOnScroll);
-window.addEventListener("load", revealOnScroll);
+
+/* RANDOM ANIMAL RUN EFFECT */
+
+const animals = ["🐺","🦊","🐯","🐰","🦁","🐼","🐸","🐵"];
+
+setInterval(() => {
+
+  const zone = document.querySelector(".running-zone");
+
+  const runner = document.createElement("div");
+
+  runner.className = "runner";
+  runner.textContent =
+    animals[Math.floor(Math.random()*animals.length)];
+
+  runner.style.top =
+    Math.floor(Math.random()*75) + "px";
+
+  runner.style.animationDuration =
+    (6 + Math.random()*6) + "s";
+
+  zone.appendChild(runner);
+
+  setTimeout(() => {
+    runner.remove();
+  },12000);
+
+},3000);
 
 
 /* BUTTON CLICK EFFECT */
-document.querySelectorAll(".btn,.cardBtn").forEach(button => {
+
+document.querySelectorAll(".btn,.sub-btn").forEach(button => {
 
   button.addEventListener("click",function(){
 
