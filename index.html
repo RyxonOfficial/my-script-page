@@ -2,778 +2,441 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>RYXON • RUN</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RYXON RBX • VOID</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  background:#020203;
-  color:#fff;
-  font-family:Arial,sans-serif;
-  overflow-x:hidden;
-}
-
-/* ---------- ERROR ---------- */
-#error{
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#020203;
+  background:#050507;color:white;font-family:Arial,sans-serif;
   overflow:hidden;
 }
+button,a{font-family:inherit}
 
-#error:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 50% 45%,#ff003522,transparent 35%),
-    linear-gradient(transparent 95%,#ff003511);
-}
-
-.errorBox{
-  position:relative;
-  width:min(90%,430px);
-  padding:40px 25px;
-  text-align:center;
-  border:1px solid #ff173855;
-  border-radius:24px;
-  background:#080609dd;
-  box-shadow:0 0 70px #ff003522;
-  animation:errorIn .8s ease;
-}
-
-@keyframes errorIn{
-  from{opacity:0;transform:scale(.8)}
-  to{opacity:1;transform:scale(1)}
-}
-
-.errorIcon{
-  font-size:65px;
-  animation:warning 1s infinite alternate;
-}
-
-@keyframes warning{
-  to{transform:translateY(-7px) rotate(3deg)}
-}
-
-.errorBox h1{
-  margin:15px 0 10px;
-  font-size:32px;
-  color:#ff1744;
-  letter-spacing:3px;
-}
-
-.errorBox p{
-  color:#888;
-  line-height:1.6;
-  margin-bottom:25px;
-}
-
-.startBtn{
-  border:0;
-  padding:15px 30px;
-  border-radius:12px;
-  background:#ff1744;
-  color:white;
-  font-weight:900;
-  font-size:15px;
-  cursor:pointer;
-  box-shadow:0 0 30px #ff174455;
-  transition:.25s;
-}
-
-.startBtn:hover{
-  transform:scale(1.06);
-}
-
-/* ---------- LOADING ---------- */
-#loading{
-  position:fixed;
-  inset:0;
-  z-index:99998;
-  display:none;
-  align-items:center;
-  justify-content:center;
+#intro{
+  position:fixed;inset:0;z-index:9999;
+  background:#020204;
+  display:flex;align-items:center;justify-content:center;
   flex-direction:column;
-  background:#020203;
+  transition:1s;
 }
 
-.loadingTitle{
-  font-size:clamp(32px,9vw,70px);
-  font-weight:1000;
-  letter-spacing:6px;
+.error{
+  color:#ff1744;
+  font-size:clamp(45px,13vw,110px);
+  font-weight:900;
+  letter-spacing:8px;
+  text-shadow:0 0 25px #ff1744;
+}
+.errorText{
+  color:#aaa;
+  margin:15px 0 30px;
+  letter-spacing:3px;
+  text-align:center;
 }
 
-.loadingTitle span{color:#ff1744}
-
-.loadingAnimal{
-  font-size:65px;
-  margin:25px 0;
-  animation:runAnimal .35s infinite alternate;
+.enter{
+  padding:15px 35px;
+  border:1px solid #9b00ff;
+  border-radius:12px;
+  background:#12001d;
+  color:white;
+  font-weight:bold;
+  letter-spacing:3px;
+  box-shadow:0 0 25px #7500ff;
+  cursor:pointer;
 }
 
-@keyframes runAnimal{
-  from{transform:translateX(-35px) scaleX(1)}
-  to{transform:translateX(35px) scaleX(-1)}
+#loading,#cinematic{
+  display:none;
+  position:absolute;inset:0;
+  align-items:center;justify-content:center;
+  flex-direction:column;
 }
 
-.bar{
-  width:min(75%,360px);
-  height:8px;
-  background:#17171b;
-  border-radius:20px;
-  overflow:hidden;
-}
+#loading{background:#030305}
 
-.barFill{
-  width:0;
-  height:100%;
-  background:linear-gradient(90deg,#ff1744,#9c27ff);
-  box-shadow:0 0 25px #ff1744;
+.logo{
+  font-size:42px;font-weight:900;
+  letter-spacing:7px;
+  text-shadow:0 0 25px #8d00ff;
 }
 
 .percent{
-  margin-top:12px;
-  color:#999;
-  font-size:14px;
+  margin-top:25px;font-size:22px;color:#aaa;
 }
 
-/* ---------- CINEMATIC ---------- */
+.bar{
+  width:75%;max-width:500px;height:6px;
+  margin-top:15px;background:#17131c;
+  border-radius:20px;overflow:hidden;
+}
+.bar span{
+  display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#7200ff,#ff1744);
+  box-shadow:0 0 20px #a000ff;
+}
+
 #cinematic{
-  position:fixed;
-  inset:0;
-  z-index:99997;
-  display:none;
-  background:#000;
+  background:radial-gradient(circle,#180018,#020204 65%);
   overflow:hidden;
 }
 
-.cinemaText{
+.animal{
   position:absolute;
-  top:15%;
-  width:100%;
-  text-align:center;
-  font-size:14px;
+  left:-25%;
+  font-size:clamp(100px,25vw,260px);
+  filter:drop-shadow(0 0 30px #8d00ff);
+  transform:scale(.4);
+}
+
+.cineText{
+  position:absolute;
+  top:12%;
+  font-size:clamp(18px,5vw,35px);
+  letter-spacing:8px;
+  opacity:.7;
+}
+
+#main{
+  min-height:100vh;
+  overflow:auto;
+  background:
+    radial-gradient(circle at 20% 10%,#260047 0,transparent 30%),
+    radial-gradient(circle at 90% 70%,#33000d 0,transparent 30%),
+    #050507;
+  opacity:0;
+  transition:1.2s;
+}
+
+nav{
+  position:sticky;top:0;z-index:20;
+  padding:18px 7%;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(5,5,7,.75);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid #222;
+}
+
+.brand{
+  font-weight:900;letter-spacing:3px;
+  color:#fff;
+}
+.brand span{color:#a000ff}
+
+nav a{
+  color:#aaa;text-decoration:none;
+  margin-left:20px;font-size:13px;
+}
+nav a:hover{color:white}
+
+.hero{
+  min-height:88vh;
+  display:flex;align-items:center;
+  padding:60px 8%;
+}
+.heroBox{max-width:750px}
+
+.small{
+  color:#a000ff;
   letter-spacing:5px;
-  color:#777;
-  opacity:0;
+  font-size:13px;
+}
+h1{
+  font-size:clamp(55px,13vw,125px);
+  line-height:.9;
+  margin:20px 0;
+  font-weight:1000;
+  text-shadow:0 0 35px rgba(150,0,255,.35);
+}
+h1 span{
+  color:#a000ff;
+}
+.desc{
+  color:#aaa;max-width:580px;
+  line-height:1.7;
 }
 
-.cinemaAnimal{
-  position:absolute;
-  left:-160px;
-  bottom:22%;
-  font-size:110px;
-  filter:drop-shadow(0 0 25px #ff1744);
-  opacity:0;
+.buttons{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  padding:15px 23px;border-radius:10px;
+  text-decoration:none;color:white;
+  border:1px solid #3b3b3b;
+  background:#0d0d11;
+  transition:.25s;
+}
+.btn:hover{
+  transform:translateY(-4px);
+  border-color:#a000ff;
+  box-shadow:0 0 25px #7000aa;
+}
+.primary{
+  background:linear-gradient(90deg,#6500ff,#a000ff);
+  border:0;
 }
 
-.chaseLine{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:18%;
-  height:2px;
-  background:linear-gradient(90deg,transparent,#ff1744,transparent);
-  box-shadow:0 0 20px #ff1744;
-  transform:scaleX(0);
+section{
+  padding:80px 8%;
+}
+.title{
+  font-size:35px;margin-bottom:30px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+.card{
+  padding:28px;
+  min-height:170px;
+  border:1px solid #202025;
+  border-radius:18px;
+  background:linear-gradient(145deg,#0e0e13,#08080b);
+  transition:.3s;
+}
+.card:hover{
+  transform:translateY(-7px);
+  border-color:#8d00ff;
+  box-shadow:0 0 30px rgba(130,0,255,.2);
+}
+.icon{font-size:35px;margin-bottom:15px}
+.card h3{margin-bottom:10px}
+.card p{color:#888;line-height:1.5}
+
+.social{
+  display:flex;align-items:center;
+  justify-content:space-between;
+}
+.social a{
+  color:white;text-decoration:none;
+  padding:10px 15px;border-radius:9px;
+  background:#15151b;
+}
+
+footer{
+  text-align:center;padding:50px;
+  color:#666;border-top:1px solid #19191d;
 }
 
 .flash{
-  position:absolute;
-  inset:0;
-  background:#ff1734;
+  position:fixed;inset:0;
+  background:#ff003c;
+  z-index:10000;
   opacity:0;
   pointer-events:none;
 }
 
-.cinemaRun .cinemaText{
-  animation:textShow 1s forwards;
-}
-
-.cinemaRun .cinemaAnimal{
-  animation:animalChase 3.2s cubic-bezier(.2,.7,.2,1) forwards;
-}
-
-.cinemaRun .chaseLine{
-  animation:lineShow 3s forwards;
-}
-
-@keyframes textShow{
-  0%{opacity:0;transform:translateY(20px)}
-  100%{opacity:1;transform:translateY(0)}
-}
-
-@keyframes animalChase{
-  0%{
-    left:-160px;
-    opacity:0;
-    transform:scale(.5);
-  }
-  20%{opacity:1}
-  70%{
-    left:55%;
-    opacity:1;
-    transform:scale(1.2);
-  }
-  100%{
-    left:75%;
-    opacity:1;
-    transform:scale(3.7);
-  }
-}
-
-@keyframes lineShow{
-  0%{transform:scaleX(0)}
-  70%{transform:scaleX(1)}
-  100%{transform:scaleX(1)}
-}
-
-.screenShake{
-  animation:shake .5s linear;
-}
-
+.shake{animation:shake .55s}
 @keyframes shake{
   0%,100%{transform:translate(0)}
-  20%{transform:translate(-8px,5px)}
-  40%{transform:translate(8px,-5px)}
-  60%{transform:translate(-6px,-3px)}
-  80%{transform:translate(6px,4px)}
+  20%{transform:translate(-15px,8px)}
+  40%{transform:translate(12px,-8px)}
+  60%{transform:translate(-8px,5px)}
+  80%{transform:translate(8px,-5px)}
 }
 
-/* ---------- MAIN ---------- */
-#site{
-  display:none;
-  opacity:0;
-  transition:opacity 1s;
+@keyframes run{
+  0%{left:-25%;transform:scale(.4) rotate(-5deg)}
+  55%{left:38%;transform:scale(1) rotate(3deg)}
+  80%{left:43%;transform:scale(1.4)}
+  100%{left:43%;transform:scale(8)}
 }
 
-nav{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  height:70px;
-  padding:0 6%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  background:#030304dd;
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid #ffffff0d;
+@keyframes flash{
+  0%{opacity:0}
+  35%{opacity:.9}
+  100%{opacity:0}
 }
 
-.logo{
-  font-size:20px;
-  font-weight:1000;
-  letter-spacing:2px;
-}
-
-.logo span{color:#ff1744}
-
-nav a{
-  color:#888;
-  text-decoration:none;
-  margin-left:18px;
-  font-size:12px;
-  transition:.2s;
-}
-
-nav a:hover{color:#fff}
-
-/* HERO */
-.hero{
-  min-height:88vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:70px 20px;
-  position:relative;
-}
-
-.hero:before{
-  content:"";
-  position:absolute;
-  width:400px;
-  height:400px;
-  border-radius:50%;
-  background:#ff174414;
-  filter:blur(80px);
-}
-
-.heroContent{position:relative}
-
-.tag{
-  display:inline-block;
-  border:1px solid #ffffff18;
-  background:#ffffff08;
-  padding:8px 14px;
-  border-radius:30px;
-  color:#999;
-  margin-bottom:20px;
-}
-
-.hero h1{
-  font-size:clamp(55px,13vw,120px);
-  line-height:.82;
-  letter-spacing:-7px;
-  font-weight:1000;
-}
-
-.hero h1 span{
-  color:#ff1744;
-  text-shadow:0 0 45px #ff174455;
-}
-
-.hero p{
-  max-width:600px;
-  margin:25px auto;
-  color:#888;
-  line-height:1.7;
-}
-
-.buttons{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-
-.btn{
-  text-decoration:none;
-  padding:15px 23px;
-  border-radius:12px;
-  font-weight:900;
-  transition:.25s;
-}
-
-.btn:hover{transform:translateY(-4px)}
-
-.tiktok{
-  background:#fff;
-  color:#000;
-}
-
-.youtube{
-  background:#ff1744;
-  color:#fff;
-  box-shadow:0 0 25px #ff174444;
-}
-
-/* RUNNER */
-.runway{
-  position:relative;
-  height:130px;
-  overflow:hidden;
-  border-top:1px solid #ffffff0b;
-  border-bottom:1px solid #ffffff0b;
-  background:#000;
-}
-
-.runner{
-  position:absolute;
-  left:-100px;
-  font-size:55px;
-  animation:runAcross 8s linear infinite;
-}
-
-.runner:nth-child(2){
-  top:65px;
-  animation-duration:11s;
-  animation-delay:2s;
-}
-
-.runner:nth-child(3){
-  top:15px;
-  animation-duration:9s;
-  animation-delay:4s;
-}
-
-@keyframes runAcross{
-  from{left:-100px}
-  to{left:110%}
-}
-
-/* SECTIONS */
-section{
-  padding:85px 6%;
-}
-
-.title{
-  text-align:center;
-  margin-bottom:40px;
-}
-
-.title h2{
-  font-size:40px;
-}
-
-.title p{
-  margin-top:10px;
-  color:#777;
-}
-
-.cards{
-  max-width:1000px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:18px;
-}
-
-.card{
-  padding:30px 20px;
-  text-align:center;
-  background:#ffffff06;
-  border:1px solid #ffffff0e;
-  border-radius:20px;
-  transition:.3s;
-}
-
-.card:hover{
-  transform:translateY(-8px);
-  border-color:#ff174455;
-  box-shadow:0 20px 50px #000;
-}
-
-.card .animal{
-  font-size:65px;
-  margin-bottom:15px;
-}
-
-.card p{
-  color:#777;
-  margin-top:8px;
-}
-
-/* SOCIAL */
-.social{
-  max-width:800px;
-  margin:auto;
-  padding:50px 25px;
-  text-align:center;
-  border:1px solid #ffffff12;
-  border-radius:25px;
-  background:#ffffff05;
-}
-
-.social h2{
-  font-size:40px;
-}
-
-.social p{
-  color:#777;
-  margin:15px 0 25px;
-}
-
-footer{
-  text-align:center;
-  color:#555;
-  padding:35px;
-  border-top:1px solid #ffffff0d;
-}
-
-footer span{color:#ff1744}
-
-/* MOBILE */
 @media(max-width:600px){
-  nav{
-    padding:0 4%;
-  }
-
-  nav a{
-    margin-left:7px;
-    font-size:9px;
-  }
-
-  .hero h1{
-    letter-spacing:-4px;
-  }
-
-  section{
-    padding:65px 5%;
-  }
-
-  .cinemaAnimal{
-    font-size:80px;
-  }
+  nav div:last-child{display:none}
+  .hero{padding:40px 7%}
+  section{padding:60px 7%}
 }
 </style>
 </head>
 
 <body>
 
-<!-- ERROR SCREEN -->
-<div id="error">
-  <div class="errorBox">
-    <div class="errorIcon">⚠️</div>
-    <h1>ERROR 404</h1>
-    <p>
-      The Animal Run system is locked.<br>
-      Press the button to enter.
-    </p>
-    <button class="startBtn" onclick="startExperience()">
-      ENTER SYSTEM
-    </button>
-  </div>
-</div>
+<div id="intro">
 
-<!-- LOADING -->
-<div id="loading">
-  <div class="loadingTitle">
-    RYXON <span>RUN</span>
+  <div id="errorScreen">
+    <div class="error">ERROR</div>
+    <div class="errorText">SYSTEM CONNECTION FAILED</div>
+    <button class="enter" onclick="start()">ENTER SYSTEM</button>
   </div>
 
-  <div class="loadingAnimal">🐺</div>
-
-  <div class="bar">
-    <div class="barFill" id="barFill"></div>
+  <div id="loading">
+    <div class="logo">RYXON RBX</div>
+    <div class="percent" id="percent">0%</div>
+    <div class="bar"><span id="bar"></span></div>
   </div>
 
-  <div class="percent" id="percent">0%</div>
-</div>
-
-<!-- CINEMATIC -->
-<div id="cinematic">
-
-  <div class="cinemaText">
-    SOMETHING IS COMING...
+  <div id="cinematic">
+    <div class="cineText">SOMETHING IS COMING...</div>
+    <div class="animal" id="animal">🐺</div>
   </div>
-
-  <div class="chaseLine"></div>
-
-  <div class="cinemaAnimal">
-    🐻
-  </div>
-
-  <div class="flash"></div>
 
 </div>
 
-<!-- MAIN SITE -->
-<div id="site">
+<div class="flash" id="flash"></div>
+
+<main id="main">
 
 <nav>
-  <div class="logo">
-    RYXON <span>RUN</span>
-  </div>
-
+  <div class="brand">RYXON <span>RBX</span></div>
   <div>
     <a href="#home">HOME</a>
-    <a href="#animals">ANIMALS</a>
-    <a href="#social">SOCIAL</a>
+    <a href="#links">LINKS</a>
+    <a href="#hub">HUB</a>
   </div>
 </nav>
 
 <section class="hero" id="home">
+  <div class="heroBox">
+    <div class="small">WELCOME TO MY WORLD</div>
 
-  <div class="heroContent">
+    <h1>PLAY.<br><span>DOMINATE.</span></h1>
 
-    <div class="tag">🐾 WELCOME TO RYXON RUN</div>
-
-    <h1>
-      RUN<br>
-      <span>WILD.</span>
-    </h1>
-
-    <p>
-      Enter the world of RYXON RUN.
-      Follow the race, discover the world
-      and join the community.
+    <p class="desc">
+      Gaming • Roblox • Edits • Projects<br>
+      Everything from RYXON RBX in one place.
     </p>
 
     <div class="buttons">
-
-      <a
-        class="btn youtube"
-        href="https://www.youtube.com/@ryxon_rbx"
-        target="_blank">
-        ▶ YOUTUBE
-      </a>
-
-      <a
-        class="btn tiktok"
-        href="https://www.tiktok.com/@ryxon_rbx"
-        target="_blank">
-        ♪ TIKTOK
-      </a>
-
+      <a class="btn primary" href="#hub">ENTER HUB</a>
+      <a class="btn" href="#links">MY SOCIALS</a>
     </div>
-
   </div>
-
 </section>
 
-<!-- ANIMAL RUN -->
-<div class="runway">
+<section id="hub">
+  <div class="title">⚡ RYXON HUB</div>
 
-  <div class="runner">🐺</div>
-  <div class="runner">🐯</div>
-  <div class="runner">🦊</div>
+  <div class="grid">
+    <div class="card">
+      <div class="icon">🎮</div>
+      <h3>GAMING</h3>
+      <p>Roblox projects, games and future releases.</p>
+    </div>
 
-</div>
+    <div class="card">
+      <div class="icon">⚡</div>
+      <h3>PROJECTS</h3>
+      <p>New ideas and projects are coming soon.</p>
+    </div>
 
-<section id="animals">
-
-  <div class="title">
-    <h2>THE RUNNERS</h2>
-    <p>Choose your favorite.</p>
+    <div class="card">
+      <div class="icon">✦</div>
+      <h3>UPDATES</h3>
+      <p>Stay connected for the latest updates.</p>
+    </div>
   </div>
-
-  <div class="cards">
-
-    <div class="card">
-      <div class="animal">🐺</div>
-      <h3>WOLF</h3>
-      <p>Fast • Wild • Silent</p>
-    </div>
-
-    <div class="card">
-      <div class="animal">🦊</div>
-      <h3>FOX</h3>
-      <p>Quick • Smart • Agile</p>
-    </div>
-
-    <div class="card">
-      <div class="animal">🐯</div>
-      <h3>TIGER</h3>
-      <p>Power • Speed • Fearless</p>
-    </div>
-
-    <div class="card">
-      <div class="animal">🐻</div>
-      <h3>BEAR</h3>
-      <p>Strong • Massive • Wild</p>
-    </div>
-
-  </div>
-
 </section>
 
-<section id="social">
+<section id="links">
+  <div class="title">✦ SOCIALS</div>
 
-  <div class="social">
+  <div class="grid">
 
-    <h2>JOIN RYXON 🐺</h2>
+    <div class="card social">
+      <div>
+        <div class="icon">▶️</div>
+        <h3>YouTube</h3>
+        <p>@ryxon_rbx</p>
+      </div>
+      <a href="https://www.youtube.com/@ryxon_rbx"
+         target="_blank">OPEN</a>
+    </div>
 
-    <p>
-      Follow the pages and don't miss
-      the next run.
-    </p>
-
-    <div class="buttons">
-
-      <a
-        class="btn youtube"
-        href="https://www.youtube.com/@ryxon_rbx"
-        target="_blank">
-        🔴 SUBSCRIBE
-      </a>
-
-      <a
-        class="btn tiktok"
-        href="https://www.tiktok.com/@ryxon_rbx"
-        target="_blank">
-        ⚫ FOLLOW TIKTOK
-      </a>
-
+    <div class="card social">
+      <div>
+        <div class="icon">♪</div>
+        <h3>TikTok</h3>
+        <p>@ryxon_rbx</p>
+      </div>
+      <a href="https://www.tiktok.com/@ryxon_rbx"
+         target="_blank">OPEN</a>
     </div>
 
   </div>
-
 </section>
 
 <footer>
-  © 2026 <span>RYXON RUN</span> • RUN WILD 🐾
+  RYXON RBX • ALL RIGHTS RESERVED
 </footer>
 
-</div>
+</main>
 
 <script>
+function speak(text){
+  if("speechSynthesis" in window){
+    speechSynthesis.cancel();
+    const voice = new SpeechSynthesisUtterance(text);
+    voice.lang="en-US";
+    voice.rate=.9;
+    voice.pitch=.8;
+    speechSynthesis.speak(voice);
+  }
+}
 
-function startExperience(){
+function start(){
 
-  const error = document.getElementById("error");
-  const loading = document.getElementById("loading");
+  document.getElementById("errorScreen").style.display="none";
+  document.getElementById("loading").style.display="flex";
 
-  error.style.display="none";
-  loading.style.display="flex";
+  speak("HELLO RYXON RBX");
 
-  let value=0;
-
-  const bar=document.getElementById("barFill");
+  let p=0;
   const percent=document.getElementById("percent");
+  const bar=document.getElementById("bar");
 
   const timer=setInterval(()=>{
 
-    value += Math.floor(Math.random()*4)+1;
+    p++;
+    percent.textContent=p+"%";
+    bar.style.width=p+"%";
 
-    if(value>=100){
-
-      value=100;
+    if(p>=100){
       clearInterval(timer);
 
-      bar.style.width="100%";
-      percent.textContent="100%";
+      setTimeout(()=>{
+        document.getElementById("loading").style.display="none";
+        document.getElementById("cinematic").style.display="flex";
 
-      setTimeout(showCinematic,500);
+        const animal=document.getElementById("animal");
 
-    }else{
+        setTimeout(()=>{
+          animal.style.animation="run 2.5s cubic-bezier(.2,.8,.2,1) forwards";
+        },200);
 
-      bar.style.width=value+"%";
-      percent.textContent=value+"%";
+        setTimeout(()=>{
+          document.getElementById("flash").style.animation=
+            "flash .7s forwards";
 
+          document.body.classList.add("shake");
+
+        },2300);
+
+        setTimeout(()=>{
+          document.getElementById("intro").style.opacity="0";
+          document.getElementById("main").style.opacity="1";
+          document.body.style.overflow="auto";
+
+          speak("he he");
+
+          setTimeout(()=>{
+            document.getElementById("intro").style.display="none";
+          },1200);
+
+        },2800);
+
+      },500);
     }
 
-  },70);
-
+  },25);
 }
-
-
-function showCinematic(){
-
-  const loading=document.getElementById("loading");
-  const cinematic=document.getElementById("cinematic");
-
-  loading.style.display="none";
-  cinematic.style.display="block";
-
-  setTimeout(()=>{
-    cinematic.classList.add("cinemaRun");
-  },100);
-
-  setTimeout(()=>{
-
-    document.body.classList.add("screenShake");
-
-    document.querySelector(".flash").style.opacity="0.85";
-
-  },2900);
-
-  setTimeout(()=>{
-
-    cinematic.style.display="none";
-
-    const site=document.getElementById("site");
-
-    site.style.display="block";
-
-    setTimeout(()=>{
-      site.style.opacity="1";
-    },50);
-
-    document.body.classList.remove("screenShake");
-
-  },3500);
-
-}
-
 </script>
 
 </body>
