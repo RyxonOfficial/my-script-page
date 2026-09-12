@@ -1,484 +1,478 @@
+```html
 <!DOCTYPE html>
-<html lang="hy">
+<html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RyxonGemini Pro</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-    body { 
-      background: linear-gradient(135deg, #090714, #120e24, #05040a); 
-      color: #e2e8f0; 
-      height: 100vh; 
-      display: flex; 
-      overflow: hidden; 
-      position: relative;
-    }
-
-    /* Overlay Sidebar (Hidden by default) */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -300px;
-      width: 280px;
-      height: 100%;
-      background: rgba(18, 14, 36, 0.95);
-      backdrop-filter: blur(15px);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 18px;
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 10px 0 30px rgba(0,0,0,0.6);
-      transition: left 0.3s ease;
-      z-index: 100;
-    }
-    .sidebar.active { left: 0; }
-
-    .sidebar-top { display: flex; flex-direction: column; gap: 20px; }
-    .app-title { font-size: 20px; font-weight: bold; color: #00f2fe; display: flex; justify-content: space-between; align-items: center; }
-    .close-btn { cursor: pointer; font-size: 20px; color: #a0aec0; transition: 0.2s; }
-    .close-btn:hover { color: #fff; }
-
-    .menu-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .menu-item { 
-      display: flex; 
-      align-items: center; 
-      gap: 12px; 
-      font-size: 15px; 
-      color: #e2e8f0; 
-      padding: 10px 14px; 
-      border-radius: 10px; 
-      cursor: pointer; 
-      transition: 0.2s; 
-    }
-    .menu-item:hover { background: rgba(255, 255, 255, 0.08); color: #00f2fe; }
-
-    .section-title { font-size: 12px; color: #718096; margin-top: 15px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
-    .recent-list { list-style: none; display: flex; flex-direction: column; gap: 6px; overflow-y: auto; max-height: 220px; }
-    .recent-item { 
-      padding: 8px 12px; 
-      border-radius: 8px; 
-      font-size: 14px; 
-      white-space: nowrap; 
-      overflow: hidden; 
-      text-overflow: ellipsis; 
-      cursor: pointer; 
-      color: #cbd5e0;
-      transition: 0.2s;
-    }
-    .recent-item:hover, .recent-item.active { background: rgba(121, 40, 202, 0.3); color: #fff; }
-
-    .profile-section { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
-    .user-info { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
-    .avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #7928ca, #00f2fe); }
-    .plan-btn { background: linear-gradient(135deg, #4f46e5, #06b6d4); color: #fff; border: none; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; }
-
-    /* Backdrop Dimmer */
-    .backdrop {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      z-index: 90;
-    }
-    .backdrop.active { display: block; }
-
-    /* Main App Area */
-    .main-container { flex: 1; display: flex; flex-direction: column; height: 100vh; position: relative; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus AI Assistant</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Highlight.js for code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <!-- Marked.js for parsing Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     
-    header { 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      padding: 14px 18px; 
-      background: rgba(18, 14, 36, 0.7); 
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
-    }
-    .header-left { display: flex; align-items: center; gap: 15px; }
-    .menu-icon { font-size: 22px; cursor: pointer; color: #00f2fe; }
-
-    /* Model Dropdown Selector */
-    .model-selector { 
-      background: #18132e; 
-      color: #e2e8f0; 
-      border: 1px solid rgba(255, 255, 255, 0.15); 
-      font-size: 15px; 
-      font-weight: 600; 
-      padding: 6px 12px; 
-      border-radius: 10px; 
-      outline: none; 
-      cursor: pointer; 
-    }
-
-    .more-options-btn { cursor: pointer; font-size: 20px; color: #a0aec0; }
-
-    /* Chat Messages Box */
-    .chat-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
-    .msg { 
-      max-width: 80%; 
-      padding: 12px 18px; 
-      border-radius: 16px; 
-      font-size: 15px; 
-      line-height: 1.5; 
-      word-break: break-word; 
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
-    .user { 
-      background: linear-gradient(135deg, #7928ca, #4338ca); 
-      color: #ffffff;
-      align-self: flex-end; 
-      border-bottom-right-radius: 4px;
-    }
-    .bot { 
-      background: #18132e; 
-      color: #e2e8f0;
-      align-self: flex-start; 
-      border: 1px solid rgba(255, 255, 255, 0.08); 
-      border-bottom-left-radius: 4px;
-    }
-
-    /* Bottom Input Area */
-    .input-wrapper { padding: 14px 18px; background: rgba(18, 14, 36, 0.8); position: relative; }
-    .input-bar { 
-      background: #18132e; 
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 28px; 
-      display: flex; 
-      align-items: center; 
-      padding: 6px 14px; 
-      gap: 10px; 
-    }
-    .add-btn { 
-      background: #251d45; 
-      border: none; 
-      color: #00f2fe; 
-      width: 36px; 
-      height: 36px; 
-      border-radius: 50%; 
-      font-size: 22px; 
-      cursor: pointer; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center;
-      transition: 0.2s;
-    }
-    .add-btn:hover { background: #33285c; }
-
-    input { flex: 1; background: transparent; border: none; color: #fff; outline: none; font-size: 15px; }
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0f0f11',
+                        sidebarBg: '#18181c',
+                        cardBg: '#212126',
+                        inputBg: '#2a2a30',
+                        primaryGlow: '#6366f1',
+                        accentBlue: '#3b82f6',
+                        accentPurple: '#a855f7'
+                    }
+                }
+            }
+        }
+    </script>
     
-    .action-btns { display: flex; align-items: center; gap: 8px; }
-    .circle-btn { 
-      width: 38px; height: 38px; 
-      border-radius: 50%; 
-      border: none; 
-      background: #251d45; 
-      color: #fff; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      cursor: pointer; 
-      font-size: 16px;
-      transition: 0.2s;
-    }
-    .circle-btn:hover { background: #33285c; }
-    .send-icon-btn { background: linear-gradient(135deg, #4f46e5, #06b6d4); font-weight: bold; }
+    <style>
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4b5563;
+        }
 
-    /* Media Attach Popup Frame */
-    .media-frame {
-      position: absolute;
-      bottom: 75px;
-      left: 20px;
-      background: #18132e;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 16px;
-      padding: 12px;
-      display: none;
-      flex-direction: column;
-      gap: 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      z-index: 50;
-      width: 180px;
-    }
-    .media-frame.active { display: flex; }
-    .media-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: 0.2s;
-    }
-    .media-item:hover { background: rgba(255, 255, 255, 0.1); color: #00f2fe; }
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    /* Payment Modal for Gemini Pro ($2) */
-    .modal {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(5px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 200;
-    }
-    .modal.active { display: flex; }
-    .modal-content {
-      background: #18132e;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      padding: 24px;
-      width: 320px;
-      text-align: center;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-    }
-    .modal-title { font-size: 20px; font-weight: bold; color: #00f2fe; margin-bottom: 10px; }
-    .price-tag { font-size: 28px; font-weight: bold; color: #fff; margin: 15px 0; }
-    .pay-btn {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, #7928ca, #00f2fe);
-      border: none;
-      border-radius: 12px;
-      color: #fff;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .cancel-btn {
-      width: 100%;
-      padding: 10px;
-      background: transparent;
-      border: none;
-      color: #a0aec0;
-      cursor: pointer;
-      margin-top: 5px;
-    }
-  </style>
+        .typing-dot {
+            animation: typingAnimation 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingAnimation {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .prose pre {
+            background: #111827 !important;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            position: relative;
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+            overflow-x: auto;
+        }
+        .prose code {
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+        .prose p {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+        .prose p:last-child {
+            margin-bottom: 0;
+        }
+        .prose ul, .prose ol {
+            margin-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .prose ul { list-style-type: disc; }
+        .prose ol { list-style-type: decimal; }
+    </style>
 </head>
-<body>
+<body class="bg-darkBg text-gray-100 h-screen flex overflow-hidden font-sans antialiased">
 
-  <div class="backdrop" id="backdrop" onclick="closeSidebar()"></div>
+    <!-- Mobile Backdrop -->
+    <div id="mobileBackdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-black/60 z-20 hidden md:hidden transition-opacity"></div>
 
-  <!-- Left Sidebar Menu -->
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-top">
-      <div class="app-title">
-        <span>Gemini</span>
-        <span class="close-btn" onclick="closeSidebar()">✕</span>
-      </div>
-      <ul class="menu-list">
-        <li class="menu-item" onclick="newChat()">✏️ Новый чат</li>
-        <li class="menu-item" onclick="searchChats()">🔍 Поиск по чатам</li>
-        <li class="menu-item" onclick="openFeature('Видео')">🎬 Видео</li>
-        <li class="menu-item" onclick="openFeature('Библиотека')">🗂️ Библиотека</li>
-      </ul>
-      <div class="section-title">Недавние</div>
-      <ul class="recent-list">
-        <li class="recent-item active" onclick="loadChat('Barevner ev ognutyun')">Barevner ev ognutyun</li>
-        <li class="recent-item" onclick="loadChat('English: Friendly Greeting')">English: Friendly Greeting</li>
-        <li class="recent-item" onclick="loadChat('Գիթհաբում Գեմինիի նման...')">Գիթհաբում Գեմինիի նման...</li>
-      </ul>
-    </div>
-    
-    <div class="profile-section">
-      <div class="user-info">
-        <div class="avatar"></div>
-        <span>User</span>
-      </div>
-      <button class="plan-btn" onclick="openProModal()">Сменить план</button>
-    </div>
-  </div>
-
-  <!-- Main Chat Window -->
-  <div class="main-container">
-    <header>
-      <div class="header-left">
-        <span class="menu-icon" onclick="openSidebar()">☰</span>
-        <select class="model-selector" id="modelSelect" onchange="handleModelChange()">
-          <option value="gemini-2.5-flash">Gemini Flash</option>
-          <option value="gemini-2.5-pro">Gemini Pro ($2/mo)</option>
-        </select>
-      </div>
-      <div class="more-options-btn" onclick="openFeature('Настройки')">⋮</div>
-    </header>
-
-    <div class="chat-area" id="chatBox"></div>
-
-    <div class="input-wrapper">
-      <!-- Popup Frame for Media Attachments -->
-      <div class="media-frame" id="mediaFrame">
-        <div class="media-item" onclick="attachMedia('📷 Фото')">📷 Фото</div>
-        <div class="media-item" onclick="attachMedia('🎥 Видео')">🎥 Видео</div>
-        <div class="media-item" onclick="attachMedia('📁 Файлы')">📁 Файлы</div>
-        <div class="media-item" onclick="attachMedia('🎵 Музыка')">🎵 Музыка</div>
-        <div class="media-item" onclick="attachMedia('🎨 Canvas')">🎨 Canvas</div>
-      </div>
-
-      <div class="input-bar">
-        <button class="add-btn" onclick="toggleMediaFrame()">+</button>
-        <input type="text" id="userInput" placeholder="Спросить..." onkeydown="if(event.key === 'Enter') sendMessage()">
-        <div class="action-btns">
-          <button class="circle-btn" onclick="startVoiceInput()">🎙️</button>
-          <button class="circle-btn send-icon-btn" onclick="sendMessage()">➔</button>
+    <!-- Sidebar Component -->
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 w-72 bg-sidebarBg border-r border-gray-800/60 z-30 flex flex-col transition-transform duration-300 transform -translate-x-full md:translate-x-0">
+        <!-- Sidebar Header -->
+        <div class="p-4 flex items-center justify-between border-b border-gray-800/60">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-accentPurple to-accentBlue flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+                    <i class="fa-solid font-bold fa-bolt text-lg"></i>
+                </div>
+                <span class="font-bold text-lg tracking-wide gradient-text">Nexus AI</span>
+            </div>
+            <button onclick="toggleSidebar()" class="md:hidden text-gray-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
         </div>
-      </div>
+
+        <!-- New Chat Button -->
+        <div class="p-3">
+            <button onclick="startNewChat()" class="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white font-medium py-3 px-4 rounded-xl transition duration-200 shadow-md shadow-indigo-900/20 active:scale-[0.98]">
+                <i class="fa-solid fa-plus text-sm"></i>
+                <span>New Chat</span>
+            </button>
+        </div>
+
+        <!-- Chat History List -->
+        <div class="flex-1 overflow-y-auto p-3 space-y-1" id="chatHistoryContainer">
+            <!-- Dynamic chat items will be rendered here -->
+        </div>
+
+        <!-- Sidebar Footer / Settings -->
+        <div class="p-3 border-t border-gray-800/60 space-y-2">
+            <button onclick="openSettingsModal()" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-cardBg text-gray-300 hover:text-white transition duration-150">
+                <i class="fa-solid fa-gear text-indigo-400 w-5"></i>
+                <span class="text-sm font-medium">Settings & API Key</span>
+            </button>
+            <div class="flex items-center space-x-3 px-3 py-2.5 rounded-xl bg-cardBg/50 border border-gray-800/40">
+                <div class="w-8 h-8 rounded-full bg-indigo-600/30 text-indigo-400 flex items-center justify-center font-bold text-sm">
+                    U
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-200 truncate">Developer User</p>
+                    <p class="text-xs text-gray-500 truncate" id="apiKeyStatusLabel">Free Tier / Demo Mode</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 flex flex-col h-full relative overflow-hidden bg-darkBg">
+        
+        <!-- Header Topbar -->
+        <header class="h-16 border-b border-gray-800/60 flex items-center justify-between px-4 md:px-6 bg-darkBg/80 backdrop-blur-md z-10">
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleSidebar()" class="md:hidden text-gray-400 hover:text-white p-2">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+                <h2 id="currentChatTitle" class="font-semibold text-gray-200 text-base md:text-lg truncate max-w-[200px] sm:max-w-md">New Conversation</h2>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+                <span id="modelBadge" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                    Gemini 3 Flash
+                </span>
+                <button onclick="clearCurrentChat()" class="p-2 text-gray-400 hover:text-red-400 rounded-lg transition" title="Clear Chat">
+                    <i class="fa-regular fa-trash-can"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Message History Feed -->
+        <div id="messageFeed" class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 max-w-4xl w-full mx-auto">
+            <!-- Dynamic messages -->
+        </div>
+
+        <!-- Chat Input Footer -->
+        <footer class="p-3 md:p-4 border-t border-gray-800/60 bg-darkBg">
+            <div class="max-w-4xl mx-auto relative">
+                <div class="relative bg-inputBg rounded-2xl border border-gray-700/60 focus-within:border-indigo-500 transition-colors shadow-lg">
+                    <textarea 
+                        id="userInput" 
+                        rows="1" 
+                        placeholder="Ask anything or write code..." 
+                        class="w-full bg-transparent text-gray-100 placeholder-gray-500 p-3.5 pr-14 resize-none outline-none max-h-48 overflow-y-auto text-sm md:text-base"
+                        onkeydown="handleKeyDown(event)"
+                        oninput="autoResizeTextarea(this)"></textarea>
+                    
+                    <button 
+                        id="sendBtn" 
+                        onclick="sendMessage()" 
+                        class="absolute right-2.5 bottom-2.5 p-2 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white transition duration-150">
+                        <i class="fa-solid fa-arrow-up text-sm w-4 h-4 flex items-center justify-center"></i>
+                    </button>
+                </div>
+                <p class="text-center text-[11px] text-gray-500 mt-2">
+                    Nexus AI Assistant portfolio project. Connect your API key in Settings for custom AI execution.
+                </p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-cardBg border border-gray-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeSettingsModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="flex items-center space-x-3 mb-5">
+                <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center">
+                    <i class="fa-solid fa-key text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-100 text-lg">API Settings</h3>
+                    <p class="text-xs text-gray-400">Configure your Gemini API Key</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Gemini API Key</label>
+                    <input 
+                        type="password" 
+                        id="apiKeyInput" 
+                        placeholder="AIzaSy..." 
+                        class="w-full bg-inputBg border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-indigo-500 transition">
+                    <p class="text-xs text-gray-500 mt-1.5">
+                        Your key is saved in browser localStorage and is used only to request API responses directly.
+                    </p>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-3">
+                    <button onclick="closeSettingsModal()" class="px-4 py-2 rounded-xl text-sm font-medium text-gray-400 hover:text-white transition">
+                        Cancel
+                    </button>
+                    <button onclick="saveApiKey()" class="px-5 py-2 rounded-xl text-sm font-medium bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-md shadow-indigo-900/30">
+                        Save Key
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- Modal for Gemini Pro ($2) Purchase -->
-  <div class="modal" id="proModal">
-    <div class="modal-content">
-      <div class="modal-title">Gemini Pro</div>
-      <p style="color: #a0aec0; font-size: 14px;">Բացեք Gemini Pro-ի բոլոր հնարավորությունները:</p>
-      <div class="price-tag">$2.00 / ամիս</div>
-      <button class="pay-btn" onclick="subscribePro()">Գնել հիմա ($2)</button>
-      <button class="cancel-btn" onclick="closeProModal()">Չեղարկել</button>
-    </div>
-  </div>
+    <script>
+        // State Management
+        let chats = JSON.parse(localStorage.getItem('nexus_chats') || '[]');
+        let currentChatId = localStorage.getItem('nexus_current_chat_id') || null;
+        let apiKey = localStorage.getItem('nexus_gemini_api_key') || '';
 
-  <script>
-    const API_KEY = "AQ.Ab8RN6JgdeYuuWb8MyI7VSCSdvJhBeNDLXOIH_EyVCU9iv7Gpw";
-    let isProSubscribed = false;
-
-    /* Sidebar controls */
-    function openSidebar() {
-      document.getElementById('sidebar').classList.add('active');
-      document.getElementById('backdrop').classList.add('active');
-    }
-
-    function closeSidebar() {
-      document.getElementById('sidebar').classList.remove('active');
-      document.getElementById('backdrop').classList.remove('active');
-    }
-
-    /* Media Attach Frame Toggle */
-    function toggleMediaFrame() {
-      const frame = document.getElementById('mediaFrame');
-      frame.classList.toggle('active');
-    }
-
-    function attachMedia(type) {
-      alert(type + " կցվեց հաղորդագրությանը:");
-      toggleMediaFrame();
-    }
-
-    /* Model Selection & Pro Subscription Modal */
-    function handleModelChange() {
-      const select = document.getElementById('modelSelect');
-      if (select.value === 'gemini-2.5-pro' && !isProSubscribed) {
-        openProModal();
-      }
-    }
-
-    function openProModal() {
-      document.getElementById('proModal').classList.add('active');
-    }
-
-    function closeProModal() {
-      document.getElementById('proModal').classList.remove('active');
-      if (!isProSubscribed) {
-        document.getElementById('modelSelect').value = 'gemini-2.5-flash';
-      }
-    }
-
-    function subscribePro() {
-      isProSubscribed = true;
-      alert("Շնորհավորում ենք! Դուք ակտիվացրեցիք Gemini Pro ($2):");
-      closeProModal();
-      document.getElementById('modelSelect').value = 'gemini-2.5-pro';
-    }
-
-    /* Chat logic & API integration */
-    async function sendMessage() {
-      const input = document.getElementById('userInput');
-      const text = input.value.trim();
-      if (!text) return;
-
-      const selectedModel = document.getElementById('modelSelect').value;
-
-      appendMessage(text, 'user');
-      input.value = '';
-
-      // Close media frame if open
-      document.getElementById('mediaFrame').classList.remove('active');
-
-      const botMsgDiv = appendMessage("Mtatsum e...", 'bot');
-
-      try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${API_KEY}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: text }] }]
-          })
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            updateApiKeyStatusLabel();
+            if (chats.length === 0) {
+                startNewChat();
+            } else {
+                if (!currentChatId || !chats.find(c => c.id === currentChatId)) {
+                    currentChatId = chats[0].id;
+                }
+                renderChatHistory();
+                renderMessages();
+            }
         });
 
-        const data = await response.json();
-
-        if (data.error) {
-          botMsgDiv.textContent = "Sxal API: " + data.error.message;
-        } else {
-          const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Patasxan chstacvec:";
-          botMsgDiv.textContent = reply;
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('mobileBackdrop');
+            sidebar.classList.toggle('-translate-x-full');
+            backdrop.classList.toggle('hidden');
         }
-      } catch (err) {
-        botMsgDiv.textContent = "Sxal: CHhacoghvec kapvel serveri het:";
-      }
-    }
 
-    function appendMessage(text, sender) {
-      const chatBox = document.getElementById('chatBox');
-      const div = document.createElement('div');
-      div.className = `msg ${sender}`;
-      div.textContent = text;
-      chatBox.appendChild(div);
-      chatBox.scrollTop = chatBox.scrollHeight;
-      return div;
-    }
+        function autoResizeTextarea(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 192) + 'px';
+        }
 
-    function newChat() {
-      document.getElementById('chatBox').innerHTML = '';
-      closeSidebar();
-    }
+        function handleKeyDown(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        }
 
-    function searchChats() {
-      const q = prompt("Որոնել չատերում․");
-      if (q) alert("Որոնում: " + q);
-      closeSidebar();
-    }
+        function startNewChat() {
+            const newChat = {
+                id: 'chat_' + Date.now(),
+                title: 'New Conversation',
+                messages: []
+            };
+            chats.unshift(newChat);
+            currentChatId = newChat.id;
+            saveState();
+            renderChatHistory();
+            renderMessages();
+            
+            if (window.innerWidth < 768) {
+                document.getElementById('sidebar').classList.add('-translate-x-full');
+                document.getElementById('mobileBackdrop').classList.add('hidden');
+            }
+        }
 
-    function openFeature(name) {
-      alert("Բացվում է " + name + " բաժինը:");
-      closeSidebar();
-    }
+        function selectChat(id) {
+            currentChatId = id;
+            saveState();
+            renderChatHistory();
+            renderMessages();
 
-    function loadChat(title) {
-      newChat();
-      appendMessage("Բեռնված չատ: " + title, 'bot');
-      closeSidebar();
-    }
+            if (window.innerWidth < 768) {
+                document.getElementById('sidebar').classList.add('-translate-x-full');
+                document.getElementById('mobileBackdrop').classList.add('hidden');
+            }
+        }
 
-    /* Voice Input Feature */
-    function startVoiceInput() {
-      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        alert("Ձեր բրաուզերը չի աջակցում ձայնային մուտք:");
-        return;
-      }
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      recognition.lang = 'hy-AM';
-      recognition.start();
+        function deleteChat(id, e) {
+            e.stopPropagation();
+            chats = chats.filter(c => c.id !== id);
+            if (currentChatId === id) {
+                currentChatId = chats.length > 0 ? chats[0].id : null;
+            }
+            if (chats.length === 0) {
+                startNewChat();
+            } else {
+                saveState();
+                renderChatHistory();
+                renderMessages();
+            }
+        }
 
-      recognition.onresult = function(event) {
-        const transcript = event.results[0][0].transcript;
-        document.getElementById('userInput').value = transcript;
-      };
-    }
-  </script>
-</body>
-</html>
+        function clearCurrentChat() {
+            const currentChat = getCurrentChat();
+            if (currentChat) {
+                currentChat.messages = [];
+                currentChat.title = 'New Conversation';
+                saveState();
+                renderChatHistory();
+                renderMessages();
+            }
+        }
+
+        function getCurrentChat() {
+            return chats.find(c => c.id === currentChatId);
+        }
+
+        function saveState() {
+            localStorage.setItem('nexus_chats', JSON.stringify(chats));
+            localStorage.setItem('nexus_current_chat_id', currentChatId);
+        }
+
+        function renderChatHistory() {
+            const container = document.getElementById('chatHistoryContainer');
+            container.innerHTML = '';
+
+            chats.forEach(chat => {
+                const isActive = chat.id === currentChatId;
+                const item = document.createElement('div');
+                item.onclick = () => selectChat(chat.id);
+                item.className = `group flex items-center justify-between p-3 rounded-xl cursor-pointer transition duration-150 ${
+                    isActive ? 'bg-cardBg text-white border border-gray-800' : 'text-gray-400 hover:bg-cardBg/50 hover:text-gray-200'
+                }`;
+
+                item.innerHTML = `
+                    <div class="flex items-center space-x-3 overflow-hidden">
+                        <i class="fa-regular fa-message text-xs ${isActive ? 'text-indigo-400' : 'text-gray-500'}"></i>
+                        <span class="text-sm font-medium truncate w-40">${escapeHtml(chat.title)}</span>
+                    </div>
+                    <button onclick="deleteChat('${chat.id}', event)" class="opacity-0 group-hover:opacity-100 p-1 text-gray-500 hover:text-red-400 transition">
+                        <i class="fa-solid fa-xmark text-xs"></i>
+                    </button>
+                `;
+                container.appendChild(item);
+            });
+
+            const currentChat = getCurrentChat();
+            if (currentChat) {
+                document.getElementById('currentChatTitle').innerText = currentChat.title;
+            }
+        }
+
+        function renderMessages() {
+            const feed = document.getElementById('messageFeed');
+            const currentChat = getCurrentChat();
+
+            if (!currentChat || currentChat.messages.length === 0) {
+                feed.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-full text-center py-12 px-4">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-accentPurple to-accentBlue flex items-center justify-center text-white text-2xl shadow-xl shadow-indigo-500/20 mb-4">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-100 mb-2">How can I help you today?</h3>
+                        <p class="text-sm text-gray-400 max-w-md mb-8">Ask questions, write Luau or JavaScript scripts, or build web interfaces.</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-lg">
+                            <button onclick="sendPrompt('Explain JavaScript Async/Await with an example')" class="p-3.5 rounded-xl bg-cardBg border border-gray-800 hover:border-gray-700 text-left text-xs text-gray-300 hover:text-white transition">
+                                <p class="font-semibold text-indigo-400 mb-1">💻 JS Development</p>
+                                Explain JS Async/Await with an example
+                            </button>
+                            <button onclick="sendPrompt('Write a Luau script for Roblox leaderstats')" class="p-3.5 rounded-xl bg-cardBg border border-gray-800 hover:border-gray-700 text-left text-xs text-gray-300 hover:text-white transition">
+                                <p class="font-semibold text-purple-400 mb-1">🎮 Luau Scripting</p>
+                                Write a Luau script for leaderstats
+                            </button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            feed.innerHTML = '';
+            currentChat.messages.forEach(msg => {
+                feed.appendChild(createMessageElement(msg.role, msg.text));
+            });
+
+            feed.scrollTop = feed.scrollHeight;
+        }
+
+        function createMessageElement(role, text) {
+            const isUser = role === 'user';
+            const wrapper = document.createElement('div');
+            wrapper.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+
+            const parsedContent = isUser ? escapeHtml(text) : marked.parse(text);
+
+            wrapper.innerHTML = `
+                <div class="flex items-start space-x-3 max-w-[85%] md:max-w-[75%] ${isUser ? 'flex-row-reverse space-x-reverse' : ''}">
+                    <div class="w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0 ${
+                        isUser 
+                        ? 'bg-indigo-600 text-white' 
+                        : 'bg-gradient-to-tr from-accentPurple to-accentBlue text-white shadow-md shadow-indigo-500/20'
+                    }">
+                        ${isUser ? '<i class="fa-solid fa-user"></i>' : '<i class="fa-solid fa-bolt"></i>'}
+                    </div>
+                    <div class="p-4 rounded-2xl ${
+                        isUser 
+                        ? 'bg-indigo-600 text-white rounded-tr-none' 
+                        : 'bg-cardBg border border-gray-800 text-gray-200 rounded-tl-none prose prose-invert'
+                    }">
+                        <div class="text-sm md:text-base leading-relaxed">${parsedContent}</div>
+                    </div>
+                </div>
+            `;
+
+            if (!isUser) {
+                setTimeout(() => {
+                    wrapper.querySelectorAll('pre code').forEach((block) => {
+                        hljs.highlightElement(block);
+                    });
+                }, 0);
+            }
+
+            return wrapper;
+        }
+
+        function sendPrompt(promptText) {
+            document.getElementById('userInput').value = promptText;
+            sendMessage();
+        }
+
+        async function sendMessage() {
+            const inputEl = document.getElementById('userInput');
+            const text = inputEl.value.trim();
+            if (!text) return;
+
+            const currentChat = getCurrentChat();
+            if (!currentChat) return;
+
+            if (currentChat.messages.length === 0) {
+                currentChat.title = text.length > 30 ? text.substring(0, 30) + '...' : text;
+                renderChatHistory();
+            }
+
+            currentChat.messages.push({ role: 'user', text: text });
+            inputEl.value = '';
+            inputEl.style.height = 'auto';
+            renderMessages();
+
+            const feed = document.getElementById('messageFeed');
+            const typingElem = document.createElement('div');
+            typingElem.
+```
