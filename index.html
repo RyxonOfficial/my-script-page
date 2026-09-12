@@ -36,6 +36,7 @@ body{
     display:flex;
     flex-direction:column;
     transition:.3s;
+    z-index:100;
 }
 
 .logo{
@@ -119,6 +120,7 @@ body{
     border:0;
     color:white;
     font-size:25px;
+    cursor:pointer;
 }
 
 /* CHAT */
@@ -305,6 +307,7 @@ body{
     right:0;
     padding:12px 15px 18px;
     background:linear-gradient(transparent,#050507 25%);
+    z-index:50;
 }
 
 .input-box{
@@ -362,6 +365,60 @@ body{
     display:none;
 }
 
+/* PLUS MENU */
+
+.plus-wrapper{
+    position:relative;
+}
+
+.plus-menu{
+    position:absolute;
+    bottom:52px;
+    left:0;
+    width:210px;
+    background:#202020;
+    border:1px solid #36363d;
+    border-radius:18px;
+    padding:8px;
+    box-shadow:0 15px 40px rgba(0,0,0,.6);
+    display:none;
+    z-index:200;
+}
+
+.plus-menu.open{
+    display:block;
+}
+
+.plus-item{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:white;
+    padding:13px 10px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-align:left;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.plus-item:hover{
+    background:#303038;
+}
+
+.plus-icon{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:#34343b;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+}
+
 /* MOBILE */
 
 @media(max-width:700px){
@@ -371,7 +428,6 @@ body{
         left:-270px;
         top:0;
         bottom:0;
-        z-index:100;
     }
 
     .sidebar.open{
@@ -405,6 +461,11 @@ body{
     .chat{
         padding-bottom:145px;
     }
+
+    .plus-menu{
+        left:-5px;
+        bottom:52px;
+    }
 }
 </style>
 </head>
@@ -423,11 +484,14 @@ body{
         ＋ New Chat
     </button>
 
-    <div class="history-title">CHAT HISTORY</div>
+    <div class="history-title">
+        CHAT HISTORY
+    </div>
 
     <div class="history" id="history"></div>
 
 </aside>
+
 
 <!-- MAIN -->
 
@@ -435,7 +499,10 @@ body{
 
     <header class="topbar">
 
-        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+        <button class="menu-btn"
+                onclick="toggleSidebar()">
+            ☰
+        </button>
 
         <div class="brand">
             RYXON<span>GPT</span>
@@ -444,6 +511,9 @@ body{
         <div>✦</div>
 
     </header>
+
+
+    <!-- CHAT -->
 
     <section class="chat" id="chat">
 
@@ -473,8 +543,8 @@ body{
                 </button>
 
                 <button class="suggestion"
-                    onclick="suggest('Write me a cool bio')">
-                    ✨ Cool bio
+                    onclick="suggest('Give me YouTube Shorts ideas')">
+                    📺 YouTube Shorts
                 </button>
 
             </div>
@@ -485,41 +555,108 @@ body{
 
 </main>
 
+
 <!-- INPUT -->
 
 <div class="input-area">
 
-    <div class="attachment-preview" id="attachmentPreview"></div>
+    <div class="attachment-preview"
+         id="attachmentPreview">
+    </div>
+
 
     <div class="input-box">
 
-        <!-- CAMERA -->
-        <button class="tool-btn"
-                onclick="openCamera()"
-                title="Camera">
-            📷
-        </button>
 
-        <!-- PHOTO -->
-        <button class="tool-btn"
-                onclick="openPhoto()"
-                title="Photo">
-            🖼️
-        </button>
+        <!-- PLUS -->
 
-        <!-- FILE -->
-        <button class="tool-btn"
-                onclick="openFile()"
-                title="File">
-            📎
-        </button>
+        <div class="plus-wrapper">
+
+            <button class="tool-btn"
+                    onclick="togglePlusMenu()">
+                ＋
+            </button>
+
+
+            <div class="plus-menu"
+                 id="plusMenu">
+
+                <button class="plus-item"
+                        onclick="openCamera()">
+
+                    <span class="plus-icon">
+                        📷
+                    </span>
+
+                    <span>Camera</span>
+
+                </button>
+
+
+                <button class="plus-item"
+                        onclick="openPhoto()">
+
+                    <span class="plus-icon">
+                        🖼️
+                    </span>
+
+                    <span>Photo</span>
+
+                </button>
+
+
+                <button class="plus-item"
+                        onclick="openFile()">
+
+                    <span class="plus-icon">
+                        📎
+                    </span>
+
+                    <span>Files</span>
+
+                </button>
+
+
+                <button class="plus-item"
+                        onclick="pluginsMessage()">
+
+                    <span class="plus-icon">
+                        🔌
+                    </span>
+
+                    <span>Plugins</span>
+
+                </button>
+
+
+                <button class="plus-item"
+                        onclick="deepThink()">
+
+                    <span class="plus-icon">
+                        🧠
+                    </span>
+
+                    <span>Think deeper</span>
+
+                </button>
+
+            </div>
+
+        </div>
+
 
         <!-- VOICE -->
+
         <button class="tool-btn"
                 onclick="startVoice()"
                 title="Voice">
+
             🎤
+
         </button>
+
+
+        <!-- MESSAGE -->
 
         <input
             id="messageInput"
@@ -528,9 +665,15 @@ body{
             autocomplete="off"
         >
 
+
+        <!-- SEND -->
+
         <button class="send-btn"
-                onclick="sendMessage()">
-            ➤
+                onclick="sendMessage()"
+                title="Message">
+
+            💬
+
         </button>
 
     </div>
@@ -571,24 +714,59 @@ body{
 <script>
 
 let selectedAttachment = null;
-let chatStarted = false;
 
 
 /* SIDEBAR */
 
 function toggleSidebar(){
-    document.getElementById("sidebar")
+
+    document
+        .getElementById("sidebar")
         .classList.toggle("open");
+
 }
+
+
+/* PLUS MENU */
+
+function togglePlusMenu(){
+
+    document
+        .getElementById("plusMenu")
+        .classList.toggle("open");
+
+}
+
+
+/* CLOSE PLUS MENU */
+
+document.addEventListener("click",function(event){
+
+    const menu =
+        document.getElementById("plusMenu");
+
+    const wrapper =
+        document.querySelector(".plus-wrapper");
+
+    if(
+        menu &&
+        wrapper &&
+        !wrapper.contains(event.target)
+    ){
+
+        menu.classList.remove("open");
+
+    }
+
+});
 
 
 /* NEW CHAT */
 
 function newChat(){
 
-    const chat = document.getElementById("chat");
+    document.getElementById("chat").innerHTML = `
 
-    chat.innerHTML = `
         <div class="welcome" id="welcome">
 
             <h1>RYXONGPT</h1>
@@ -615,8 +793,8 @@ function newChat(){
                 </button>
 
                 <button class="suggestion"
-                    onclick="suggest('Write me a cool bio')">
-                    ✨ Cool bio
+                    onclick="suggest('Give me YouTube Shorts ideas')">
+                    📺 YouTube Shorts
                 </button>
 
             </div>
@@ -626,11 +804,14 @@ function newChat(){
 
     selectedAttachment = null;
 
-    document.getElementById("attachmentPreview")
-        .innerHTML = "";
+    document.getElementById(
+        "attachmentPreview"
+    ).innerHTML = "";
 
-    document.getElementById("messageInput")
-        .value = "";
+    document.getElementById(
+        "messageInput"
+    ).value = "";
+
 }
 
 
@@ -638,9 +819,12 @@ function newChat(){
 
 function suggest(text){
 
-    document.getElementById("messageInput").value = text;
+    document.getElementById(
+        "messageInput"
+    ).value = text;
 
     sendMessage();
+
 }
 
 
@@ -648,7 +832,11 @@ function suggest(text){
 
 function openCamera(){
 
-    document.getElementById("cameraInput").click();
+    closePlus();
+
+    document
+        .getElementById("cameraInput")
+        .click();
 
 }
 
@@ -657,7 +845,11 @@ function openCamera(){
 
 function openPhoto(){
 
-    document.getElementById("photoInput").click();
+    closePlus();
+
+    document
+        .getElementById("photoInput")
+        .click();
 
 }
 
@@ -666,7 +858,50 @@ function openPhoto(){
 
 function openFile(){
 
-    document.getElementById("fileInput").click();
+    closePlus();
+
+    document
+        .getElementById("fileInput")
+        .click();
+
+}
+
+
+/* PLUGINS */
+
+function pluginsMessage(){
+
+    closePlus();
+
+    addMessage(
+        "ai",
+        "🔌 Plugins\n\nPlugins բաժինը կարող ենք միացնել արտաքին ծառայությունների հետ աշխատելու համար։"
+    );
+
+}
+
+
+/* DEEP THINK */
+
+function deepThink(){
+
+    closePlus();
+
+    addMessage(
+        "ai",
+        "🧠 Think deeper-ը միացված է որպես demo mode։\n\nՀարցդ գրիր, և RYXONGPT-ը կտա ավելի մանրամասն պատասխան։"
+    );
+
+}
+
+
+/* CLOSE PLUS */
+
+function closePlus(){
+
+    document
+        .getElementById("plusMenu")
+        .classList.remove("open");
 
 }
 
@@ -675,15 +910,22 @@ function openFile(){
 
 function handleAttachment(input){
 
-    if(!input.files || !input.files[0]){
+    if(
+        !input.files ||
+        !input.files[0]
+    ){
         return;
     }
 
-    selectedAttachment = input.files[0];
+    selectedAttachment =
+        input.files[0];
 
-    showAttachment(selectedAttachment);
+    showAttachment(
+        selectedAttachment
+    );
 
     input.value = "";
+
 }
 
 
@@ -692,52 +934,18 @@ function handleAttachment(input){
 function showAttachment(file){
 
     const preview =
-        document.getElementById("attachmentPreview");
+        document.getElementById(
+            "attachmentPreview"
+        );
 
     preview.innerHTML = "";
 
     const card =
         document.createElement("div");
 
-    card.className = "attachment-card";
+    card.className =
+        "attachment-card";
 
-    const info =
-        document.createElement("div");
-
-    info.className = "file-info";
-
-    const name =
-        document.createElement("div");
-
-    name.className = "file-name";
-
-    name.textContent = file.name;
-
-    const type =
-        document.createElement("div");
-
-    type.className = "file-type";
-
-    type.textContent =
-        file.type || "File";
-
-    info.appendChild(name);
-    info.appendChild(type);
-
-    const remove =
-        document.createElement("button");
-
-    remove.className = "remove-file";
-
-    remove.textContent = "×";
-
-    remove.onclick = function(){
-
-        selectedAttachment = null;
-
-        preview.innerHTML = "";
-
-    };
 
     if(file.type.startsWith("image/")){
 
@@ -751,35 +959,99 @@ function showAttachment(file){
 
     }
 
+
+    const info =
+        document.createElement("div");
+
+    info.className =
+        "file-info";
+
+
+    const name =
+        document.createElement("div");
+
+    name.className =
+        "file-name";
+
+    name.textContent =
+        file.name;
+
+
+    const type =
+        document.createElement("div");
+
+    type.className =
+        "file-type";
+
+    type.textContent =
+        file.type || "File";
+
+
+    info.appendChild(name);
+    info.appendChild(type);
+
+
+    const remove =
+        document.createElement("button");
+
+    remove.className =
+        "remove-file";
+
+    remove.textContent =
+        "×";
+
+
+    remove.onclick = function(){
+
+        selectedAttachment = null;
+
+        preview.innerHTML = "";
+
+    };
+
+
     card.appendChild(info);
     card.appendChild(remove);
 
     preview.appendChild(card);
+
 }
 
 
-/* SEND */
+/* SEND MESSAGE */
 
 function sendMessage(){
 
     const input =
-        document.getElementById("messageInput");
+        document.getElementById(
+            "messageInput"
+        );
 
     const text =
         input.value.trim();
 
-    if(!text && !selectedAttachment){
+
+    if(
+        !text &&
+        !selectedAttachment
+    ){
         return;
     }
 
+
     const welcome =
-        document.getElementById("welcome");
+        document.getElementById(
+            "welcome"
+        );
 
     if(welcome){
         welcome.remove();
     }
 
-    let attachment = selectedAttachment;
+
+    const attachment =
+        selectedAttachment;
+
 
     addMessage(
         "user",
@@ -787,23 +1059,33 @@ function sendMessage(){
         attachment
     );
 
+
     input.value = "";
 
     selectedAttachment = null;
 
-    document.getElementById("attachmentPreview")
-        .innerHTML = "";
 
-    saveHistory(text || "Attachment");
+    document.getElementById(
+        "attachmentPreview"
+    ).innerHTML = "";
+
+
+    saveHistory(
+        text || "Attachment"
+    );
+
 
     showTyping();
+
 
     setTimeout(function(){
 
         removeTyping();
 
+
         const reply =
             generateReply(text);
+
 
         addMessage(
             "ai",
@@ -817,10 +1099,17 @@ function sendMessage(){
 
 /* ADD MESSAGE */
 
-function addMessage(type,text,attachment=null){
+function addMessage(
+    type,
+    text,
+    attachment = null
+){
 
     const chat =
-        document.getElementById("chat");
+        document.getElementById(
+            "chat"
+        );
+
 
     const message =
         document.createElement("div");
@@ -828,37 +1117,64 @@ function addMessage(type,text,attachment=null){
     message.className =
         "message " + type;
 
+
     const avatar =
         document.createElement("div");
 
-    avatar.className = "avatar";
+    avatar.className =
+        "avatar";
 
     avatar.textContent =
-        type === "user" ? "U" : "R";
+        type === "user"
+            ? "U"
+            : "R";
+
 
     const bubble =
         document.createElement("div");
 
-    bubble.className = "bubble";
+    bubble.className =
+        "bubble";
+
 
     if(text){
-        bubble.textContent = text;
+
+        bubble.textContent =
+            text;
+
     }
+
 
     if(attachment){
 
-        if(attachment.type.startsWith("image/")){
+        if(
+            attachment.type.startsWith(
+                "image/"
+            )
+        ){
 
             const img =
-                document.createElement("img");
+                document.createElement(
+                    "img"
+                );
 
             img.src =
-                URL.createObjectURL(attachment);
+                URL.createObjectURL(
+                    attachment
+                );
 
-            img.style.maxWidth = "230px";
-            img.style.maxHeight = "250px";
-            img.style.borderRadius = "10px";
-            img.style.display = "block";
+            img.style.maxWidth =
+                "230px";
+
+            img.style.maxHeight =
+                "250px";
+
+            img.style.borderRadius =
+                "10px";
+
+            img.style.display =
+                "block";
+
             img.style.marginTop =
                 text ? "10px" : "0";
 
@@ -867,31 +1183,45 @@ function addMessage(type,text,attachment=null){
         }else{
 
             const fileBox =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
             fileBox.style.marginTop =
                 text ? "10px" : "0";
 
             fileBox.textContent =
-                "📎 " + attachment.name;
+                "📎 " +
+                attachment.name;
 
-            bubble.appendChild(fileBox);
+            bubble.appendChild(
+                fileBox
+            );
+
         }
+
     }
+
 
     message.appendChild(avatar);
     message.appendChild(bubble);
 
+
     if(type === "user"){
+
         message.innerHTML = "";
+
         message.appendChild(bubble);
         message.appendChild(avatar);
+
     }
+
 
     chat.appendChild(message);
 
     chat.scrollTop =
         chat.scrollHeight;
+
 }
 
 
@@ -900,10 +1230,15 @@ function addMessage(type,text,attachment=null){
 function showTyping(){
 
     const chat =
-        document.getElementById("chat");
+        document.getElementById(
+            "chat"
+        );
+
 
     const message =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     message.className =
         "message ai";
@@ -911,79 +1246,323 @@ function showTyping(){
     message.id =
         "typingMessage";
 
+
     message.innerHTML = `
-        <div class="avatar">R</div>
+
+        <div class="avatar">
+            R
+        </div>
 
         <div class="bubble">
 
             <div class="typing">
+
                 <span class="dot"></span>
                 <span class="dot"></span>
                 <span class="dot"></span>
+
             </div>
 
         </div>
+
     `;
+
 
     chat.appendChild(message);
 
     chat.scrollTop =
         chat.scrollHeight;
+
 }
 
+
+/* REMOVE TYPING */
 
 function removeTyping(){
 
     const typing =
-        document.getElementById("typingMessage");
+        document.getElementById(
+            "typingMessage"
+        );
 
     if(typing){
+
         typing.remove();
+
     }
+
 }
 
 
-/* BASIC AI DEMO */
+/* AI */
 
 function generateReply(text){
 
     const t =
-        (text || "").toLowerCase();
+        (text || "")
+        .toLowerCase();
 
-    if(t.includes("roblox")){
 
-        return "🎮 RYXONGPT idea:\n\nCreate a fast Roblox escape game with checkpoints, coins, speed upgrades and random events.\n\nIf you want, you can build it completely from Roblox Studio Lite.";
+    /* YOUTUBE */
+
+    if(
+        t.includes("youtube") ||
+        t.includes("youtube-ի") ||
+        t.includes("yt") ||
+        t.includes("channel") ||
+        t.includes("subscriber") ||
+        t.includes("subscribers") ||
+        t.includes("բաժանորդ")
+    ){
+
+        if(
+            t.includes("short") ||
+            t.includes("shorts")
+        ){
+
+            return `📺 YouTube Shorts-ի գաղափարներ.
+
+🎮 Roblox gameplay
+⚡ Funny gaming moment
+🔥 Free Fire clutch
+👀 Secret / tips
+🏆 Challenge
+💀 Fail → Win
+🚀 Before / After
+
+Եթե gaming channel ես անում, Shorts-ը կարող ես պահել կարճ, արագ և հետաքրքիր։`;
+
+        }
+
+
+        if(
+            t.includes("name") ||
+            t.includes("անուն")
+        ){
+
+            return `🔥 YouTube gaming անուններ.
+
+RYXON
+ONYX
+VANTA
+UMBRA
+VOID
+GRIM
+VEIL
+CRYPT
+
+Կարող եմ նաև ստեղծել dark-style unique անուններ։`;
+
+        }
+
+
+        if(
+            t.includes("subscriber") ||
+            t.includes("բաժանորդ")
+        ){
+
+            return `📈 YouTube subscribers-ի համար.
+
+• Կատարիր կարճ Shorts
+• Առաջին վայրկյաններին հետաքրքիր պահ դիր
+• Օգտագործիր պարզ վերնագիր
+• Պահիր նույն gaming style-ը
+• Վերբեռնիր կանոնավոր
+
+Կարող եմ նաև քեզ համար կազմել 7-օրյա YouTube Shorts plan։`;
+
+        }
+
+
+        if(
+            t.includes("title") ||
+            t.includes("վերնագիր")
+        ){
+
+            return `🎬 YouTube title օրինակներ.
+
+🔥 I Tried The Hardest Roblox Challenge
+😱 Nobody Expected This...
+💀 The Fastest Escape Ever
+⚡ 1 HP Clutch!
+👀 You Won't Believe What Happened`;
+
+        }
+
+
+        if(
+            t.includes("hashtag") ||
+            t.includes("հեշթեգ")
+        ){
+
+            return `🏷️ Gaming hashtags.
+
+#Roblox
+#RobloxGaming
+#Gaming
+#Shorts
+#YouTubeShorts
+#Gamer
+#RYXON
+#RobloxShorts`;
+
+        }
+
+
+        return `📺 Այո՛, RYXONGPT-ը կարող է օգնել YouTube-ի հարցերով։
+
+Կարող ես հարցնել՝
+
+🎬 Shorts-ի գաղափար
+📈 Subscribers
+🔥 Channel name
+🏷️ Hashtags
+✍️ Title
+📝 Description
+🎮 Gaming content
+
+Գրիր կոնկրետ հարցդ։`;
 
     }
 
-    if(t.includes("website") ||
-       t.includes("html")){
 
-        return "🌐 I can help you build an HTML website.\n\nRYXONGPT can make a mobile-friendly dark/purple design with buttons, animations, sections and effects.";
+    /* ROBLOX */
 
-    }
+    if(
+        t.includes("roblox")
+    ){
 
-    if(t.includes("name")){
+        return `🎮 RYXONGPT Roblox idea:
 
-        return "👾 Some dark gaming names:\n\nONYX\nRYXON\nVANTA\nUMBRA\nVOID\nGRIM\nVEIL\nCRYPT";
+Ստեղծիր fast escape game՝
 
-    }
+🏃 Speed upgrades
+💰 Coins
+🚪 Random doors
+👹 Giant NPC
+🏆 Leaderboard
+⚡ Checkpoints
+🎁 Rewards
 
-    if(t.includes("bio")){
-
-        return "🖤 RYXON RBX\n🎮 Roblox Creator\n⚡ Gaming & Scripts\n🌑 Dark Style\n🚀 Road to 100 Subscribers";
-
-    }
-
-    if(t.includes("hello") ||
-       t.includes("hi") ||
-       t.includes("barev")){
-
-        return "👋 Barev! Ես RYXONGPT-ն եմ։ Ինչո՞վ օգնեմ քեզ։";
+Կարող եմ նաև օգնել Roblox Studio Lite-ի script-երով։`;
 
     }
 
-    return "🤖 RYXONGPT-ը պատրաստ է օգնել։\n\nԳրիր ինչ ես ուզում ստեղծել, և ես կփորձեմ օգնել քայլ առ քայլ։";
+
+    /* WEBSITE */
+
+    if(
+        t.includes("website") ||
+        t.includes("html") ||
+        t.includes("կայք")
+    ){
+
+        return `🌐 Այո։
+
+Կարող եմ օգնել HTML website սարքել՝
+
+🖤 Dark design
+💜 Purple effects
+📱 Mobile friendly
+🔘 Buttons
+💬 Chat
+📷 Camera
+🖼️ Photo
+📎 Files
+🎤 Voice`;
+
+    }
+
+
+    /* GAMING NAME */
+
+    if(
+        t.includes("gaming name") ||
+        t.includes("game name") ||
+        t.includes("անուն")
+    ){
+
+        return `👾 Dark gaming names:
+
+ONYX
+RYXON
+VANTA
+UMBRA
+VOID
+GRIM
+VEIL
+CRYPT
+NOX
+DARKX`;
+
+    }
+
+
+    /* BIO */
+
+    if(
+        t.includes("bio") ||
+        t.includes("կենսագրություն")
+    ){
+
+        return `🖤 RYXON RBX
+🎮 Roblox Creator
+⚡ Gaming & Scripts
+🌑 Dark Style
+🚀 Road to 100 Subscribers`;
+
+    }
+
+
+    /* GREETING */
+
+    if(
+        t.includes("hello") ||
+        t.includes("hi") ||
+        t.includes("barev") ||
+        t.includes("բարև") ||
+        t.includes("բարեւ")
+    ){
+
+        return "👋 Բարև! Ես RYXONGPT-ն եմ։ Գրիր հարցդ, և կփորձեմ օգնել։";
+
+    }
+
+
+    /* HELP */
+
+    if(
+        t.includes("help") ||
+        t.includes("օգնիր") ||
+        t.includes("ինչ կարող ես")
+    ){
+
+        return `🤖 Ես RYXONGPT-ն եմ։
+
+Կարող եմ օգնել՝
+
+🎮 Roblox
+🌐 HTML / Website
+📺 YouTube
+🔥 Gaming
+✍️ Text / Bio
+💡 Ideas
+📱 Mobile projects
+
+Գրիր՝ ինչ ես ուզում։`;
+
+    }
+
+
+    /* DEFAULT */
+
+    return `🤖 RYXONGPT
+
+Հարցդ ստացա։
+
+Այս տարբերակում ես կարող եմ պատասխանել հիմնական թեմաներին, օրինակ՝ Roblox, YouTube, Gaming, HTML և այլն։
+
+📺 Եթե YouTube-ի հարց ունես՝ ուղղակի գրիր հարցդ։`;
 
 }
 
@@ -996,6 +1575,7 @@ function startVoice(){
         window.SpeechRecognition ||
         window.webkitSpeechRecognition;
 
+
     if(!SpeechRecognition){
 
         alert(
@@ -1003,69 +1583,104 @@ function startVoice(){
         );
 
         return;
+
     }
+
 
     const recognition =
         new SpeechRecognition();
 
-    recognition.lang = "hy-AM";
 
-    recognition.interimResults = false;
+    recognition.lang =
+        "hy-AM";
 
-    recognition.continuous = false;
+    recognition.interimResults =
+        false;
 
-    recognition.onstart = function(){
+    recognition.continuous =
+        false;
 
-        document.getElementById("messageInput")
-            .placeholder =
-            "Listening... 🎤";
 
-    };
+    recognition.onstart =
+        function(){
 
-    recognition.onresult = function(event){
+            document
+                .getElementById(
+                    "messageInput"
+                )
+                .placeholder =
+                "Listening... 🎤";
 
-        const result =
-            event.results[0][0].transcript;
+        };
 
-        document.getElementById("messageInput")
-            .value = result;
 
-    };
+    recognition.onresult =
+        function(event){
 
-    recognition.onend = function(){
+            const result =
+                event.results[0][0]
+                .transcript;
 
-        document.getElementById("messageInput")
-            .placeholder =
-            "Message RYXONGPT...";
 
-    };
+            document
+                .getElementById(
+                    "messageInput"
+                )
+                .value =
+                result;
 
-    recognition.onerror = function(){
+        };
 
-        document.getElementById("messageInput")
-            .placeholder =
-            "Message RYXONGPT...";
 
-    };
+    recognition.onend =
+        function(){
+
+            document
+                .getElementById(
+                    "messageInput"
+                )
+                .placeholder =
+                "Message RYXONGPT...";
+
+        };
+
+
+    recognition.onerror =
+        function(){
+
+            document
+                .getElementById(
+                    "messageInput"
+                )
+                .placeholder =
+                "Message RYXONGPT...";
+
+        };
+
 
     recognition.start();
+
 }
 
 
 /* ENTER */
 
-document.getElementById("messageInput")
-    .addEventListener("keydown",function(event){
+document
+    .getElementById("messageInput")
+    .addEventListener(
+        "keydown",
+        function(event){
 
-        if(event.key === "Enter"){
+            if(event.key === "Enter"){
 
-            event.preventDefault();
+                event.preventDefault();
 
-            sendMessage();
+                sendMessage();
+
+            }
 
         }
-
-    });
+    );
 
 
 /* HISTORY */
@@ -1076,8 +1691,75 @@ function saveHistory(text){
         return;
     }
 
+
     const history =
-        document.getElementById("history");
+        document.getElementById(
+            "history"
+        );
+
 
     const item =
-        document.createElement("
+        document.createElement(
+            "div"
+        );
+
+    item.className =
+        "history-item";
+
+
+    let title = text;
+
+
+    if(title.length > 32){
+
+        title =
+            title.substring(0,32)
+            + "...";
+
+    }
+
+
+    item.textContent =
+        "💬 " + title;
+
+
+    item.onclick =
+        function(){
+
+            document
+                .getElementById(
+                    "messageInput"
+                )
+                .value =
+                text;
+
+        };
+
+
+    history.prepend(item);
+
+}
+
+
+/* KEYBOARD SHORTCUT */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.ctrlKey &&
+            event.key === "Enter"
+        ){
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+            </html>
