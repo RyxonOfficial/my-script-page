@@ -3,168 +3,585 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyber Lab</title>
+<title>CYBER LAB</title>
 
 <style>
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  background: #050505;
-  color: #00ff66;
-  font-family: monospace;
-  overflow: hidden;
+    margin: 0;
+    background: #030303;
+    color: #00ff66;
+    font-family: monospace;
 }
+
+/* LOADING */
 
 #loader {
-  position: fixed;
-  inset: 0;
-  background: #050505;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
+    position: fixed;
+    inset: 0;
+    background: #030303;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
 }
 
-.logo {
-  font-size: 32px;
-  margin-bottom: 25px;
-  text-shadow: 0 0 15px #00ff66;
+.loading-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-shadow: 0 0 20px #00ff66;
 }
 
-.bar {
-  width: 80%;
-  max-width: 500px;
-  height: 18px;
-  border: 1px solid #00ff66;
-  padding: 3px;
+.loading-bar {
+    width: 80%;
+    max-width: 500px;
+    height: 20px;
+    border: 1px solid #00ff66;
+    padding: 3px;
 }
 
 .progress {
-  width: 0%;
-  height: 100%;
-  background: #00ff66;
-  box-shadow: 0 0 15px #00ff66;
+    width: 0%;
+    height: 100%;
+    background: #00ff66;
+    box-shadow: 0 0 15px #00ff66;
 }
 
 #percent {
-  margin-top: 12px;
-  font-size: 20px;
+    margin-top: 12px;
+    font-size: 22px;
 }
 
 #status {
-  margin-top: 8px;
-  color: #aaa;
+    margin-top: 8px;
+    color: #00cc55;
 }
+
+/* MAIN */
 
 #main {
-  display: none;
-  min-height: 100vh;
-  padding: 30px;
+    display: none;
 }
 
-h1 {
-  text-shadow: 0 0 15px #00ff66;
+/* BANNER */
+
+.banner {
+    text-align: center;
+    padding: 30px 15px;
+    border-bottom: 1px solid #00ff66;
+    box-shadow: 0 0 20px rgba(0,255,102,.35);
+}
+
+.banner-title {
+    font-size: 36px;
+    font-weight: bold;
+    text-shadow:
+        0 0 8px #00ff66,
+        0 0 20px #00ff66;
+}
+
+.banner-subtitle {
+    margin-top: 10px;
+    letter-spacing: 3px;
+    color: #00cc55;
+}
+
+/* CONTENT */
+
+.container {
+    width: 92%;
+    max-width: 850px;
+    margin: 30px auto;
 }
 
 .panel {
-  border: 1px solid #00ff66;
-  padding: 20px;
-  margin-top: 25px;
-  max-width: 700px;
-  box-shadow: 0 0 20px #003d19;
+    border: 1px solid #00ff66;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 15px rgba(0,255,102,.2);
+}
+
+.panel h2 {
+    margin-top: 0;
+}
+
+/* SCORE */
+
+.score {
+    text-align: center;
+    font-size: 22px;
+}
+
+/* CHALLENGES */
+
+.challenge {
+    border: 1px solid #075d2b;
+    padding: 18px;
+    margin-top: 15px;
+}
+
+.challenge h3 {
+    color: #00ff66;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #000;
+    color: #00ff66;
+    border: 1px solid #00ff66;
+    outline: none;
+    font-family: monospace;
 }
 
 button {
-  background: transparent;
-  color: #00ff66;
-  border: 1px solid #00ff66;
-  padding: 12px 20px;
-  cursor: pointer;
-  font-family: monospace;
+    margin-top: 12px;
+    padding: 12px 18px;
+    background: #00ff66;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-family: monospace;
+    font-weight: bold;
 }
 
 button:hover {
-  background: #00ff66;
-  color: #000;
+    background: #00cc55;
+}
+
+.result {
+    margin-top: 10px;
+}
+
+/* GAME PASSES */
+
+.gamepasses {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.gamepass {
+    border: 1px solid #075d2b;
+    padding: 20px;
+    text-align: center;
+}
+
+.gamepass h3 {
+    margin-top: 0;
+}
+
+.gamepass button {
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+
+    .banner-title {
+        font-size: 27px;
+    }
+
+    .banner-subtitle {
+        font-size: 11px;
+    }
+
+    .panel {
+        padding: 18px;
+    }
+
+    .gamepasses {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- LOADING -->
+
 <div id="loader">
-  <div class="logo">[ CYBER LAB ]</div>
 
-  <div class="bar">
-    <div class="progress" id="progress"></div>
-  </div>
+    <div class="loading-title">
+        [ CYBER LAB ]
+    </div>
 
-  <div id="percent">0%</div>
-  <div id="status">Initializing...</div>
+    <div class="loading-bar">
+        <div class="progress" id="progress"></div>
+    </div>
+
+    <div id="percent">0%</div>
+
+    <div id="status">
+        Initializing...
+    </div>
+
 </div>
+
+
+<!-- MAIN -->
 
 <div id="main">
-  <h1>CYBER LAB</h1>
 
-  <div class="panel">
-    <p>> SYSTEM STATUS: ONLINE</p>
-    <p>> SECURITY MODE: DEMO</p>
-    <p>> CONNECTION: SAFE</p>
-    <br>
+    <!-- HACKER BANNER -->
 
-    <button onclick="startChallenge()">
-      START CHALLENGE
-    </button>
+    <div class="banner">
 
-    <p id="result"></p>
-  </div>
+        <div class="banner-title">
+            ⚡ CYBER LAB ⚡
+        </div>
+
+        <div class="banner-subtitle">
+            SECURITY • CTF • CHALLENGES
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <!-- SCORE -->
+
+        <div class="panel score">
+            SCORE:
+            <span id="score">0</span>
+            / 300
+        </div>
+
+
+        <!-- CHALLENGES -->
+
+        <div class="panel">
+
+            <h2>🧩 CHALLENGES</h2>
+
+            <div class="challenge">
+
+                <h3>
+                    Challenge #1 — Access Code
+                </h3>
+
+                <p>
+                    Find the secret code:
+                    <b>CYBER2026</b>
+                </p>
+
+                <input
+                    id="answer1"
+                    placeholder="Enter answer..."
+                >
+
+                <button onclick="checkChallenge(1)">
+                    VERIFY
+                </button>
+
+                <div
+                    class="result"
+                    id="result1">
+                </div>
+
+            </div>
+
+
+            <div class="challenge">
+
+                <h3>
+                    Challenge #2 — Security
+                </h3>
+
+                <p>
+                    Type the word:
+                    <b>SECURE</b>
+                </p>
+
+                <input
+                    id="answer2"
+                    placeholder="Enter answer..."
+                >
+
+                <button onclick="checkChallenge(2)">
+                    VERIFY
+                </button>
+
+                <div
+                    class="result"
+                    id="result2">
+                </div>
+
+            </div>
+
+
+            <div class="challenge">
+
+                <h3>
+                    Challenge #3 — Final Level
+                </h3>
+
+                <p>
+                    Enter:
+                    <b>ACCESS</b>
+                </p>
+
+                <input
+                    id="answer3"
+                    placeholder="Enter answer..."
+                >
+
+                <button onclick="checkChallenge(3)">
+                    VERIFY
+                </button>
+
+                <div
+                    class="result"
+                    id="result3">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- GAME PASSES -->
+
+        <div class="panel">
+
+            <h2>🎮 GAME PASSES</h2>
+
+            <div class="gamepasses">
+
+                <!-- OWNER -->
+
+                <div class="gamepass">
+
+                    <h3>👑 OWNER PASS</h3>
+
+                    <p>
+                        Special Owner access
+                    </p>
+
+                    <button onclick="openPass('1983026270')">
+                        OPEN
+                    </button>
+
+                </div>
+
+
+                <!-- CYBER PRO -->
+
+                <div class="gamepass">
+
+                    <h3>⚡ CYBER PRO</h3>
+
+                    <p>
+                        Premium Cyber access
+                    </p>
+
+                    <button onclick="openPass('1981610268')">
+                        OPEN
+                    </button>
+
+                </div>
+
+
+                <!-- VIP -->
+
+                <div class="gamepass">
+
+                    <h3>💎 VIP ACCESS</h3>
+
+                    <p>
+                        VIP benefits
+                    </p>
+
+                    <button onclick="openPass('1981142286')">
+                        OPEN
+                    </button>
+
+                </div>
+
+
+                <!-- PREMIUM -->
+
+                <div class="gamepass">
+
+                    <h3>🔥 PREMIUM ACCESS</h3>
+
+                    <p>
+                        Premium benefits
+                    </p>
+
+                    <button onclick="openPass('1981952280')">
+                        OPEN
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
+
 <script>
+
+/* =========================
+   LOADING
+========================= */
+
 let progress = 0;
 
-const progressBar = document.getElementById("progress");
-const percent = document.getElementById("percent");
-const status = document.getElementById("status");
+const progressBar =
+    document.getElementById("progress");
 
-const messages = [
-  "Initializing...",
-  "Loading security modules...",
-  "Checking demo environment...",
-  "Starting cyber lab...",
-  "Finalizing..."
+const percent =
+    document.getElementById("percent");
+
+const status =
+    document.getElementById("status");
+
+
+const loadingMessages = [
+    "Initializing...",
+    "Loading security modules...",
+    "Checking challenges...",
+    "Loading Game Passes...",
+    "System ready!"
 ];
 
-const timer = setInterval(() => {
-  progress++;
 
-  progressBar.style.width = progress + "%";
-  percent.textContent = progress + "%";
+const loadingTimer =
+setInterval(function() {
 
-  if (progress % 20 === 0) {
-    status.textContent =
-      messages[Math.min(progress / 20, messages.length - 1)];
-  }
+    progress++;
 
-  if (progress >= 100) {
-    clearInterval(timer);
+    progressBar.style.width =
+        progress + "%";
 
-    setTimeout(() => {
-      document.getElementById("loader").style.display = "none";
-      document.getElementById("main").style.display = "block";
-      document.body.style.overflow = "auto";
-    }, 500);
-  }
-}, 35);
+    percent.textContent =
+        progress + "%";
 
-function startChallenge() {
-  document.getElementById("result").textContent =
-    "> Demo challenge activated. Good luck!";
+
+    if (progress % 20 === 0) {
+
+        let index =
+            Math.min(
+                Math.floor(progress / 20),
+                loadingMessages.length - 1
+            );
+
+        status.textContent =
+            loadingMessages[index];
+    }
+
+
+    if (progress >= 100) {
+
+        clearInterval(loadingTimer);
+
+        setTimeout(function() {
+
+            document.getElementById("loader")
+                .style.display = "none";
+
+            document.getElementById("main")
+                .style.display = "block";
+
+        }, 600);
+    }
+
+}, 30);
+
+
+/* =========================
+   CHALLENGES
+========================= */
+
+let score = 0;
+
+let completed = {
+    1: false,
+    2: false,
+    3: false
+};
+
+
+function checkChallenge(number) {
+
+    let input =
+        document.getElementById(
+            "answer" + number
+        );
+
+    let result =
+        document.getElementById(
+            "result" + number
+        );
+
+    let answer =
+        input.value.trim().toUpperCase();
+
+    let correct = "";
+
+
+    if (number === 1) {
+        correct = "CYBER2026";
+    }
+
+    if (number === 2) {
+        correct = "SECURE";
+    }
+
+    if (number === 3) {
+        correct = "ACCESS";
+    }
+
+
+    if (answer === correct) {
+
+        if (!completed[number]) {
+
+            completed[number] = true;
+
+            score += 100;
+
+            document.getElementById("score")
+                .textContent = score;
+        }
+
+        result.textContent =
+            "✓ ACCESS GRANTED";
+
+    } else {
+
+        result.textContent =
+            "✗ ACCESS DENIED";
+    }
 }
+
+
+/* =========================
+   GAME PASS LINKS
+========================= */
+
+function openPass(id) {
+
+    window.open(
+        "https://www.roblox.com/game-pass/" +
+        id,
+        "_blank"
+    );
+
+}
+
 </script>
 
 </body>
