@@ -2,241 +2,213 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RYXON PRANK</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>RYXON // SYSTEM</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  background:#050505;
+  background:#020303;
   color:#00ff66;
-  font-family:monospace;
+  font-family:Consolas,monospace;
   min-height:100vh;
   overflow:hidden;
 }
 
-.container{
+.screen{
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:20px;
+  padding:18px;
 }
 
 .card{
   width:100%;
-  max-width:700px;
-  background:#080808;
+  max-width:760px;
+  background:#050807;
   border:1px solid #00ff66;
   border-radius:18px;
-  padding:25px;
-  box-shadow:0 0 30px rgba(0,255,100,.18);
+  padding:22px;
+  box-shadow:0 0 35px #00ff6625;
 }
 
 .logo{
   text-align:center;
-  font-size:28px;
+  font-size:27px;
   font-weight:bold;
-  margin-bottom:8px;
   text-shadow:0 0 15px #00ff66;
+  margin-bottom:5px;
 }
 
 .sub{
   text-align:center;
-  color:#777;
-  margin-bottom:20px;
+  color:#587060;
+  margin-bottom:18px;
 }
 
 .terminal{
   height:330px;
   background:#000;
-  border:1px solid #143b22;
+  border:1px solid #123b23;
   border-radius:12px;
-  padding:15px;
+  padding:14px;
   overflow:hidden;
   font-size:14px;
-  line-height:1.7;
+  line-height:1.65;
 }
 
-.line{
-  margin-bottom:3px;
-}
-
-.warning{
-  color:#ff3333;
-}
-
-.yellow{
-  color:#ffd000;
-}
+.red{color:#ff3333}
+.yellow{color:#ffd000}
+.white{color:#fff}
 
 .progressBox{
-  margin-top:18px;
-  height:20px;
+  height:18px;
   border:1px solid #00ff66;
   border-radius:20px;
+  margin-top:16px;
   overflow:hidden;
-  display:none;
 }
 
 .progress{
-  width:0%;
   height:100%;
+  width:0%;
   background:#00ff66;
-  box-shadow:0 0 15px #00ff66;
-  transition:width .2s;
+  box-shadow:0 0 18px #00ff66;
+  transition:.15s;
 }
 
 .status{
   text-align:center;
-  margin-top:10px;
-  min-height:22px;
+  margin-top:9px;
+  color:#8cffad;
 }
 
 button{
   width:100%;
-  margin-top:18px;
+  margin-top:17px;
   padding:15px;
-  border:none;
+  border:0;
   border-radius:12px;
   background:#00ff66;
-  color:#000;
-  font-size:17px;
+  color:#001407;
   font-weight:bold;
-  cursor:pointer;
+  font-size:16px;
 }
 
-button:active{
-  transform:scale(.98);
-}
+button:active{transform:scale(.98)}
 
-.prank{
+#dashboard{
   display:none;
-  text-align:center;
-  padding:30px 10px 10px;
+  min-height:100vh;
+  padding:18px;
+  background:
+    radial-gradient(circle at top,#063b20 0,#020303 38%);
+  overflow:auto;
 }
 
-.prank h1{
-  font-size:38px;
-  color:#fff;
-  margin-bottom:12px;
+.dash{
+  max-width:1000px;
+  margin:auto;
 }
 
-.prank p{
-  color:#00ff66;
-  font-size:18px;
+.dashHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+  flex-wrap:wrap;
 }
 
-.small{
-  margin-top:15px;
-  color:#666;
+.title{
+  font-size:27px;
+  font-weight:bold;
+  text-shadow:0 0 15px #00ff66;
+}
+
+.online{
+  border:1px solid #00ff66;
+  border-radius:20px;
+  padding:8px 13px;
   font-size:12px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+}
+
+.box{
+  background:#050807dd;
+  border:1px solid #124c2b;
+  border-radius:14px;
+  padding:17px;
+}
+
+.box h3{
+  color:#8affad;
+  margin-bottom:10px;
+}
+
+.value{
+  font-size:25px;
+  color:#fff;
+}
+
+.bar{
+  height:9px;
+  background:#102016;
+  border-radius:10px;
+  margin-top:12px;
+  overflow:hidden;
+}
+
+.fill{
+  height:100%;
+  width:70%;
+  background:#00ff66;
+  box-shadow:0 0 12px #00ff66;
+}
+
+.code{
+  margin-top:15px;
+  height:230px;
+  overflow:hidden;
+  color:#00c94f;
+  font-size:12px;
+  line-height:1.6;
+  border-top:1px solid #123b23;
+  padding-top:12px;
+}
+
+.access{
+  text-align:center;
+  margin-top:18px;
+  padding:18px;
+  border:1px solid #00ff66;
+  border-radius:14px;
+  color:#fff;
+  font-size:20px;
+  text-shadow:0 0 15px #00ff66;
+}
+
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr}
+  .terminal{height:290px;font-size:12px}
+  .title{font-size:22px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- FIRST SCREEN -->
 
+<div class="screen" id="firstScreen">
   <div class="card">
 
     <div class="logo">☠ RYXON TERMINAL</div>
-    <div class="sub">Security System • Online</div>
-
-    <div class="terminal" id="terminal">
-      <div class="line">> Initializing system...</div>
-    </div>
-
-    <div class="progressBox" id="progressBox">
-      <div class="progress" id="progress"></div>
-    </div>
-
-    <div class="status" id="status">
-      Waiting for user...
-    </div>
-
-    <button id="startBtn" onclick="startPrank()">
-      ⚡ START SYSTEM SCAN
-    </button>
-
-    <div class="prank" id="prank">
-      <h1>😂 PRANK!</h1>
-      <p>Nothing was hacked.</p>
-      <div class="small">
-        This was only a harmless fake terminal demo 😈
-      </div>
-    </div>
-
-  </div>
-
-</div>
-
-<script>
-
-const terminal = document.getElementById("terminal");
-const progressBox = document.getElementById("progressBox");
-const progress = document.getElementById("progress");
-const status = document.getElementById("status");
-const startBtn = document.getElementById("startBtn");
-const prank = document.getElementById("prank");
-
-function addLine(text, cls=""){
-  const div = document.createElement("div");
-  div.className = "line " + cls;
-  div.textContent = "> " + text;
-
-  terminal.appendChild(div);
-  terminal.scrollTop = terminal.scrollHeight;
-}
-
-function wait(ms){
-  return new Promise(resolve => setTimeout(resolve,ms));
-}
-
-async function startPrank(){
-
-  startBtn.disabled = true;
-  startBtn.style.display = "none";
-
-  terminal.innerHTML = "";
-  progressBox.style.display = "block";
-
-  addLine("Connecting to secure terminal...");
-  await wait(800);
-
-  addLine("Connection established.");
-  await wait(700);
-
-  addLine("Checking system...");
-  await wait(800);
-
-  addLine("Scanning files...");
-  status.textContent = "Scanning...";
-
-  for(let i=0;i<=100;i++){
-
-    progress.style.width = i + "%";
-
-    if(i === 25){
-      addLine("Analyzing system files...");
-    }
-
-    if(i === 50){
-      addLine("Checking security modules...");
-    }
-
-    if(i === 75){
-      addLine("Running final scan...");
-    }
-
-    if(i === 100){
-      addLine("Scan completed.");
-    }
-
-    await wait(35
+    <div class="sub">SECURITY SIMULATION</div>
