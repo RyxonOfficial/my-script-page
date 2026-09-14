@@ -2,202 +2,241 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>CYBER LAB</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-body {
-    margin: 0;
-    background: #030303;
-    color: #00ff66;
-    font-family: monospace;
+body{
+  background:#050505;
+  color:#00ff66;
+  font-family:monospace;
+  min-height:100vh;
 }
 
-/* LOADING */
-
-#loader {
-    position: fixed;
-    inset: 0;
-    background: #030303;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
+button{
+  font-family:monospace;
+  cursor:pointer;
 }
 
-.loading-title {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 25px;
-    text-shadow: 0 0 20px #00ff66;
+/* LOADER */
+#loader{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:9999;
 }
 
-.loading-bar {
-    width: 80%;
-    max-width: 500px;
-    height: 20px;
-    border: 1px solid #00ff66;
-    padding: 3px;
+.loader-title{
+  font-size:30px;
+  text-shadow:0 0 15px #00ff66;
+  margin-bottom:20px;
 }
 
-.progress {
-    width: 0%;
-    height: 100%;
-    background: #00ff66;
-    box-shadow: 0 0 15px #00ff66;
+.progress-box{
+  width:80%;
+  max-width:500px;
+  height:20px;
+  border:1px solid #00ff66;
 }
 
-#percent {
-    margin-top: 12px;
-    font-size: 22px;
+#progress{
+  width:0%;
+  height:100%;
+  background:#00ff66;
+  box-shadow:0 0 15px #00ff66;
 }
 
-#status {
-    margin-top: 8px;
-    color: #00cc55;
+#percent{
+  margin-top:10px;
 }
 
 /* MAIN */
-
-#main {
-    display: none;
+#main{
+  display:none;
+  padding-bottom:50px;
 }
 
-/* BANNER */
-
-.banner {
-    text-align: center;
-    padding: 30px 15px;
-    border-bottom: 1px solid #00ff66;
-    box-shadow: 0 0 20px rgba(0,255,102,.35);
+header{
+  padding:40px 20px;
+  text-align:center;
+  border-bottom:1px solid #00ff66;
+  background:
+    radial-gradient(circle,#073b18 0%,#050505 60%);
 }
 
-.banner-title {
-    font-size: 36px;
-    font-weight: bold;
-    text-shadow:
-        0 0 8px #00ff66,
-        0 0 20px #00ff66;
+header h1{
+  font-size:42px;
+  text-shadow:0 0 20px #00ff66;
 }
 
-.banner-subtitle {
-    margin-top: 10px;
-    letter-spacing: 3px;
-    color: #00cc55;
+header p{
+  margin-top:10px;
 }
 
-/* CONTENT */
-
-.container {
-    width: 92%;
-    max-width: 850px;
-    margin: 30px auto;
+/* STATS */
+.stats{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin:25px;
 }
 
-.panel {
-    border: 1px solid #00ff66;
-    padding: 25px;
-    margin-bottom: 25px;
-    box-shadow: 0 0 15px rgba(0,255,102,.2);
+.stat{
+  border:1px solid #00ff66;
+  padding:15px 25px;
+  box-shadow:0 0 10px #003d19;
 }
 
-.panel h2 {
-    margin-top: 0;
+/* SECTIONS */
+section{
+  width:92%;
+  max-width:1000px;
+  margin:30px auto;
+  padding:25px;
+  border:1px solid #00ff66;
+  background:#080808;
+  box-shadow:0 0 15px #003d19;
 }
 
-/* SCORE */
-
-.score {
-    text-align: center;
-    font-size: 22px;
+h2{
+  margin-bottom:20px;
 }
 
 /* CHALLENGES */
-
-.challenge {
-    border: 1px solid #075d2b;
-    padding: 18px;
-    margin-top: 15px;
+.challenge{
+  border:1px solid #176b35;
+  padding:18px;
+  margin:15px 0;
 }
 
-.challenge h3 {
-    color: #00ff66;
+.challenge input{
+  width:100%;
+  padding:12px;
+  margin:12px 0;
+  background:#000;
+  border:1px solid #00ff66;
+  color:#00ff66;
+  outline:none;
 }
 
-input {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    background: #000;
-    color: #00ff66;
-    border: 1px solid #00ff66;
-    outline: none;
-    font-family: monospace;
+.btn{
+  padding:10px 18px;
+  background:#00ff66;
+  color:#000;
+  border:none;
+  font-weight:bold;
 }
 
-button {
-    margin-top: 12px;
-    padding: 12px 18px;
-    background: #00ff66;
-    color: #000;
-    border: none;
-    cursor: pointer;
-    font-family: monospace;
-    font-weight: bold;
+.btn:hover{
+  box-shadow:0 0 15px #00ff66;
 }
 
-button:hover {
-    background: #00cc55;
-}
-
-.result {
-    margin-top: 10px;
+.done{
+  color:#888;
 }
 
 /* GAME PASSES */
-
-.gamepasses {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
 }
 
-.gamepass {
-    border: 1px solid #075d2b;
-    padding: 20px;
-    text-align: center;
+.card{
+  border:1px solid #176b35;
+  padding:20px;
+  text-align:center;
 }
 
-.gamepass h3 {
-    margin-top: 0;
+.card h3{
+  margin-bottom:15px;
 }
 
-.gamepass button {
-    width: 100%;
+/* SHOP */
+.shop-card{
+  border:1px solid #176b35;
+  padding:20px;
+  margin:15px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
 }
 
-@media (max-width: 600px) {
+/* EVENTS */
+.event{
+  border:1px solid #176b35;
+  padding:18px;
+  margin:12px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
 
-    .banner-title {
-        font-size: 27px;
-    }
+.active{
+  border-color:#00ff66;
+  box-shadow:0 0 15px #00ff66;
+}
 
-    .banner-subtitle {
-        font-size: 11px;
-    }
+#activeEvent{
+  margin-top:20px;
+  padding:20px;
+  text-align:center;
+  border:1px solid #00ff66;
+  display:none;
+}
 
-    .panel {
-        padding: 18px;
-    }
+#eventTimer{
+  font-size:28px;
+  margin-top:10px;
+}
 
-    .gamepasses {
-        grid-template-columns: 1fr;
-    }
+/* ADMIN */
+.admin{
+  border-color:#ffcc00;
+}
+
+.admin button{
+  margin:5px;
+}
+
+#adminPanel{
+  display:none;
+}
+
+.admin-input{
+  width:100%;
+  padding:12px;
+  background:#000;
+  color:#00ff66;
+  border:1px solid #00ff66;
+  margin:10px 0;
+}
+
+/* NOTIFICATION */
+#notice{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#00ff66;
+  color:#000;
+  padding:15px 20px;
+  display:none;
+  z-index:5000;
+  font-weight:bold;
 }
 </style>
 </head>
@@ -205,380 +244,598 @@ button:hover {
 <body>
 
 <!-- LOADING -->
-
 <div id="loader">
-
-    <div class="loading-title">
-        [ CYBER LAB ]
-    </div>
-
-    <div class="loading-bar">
-        <div class="progress" id="progress"></div>
-    </div>
-
-    <div id="percent">0%</div>
-
-    <div id="status">
-        Initializing...
-    </div>
-
+  <div class="loader-title">⚡ CYBER LAB ⚡</div>
+  <div class="progress-box">
+    <div id="progress"></div>
+  </div>
+  <div id="percent">0%</div>
 </div>
-
-
-<!-- MAIN -->
 
 <div id="main">
 
-    <!-- HACKER BANNER -->
-
-    <div class="banner">
-
-        <div class="banner-title">
-            ⚡ CYBER LAB ⚡
-        </div>
-
-        <div class="banner-subtitle">
-            SECURITY • CTF • CHALLENGES
-        </div>
-
-    </div>
-
-
-    <div class="container">
-
-        <!-- SCORE -->
-
-        <div class="panel score">
-            SCORE:
-            <span id="score">0</span>
-            / 300
-        </div>
-
-
-        <!-- CHALLENGES -->
-
-        <div class="panel">
-
-            <h2>🧩 CHALLENGES</h2>
-
-            <div class="challenge">
-
-                <h3>
-                    Challenge #1 — Access Code
-                </h3>
-
-                <p>
-                    Find the secret code:
-                    <b>CYBER2026</b>
-                </p>
-
-                <input
-                    id="answer1"
-                    placeholder="Enter answer..."
-                >
-
-                <button onclick="checkChallenge(1)">
-                    VERIFY
-                </button>
-
-                <div
-                    class="result"
-                    id="result1">
-                </div>
-
-            </div>
-
-
-            <div class="challenge">
-
-                <h3>
-                    Challenge #2 — Security
-                </h3>
-
-                <p>
-                    Type the word:
-                    <b>SECURE</b>
-                </p>
-
-                <input
-                    id="answer2"
-                    placeholder="Enter answer..."
-                >
-
-                <button onclick="checkChallenge(2)">
-                    VERIFY
-                </button>
-
-                <div
-                    class="result"
-                    id="result2">
-                </div>
-
-            </div>
-
-
-            <div class="challenge">
-
-                <h3>
-                    Challenge #3 — Final Level
-                </h3>
-
-                <p>
-                    Enter:
-                    <b>ACCESS</b>
-                </p>
-
-                <input
-                    id="answer3"
-                    placeholder="Enter answer..."
-                >
-
-                <button onclick="checkChallenge(3)">
-                    VERIFY
-                </button>
-
-                <div
-                    class="result"
-                    id="result3">
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- GAME PASSES -->
-
-        <div class="panel">
-
-            <h2>🎮 GAME PASSES</h2>
-
-            <div class="gamepasses">
-
-                <!-- OWNER -->
-
-                <div class="gamepass">
-
-                    <h3>👑 OWNER PASS</h3>
-
-                    <p>
-                        Special Owner access
-                    </p>
-
-                    <button onclick="openPass('1983026270')">
-                        OPEN
-                    </button>
-
-                </div>
-
-
-                <!-- CYBER PRO -->
-
-                <div class="gamepass">
-
-                    <h3>⚡ CYBER PRO</h3>
-
-                    <p>
-                        Premium Cyber access
-                    </p>
-
-                    <button onclick="openPass('1981610268')">
-                        OPEN
-                    </button>
-
-                </div>
-
-
-                <!-- VIP -->
-
-                <div class="gamepass">
-
-                    <h3>💎 VIP ACCESS</h3>
-
-                    <p>
-                        VIP benefits
-                    </p>
-
-                    <button onclick="openPass('1981142286')">
-                        OPEN
-                    </button>
-
-                </div>
-
-
-                <!-- PREMIUM -->
-
-                <div class="gamepass">
-
-                    <h3>🔥 PREMIUM ACCESS</h3>
-
-                    <p>
-                        Premium benefits
-                    </p>
-
-                    <button onclick="openPass('1981952280')">
-                        OPEN
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+<header>
+  <h1>⚡ CYBER LAB ⚡</h1>
+  <p>SECURITY • TECHNOLOGY • CTF</p>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    🪙 Coins: <span id="coins">0</span>
+  </div>
+
+  <div class="stat">
+    ⭐ Challenges: <span id="completed">0</span>
+  </div>
+</div>
+
+
+<!-- CHALLENGES -->
+<section>
+<h2>🎯 CHALLENGES</h2>
+
+<div class="challenge" id="challenge1">
+  <h3>Challenge #1 — Secure Code</h3>
+  <p>Find the secret code:</p>
+  <input id="answer1" placeholder="Enter code">
+  <button class="btn" onclick="checkChallenge(1)">SUBMIT</button>
+  <p id="result1"></p>
+</div>
+
+<div class="challenge" id="challenge2">
+  <h3>Challenge #2 — Access</h3>
+  <p>Enter the access code:</p>
+  <input id="answer2" placeholder="Enter code">
+  <button class="btn" onclick="checkChallenge(2)">SUBMIT</button>
+  <p id="result2"></p>
+</div>
+
+<div class="challenge" id="challenge3">
+  <h3>Challenge #3 — Cyber</h3>
+  <p>Enter the cyber code:</p>
+  <input id="answer3" placeholder="Enter code">
+  <button class="btn" onclick="checkChallenge(3)">SUBMIT</button>
+  <p id="result3"></p>
+</div>
+
+<div class="challenge" id="challenge4">
+  <h3>Challenge #4 — Firewall</h3>
+  <p>What protects a network?</p>
+  <input id="answer4" placeholder="Enter answer">
+  <button class="btn" onclick="checkChallenge(4)">SUBMIT</button>
+  <p id="result4"></p>
+</div>
+
+<div class="challenge" id="challenge5">
+  <h3>Challenge #5 — Terminal</h3>
+  <p>Type the terminal command:</p>
+  <input id="answer5" placeholder="Enter answer">
+  <button class="btn" onclick="checkChallenge(5)">SUBMIT</button>
+  <p id="result5"></p>
+</div>
+
+</section>
+
+
+<!-- GAME PASSES -->
+<section>
+<h2>🎟️ GAME PASSES</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>👑 Owner Pass</h3>
+<button class="btn" onclick="openPass('1983026270')">
+BUY
+</button>
+</div>
+
+<div class="card">
+<h3>⚡ Cyber Pro</h3>
+<button class="btn" onclick="openPass('1981610268')">
+BUY
+</button>
+</div>
+
+<div class="card">
+<h3>💎 VIP Access</h3>
+<button class="btn" onclick="openPass('1981142286')">
+BUY
+</button>
+</div>
+
+<div class="card">
+<h3>🔥 Premium Access</h3>
+<button class="btn" onclick="openPass('1981952280')">
+BUY
+</button>
+</div>
 
 </div>
+</section>
+
+
+<!-- SHOP -->
+<section>
+<h2>🛒 COIN SHOP</h2>
+
+<div class="shop-card">
+<div>
+<h3>🚀 Starter Pack</h3>
+<p>Reward: +500 Coins</p>
+</div>
+
+<button class="btn" onclick="buyPack(1,100)">
+100 🪙
+</button>
+</div>
+
+<div class="shop-card">
+<div>
+<h3>⚡ Cyber Starter</h3>
+<p>Reward: +1500 Coins</p>
+</div>
+
+<button class="btn" onclick="buyPack(1500,250)">
+250 🪙
+</button>
+</div>
+
+<div class="shop-card">
+<div>
+<h3>💎 Premium Pack</h3>
+<p>Reward: +5000 Coins</p>
+</div>
+
+<button class="btn" onclick="buyPack(5000,700)">
+700 🪙
+</button>
+</div>
+
+</section>
+
+
+<!-- EVENTS -->
+<section>
+<h2>🎉 EVENTS</h2>
+
+<div class="event" id="eventTaco">
+<div>
+<h3>🌮 Taco Event</h3>
+<p>Event duration: 5 minutes</p>
+</div>
+
+<button class="btn" onclick="activateEvent('🌮 TACO EVENT')">
+ACTIVATE
+</button>
+</div>
+
+
+<div class="event" id="eventCyber">
+<div>
+<h3>⚡ Cyber Event</h3>
+<p>Event duration: 5 minutes</p>
+</div>
+
+<button class="btn" onclick="activateEvent('⚡ CYBER EVENT')">
+ACTIVATE
+</button>
+</div>
+
+
+<div class="event" id="eventBann">
+<div>
+<h3>🎁 Bann Event</h3>
+<p>Event duration: 5 minutes</p>
+</div>
+
+<button class="btn" onclick="activateEvent('🎁 BANN EVENT')">
+ACTIVATE
+</button>
+</div>
+
+
+<div id="activeEvent">
+<div id="eventName"></div>
+<div id="eventTimer">05:00</div>
+</div>
+
+</section>
+
+
+<!-- ADMIN -->
+<section class="admin">
+<h2>👑 ADMIN PANEL</h2>
+
+<p>Admin panel access:</p>
+
+<input
+  class="admin-input"
+  id="adminPassword"
+  type="password"
+  placeholder="Admin password"
+>
+
+<button class="btn" onclick="loginAdmin()">
+LOGIN
+</button>
+
+<div id="adminPanel">
+
+<hr style="margin:20px 0">
+
+<h3>⚙️ EVENT CONTROL</h3>
+
+<button class="btn"
+onclick="activateEvent('🌮 TACO EVENT')">
+TACO
+</button>
+
+<button class="btn"
+onclick="activateEvent('⚡ CYBER EVENT')">
+CYBER
+</button>
+
+<button class="btn"
+onclick="activateEvent('🎁 BANN EVENT')">
+BANN
+</button>
+
+<button class="btn"
+onclick="stopEvent()">
+STOP EVENT
+</button>
+
+<br><br>
+
+<button class="btn"
+onclick="addCoins(1000)">
++1000 COINS
+</button>
+
+<button class="btn"
+onclick="addCoins(5000)">
++5000 COINS
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+<div id="notice"></div>
 
 
 <script>
 
-/* =========================
-   LOADING
-========================= */
+/* LOADER */
 
 let progress = 0;
 
-const progressBar =
-    document.getElementById("progress");
+let loaderTimer = setInterval(() => {
 
-const percent =
-    document.getElementById("percent");
+  progress++;
 
-const status =
-    document.getElementById("status");
+  document.getElementById("progress").style.width =
+    progress + "%";
 
+  document.getElementById("percent").innerText =
+    progress + "%";
 
-const loadingMessages = [
-    "Initializing...",
-    "Loading security modules...",
-    "Checking challenges...",
-    "Loading Game Passes...",
-    "System ready!"
-];
+  if(progress >= 100){
 
+    clearInterval(loaderTimer);
 
-const loadingTimer =
-setInterval(function() {
+    setTimeout(() => {
 
-    progress++;
+      document.getElementById("loader").style.display =
+        "none";
 
-    progressBar.style.width =
-        progress + "%";
+      document.getElementById("main").style.display =
+        "block";
 
-    percent.textContent =
-        progress + "%";
+    },500);
+
+  }
+
+},30);
 
 
-    if (progress % 20 === 0) {
+/* DATA */
 
-        let index =
-            Math.min(
-                Math.floor(progress / 20),
-                loadingMessages.length - 1
-            );
+let coins = Number(localStorage.getItem("coins")) || 0;
 
-        status.textContent =
-            loadingMessages[index];
-    }
+let completed =
+Number(localStorage.getItem("completed")) || 0;
 
+let completedChallenges =
+JSON.parse(localStorage.getItem("challenges")) || [];
 
-    if (progress >= 100) {
+let eventInterval = null;
 
-        clearInterval(loadingTimer);
-
-        setTimeout(function() {
-
-            document.getElementById("loader")
-                .style.display = "none";
-
-            document.getElementById("main")
-                .style.display = "block";
-
-        }, 600);
-    }
-
-}, 30);
+let eventSeconds = 0;
 
 
-/* =========================
-   CHALLENGES
-========================= */
+/* UPDATE */
 
-let score = 0;
+function updateStats(){
 
-let completed = {
-    1: false,
-    2: false,
-    3: false
+  document.getElementById("coins").innerText =
+    coins;
+
+  document.getElementById("completed").innerText =
+    completed;
+
+  localStorage.setItem("coins",coins);
+
+  localStorage.setItem("completed",completed);
+
+  localStorage.setItem(
+    "challenges",
+    JSON.stringify(completedChallenges)
+  );
+}
+
+updateStats();
+
+
+/* CHALLENGES */
+
+const answers = {
+
+  1:"CYBER2026",
+
+  2:"SECURE",
+
+  3:"ACCESS",
+
+  4:"FIREWALL",
+
+  5:"HELP"
+
 };
 
 
-function checkChallenge(number) {
+function checkChallenge(number){
 
-    let input =
-        document.getElementById(
-            "answer" + number
-        );
+  if(completedChallenges.includes(number)){
 
-    let result =
-        document.getElementById(
-            "result" + number
-        );
+    showNotice("Challenge already completed!");
 
-    let answer =
-        input.value.trim().toUpperCase();
+    return;
+  }
 
-    let correct = "";
+  let input =
+    document.getElementById("answer"+number)
+    .value
+    .trim()
+    .toUpperCase();
 
+  if(input === answers[number]){
 
-    if (number === 1) {
-        correct = "CYBER2026";
-    }
+    completedChallenges.push(number);
 
-    if (number === 2) {
-        correct = "SECURE";
-    }
+    completed++;
 
-    if (number === 3) {
-        correct = "ACCESS";
-    }
+    coins += 100;
 
+    document.getElementById(
+      "result"+number
+    ).innerText =
+      "✓ Correct! +100 Coins";
 
-    if (answer === correct) {
+    document.getElementById(
+      "challenge"+number
+    ).classList.add("done");
 
-        if (!completed[number]) {
+    updateStats();
 
-            completed[number] = true;
+    showNotice("🎉 +100 Coins!");
 
-            score += 100;
+  }else{
 
-            document.getElementById("score")
-                .textContent = score;
-        }
+    document.getElementById(
+      "result"+number
+    ).innerText =
+      "✗ Wrong answer";
 
-        result.textContent =
-            "✓ ACCESS GRANTED";
+  }
 
-    } else {
-
-        result.textContent =
-            "✗ ACCESS DENIED";
-    }
 }
 
 
-/* =========================
-   GAME PASS LINKS
-========================= */
+/* GAME PASS */
 
-function openPass(id) {
+function openPass(id){
 
-    window.open(
-        "https://www.roblox.com/game-pass/" +
-        id,
-        "_blank"
-    );
+  window.open(
+    "https://www.roblox.com/game-pass/"+id,
+    "_blank"
+  );
+
+}
+
+
+/* SHOP */
+
+function buyPack(reward,cost){
+
+  if(coins < cost){
+
+    showNotice("❌ Not enough Coins!");
+
+    return;
+  }
+
+  coins -= cost;
+
+  coins += reward;
+
+  updateStats();
+
+  showNotice(
+    "🎁 Pack purchased! +" +
+    reward +
+    " Coins"
+  );
+
+}
+
+
+/* EVENTS */
+
+function activateEvent(name){
+
+  clearInterval(eventInterval);
+
+  eventSeconds = 300;
+
+  document.getElementById(
+    "activeEvent"
+  ).style.display = "block";
+
+  document.getElementById(
+    "eventName"
+  ).innerText = name + " ACTIVE";
+
+  document.querySelectorAll(".event")
+  .forEach(e => e.classList.remove("active"));
+
+  if(name.includes("TACO"))
+    document.getElementById("eventTaco")
+    .classList.add("active");
+
+  if(name.includes("CYBER"))
+    document.getElementById("eventCyber")
+    .classList.add("active");
+
+  if(name.includes("BANN"))
+    document.getElementById("eventBann")
+    .classList.add("active");
+
+  updateEventTimer();
+
+  eventInterval = setInterval(() => {
+
+    eventSeconds--;
+
+    updateEventTimer();
+
+    if(eventSeconds <= 0){
+
+      stopEvent();
+
+      showNotice("⏱️ Event finished!");
+
+    }
+
+  },1000);
+
+  showNotice(name + " started!");
+
+}
+
+
+function updateEventTimer(){
+
+  let minutes =
+    Math.floor(eventSeconds / 60);
+
+  let seconds =
+    eventSeconds % 60;
+
+  document.getElementById(
+    "eventTimer"
+  ).innerText =
+    String(minutes).padStart(2,"0")
+    + ":" +
+    String(seconds).padStart(2,"0");
+
+}
+
+
+function stopEvent(){
+
+  clearInterval(eventInterval);
+
+  eventSeconds = 0;
+
+  document.getElementById(
+    "activeEvent"
+  ).style.display = "none";
+
+  document.querySelectorAll(".event")
+  .forEach(e => e.classList.remove("active"));
+
+}
+
+
+/* ADMIN */
+
+function loginAdmin(){
+
+  /*
+    DEMO PASSWORD ONLY.
+    GitHub Pages cannot securely hide this password.
+  */
+
+  const password = "CYBERADMIN";
+
+  let input =
+    document.getElementById(
+      "adminPassword"
+    ).value;
+
+  if(input === password){
+
+    document.getElementById(
+      "adminPanel"
+    ).style.display = "block";
+
+    showNotice("👑 Admin access granted!");
+
+  }else{
+
+    showNotice("❌ Wrong password!");
+
+  }
+
+}
+
+
+/* ADMIN COINS */
+
+function addCoins(amount){
+
+  coins += amount;
+
+  updateStats();
+
+  showNotice(
+    "+" + amount + " Coins added!"
+  );
+
+}
+
+
+/* NOTICE */
+
+function showNotice(text){
+
+  let notice =
+    document.getElementById("notice");
+
+  notice.innerText = text;
+
+  notice.style.display = "block";
+
+  setTimeout(() => {
+
+    notice.style.display = "none";
+
+  },2500);
 
 }
 
