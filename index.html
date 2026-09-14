@@ -2,213 +2,170 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>RYXON // SYSTEM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyber Lab</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-  background:#020303;
-  color:#00ff66;
-  font-family:Consolas,monospace;
-  min-height:100vh;
-  overflow:hidden;
+* {
+  box-sizing: border-box;
 }
 
-.screen{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:18px;
+body {
+  margin: 0;
+  background: #050505;
+  color: #00ff66;
+  font-family: monospace;
+  overflow: hidden;
 }
 
-.card{
-  width:100%;
-  max-width:760px;
-  background:#050807;
-  border:1px solid #00ff66;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 0 35px #00ff6625;
+#loader {
+  position: fixed;
+  inset: 0;
+  background: #050505;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
 }
 
-.logo{
-  text-align:center;
-  font-size:27px;
-  font-weight:bold;
-  text-shadow:0 0 15px #00ff66;
-  margin-bottom:5px;
+.logo {
+  font-size: 32px;
+  margin-bottom: 25px;
+  text-shadow: 0 0 15px #00ff66;
 }
 
-.sub{
-  text-align:center;
-  color:#587060;
-  margin-bottom:18px;
+.bar {
+  width: 80%;
+  max-width: 500px;
+  height: 18px;
+  border: 1px solid #00ff66;
+  padding: 3px;
 }
 
-.terminal{
-  height:330px;
-  background:#000;
-  border:1px solid #123b23;
-  border-radius:12px;
-  padding:14px;
-  overflow:hidden;
-  font-size:14px;
-  line-height:1.65;
+.progress {
+  width: 0%;
+  height: 100%;
+  background: #00ff66;
+  box-shadow: 0 0 15px #00ff66;
 }
 
-.red{color:#ff3333}
-.yellow{color:#ffd000}
-.white{color:#fff}
-
-.progressBox{
-  height:18px;
-  border:1px solid #00ff66;
-  border-radius:20px;
-  margin-top:16px;
-  overflow:hidden;
+#percent {
+  margin-top: 12px;
+  font-size: 20px;
 }
 
-.progress{
-  height:100%;
-  width:0%;
-  background:#00ff66;
-  box-shadow:0 0 18px #00ff66;
-  transition:.15s;
+#status {
+  margin-top: 8px;
+  color: #aaa;
 }
 
-.status{
-  text-align:center;
-  margin-top:9px;
-  color:#8cffad;
+#main {
+  display: none;
+  min-height: 100vh;
+  padding: 30px;
 }
 
-button{
-  width:100%;
-  margin-top:17px;
-  padding:15px;
-  border:0;
-  border-radius:12px;
-  background:#00ff66;
-  color:#001407;
-  font-weight:bold;
-  font-size:16px;
+h1 {
+  text-shadow: 0 0 15px #00ff66;
 }
 
-button:active{transform:scale(.98)}
-
-#dashboard{
-  display:none;
-  min-height:100vh;
-  padding:18px;
-  background:
-    radial-gradient(circle at top,#063b20 0,#020303 38%);
-  overflow:auto;
+.panel {
+  border: 1px solid #00ff66;
+  padding: 20px;
+  margin-top: 25px;
+  max-width: 700px;
+  box-shadow: 0 0 20px #003d19;
 }
 
-.dash{
-  max-width:1000px;
-  margin:auto;
+button {
+  background: transparent;
+  color: #00ff66;
+  border: 1px solid #00ff66;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-family: monospace;
 }
 
-.dashHeader{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  margin-bottom:18px;
-  flex-wrap:wrap;
-}
-
-.title{
-  font-size:27px;
-  font-weight:bold;
-  text-shadow:0 0 15px #00ff66;
-}
-
-.online{
-  border:1px solid #00ff66;
-  border-radius:20px;
-  padding:8px 13px;
-  font-size:12px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:13px;
-}
-
-.box{
-  background:#050807dd;
-  border:1px solid #124c2b;
-  border-radius:14px;
-  padding:17px;
-}
-
-.box h3{
-  color:#8affad;
-  margin-bottom:10px;
-}
-
-.value{
-  font-size:25px;
-  color:#fff;
-}
-
-.bar{
-  height:9px;
-  background:#102016;
-  border-radius:10px;
-  margin-top:12px;
-  overflow:hidden;
-}
-
-.fill{
-  height:100%;
-  width:70%;
-  background:#00ff66;
-  box-shadow:0 0 12px #00ff66;
-}
-
-.code{
-  margin-top:15px;
-  height:230px;
-  overflow:hidden;
-  color:#00c94f;
-  font-size:12px;
-  line-height:1.6;
-  border-top:1px solid #123b23;
-  padding-top:12px;
-}
-
-.access{
-  text-align:center;
-  margin-top:18px;
-  padding:18px;
-  border:1px solid #00ff66;
-  border-radius:14px;
-  color:#fff;
-  font-size:20px;
-  text-shadow:0 0 15px #00ff66;
-}
-
-@media(max-width:600px){
-  .grid{grid-template-columns:1fr}
-  .terminal{height:290px;font-size:12px}
-  .title{font-size:22px}
+button:hover {
+  background: #00ff66;
+  color: #000;
 }
 </style>
 </head>
 
 <body>
 
-<!-- FIRST SCREEN -->
+<div id="loader">
+  <div class="logo">[ CYBER LAB ]</div>
 
-<div class="screen" id="firstScreen">
-  <div class="card">
+  <div class="bar">
+    <div class="progress" id="progress"></div>
+  </div>
 
-    <div class="logo">☠ RYXON TERMINAL</div>
-    <div class="sub">SECURITY SIMULATION</div>
+  <div id="percent">0%</div>
+  <div id="status">Initializing...</div>
+</div>
+
+<div id="main">
+  <h1>CYBER LAB</h1>
+
+  <div class="panel">
+    <p>> SYSTEM STATUS: ONLINE</p>
+    <p>> SECURITY MODE: DEMO</p>
+    <p>> CONNECTION: SAFE</p>
+    <br>
+
+    <button onclick="startChallenge()">
+      START CHALLENGE
+    </button>
+
+    <p id="result"></p>
+  </div>
+</div>
+
+<script>
+let progress = 0;
+
+const progressBar = document.getElementById("progress");
+const percent = document.getElementById("percent");
+const status = document.getElementById("status");
+
+const messages = [
+  "Initializing...",
+  "Loading security modules...",
+  "Checking demo environment...",
+  "Starting cyber lab...",
+  "Finalizing..."
+];
+
+const timer = setInterval(() => {
+  progress++;
+
+  progressBar.style.width = progress + "%";
+  percent.textContent = progress + "%";
+
+  if (progress % 20 === 0) {
+    status.textContent =
+      messages[Math.min(progress / 20, messages.length - 1)];
+  }
+
+  if (progress >= 100) {
+    clearInterval(timer);
+
+    setTimeout(() => {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("main").style.display = "block";
+      document.body.style.overflow = "auto";
+    }, 500);
+  }
+}, 35);
+
+function startChallenge() {
+  document.getElementById("result").textContent =
+    "> Demo challenge activated. Good luck!";
+}
+</script>
+
+</body>
+</html>
