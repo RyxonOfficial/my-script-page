@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>CYBER LAB</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -24,7 +26,6 @@ button{
   cursor:pointer;
 }
 
-/* LOADER */
 #loader{
   position:fixed;
   inset:0;
@@ -38,8 +39,8 @@ button{
 
 .loader-title{
   font-size:30px;
-  text-shadow:0 0 15px #00ff66;
   margin-bottom:20px;
+  text-shadow:0 0 15px #00ff66;
 }
 
 .progress-box{
@@ -60,18 +61,22 @@ button{
   margin-top:10px;
 }
 
-/* MAIN */
 #main{
   display:none;
-  padding-bottom:50px;
+  padding-bottom:60px;
 }
 
 header{
-  padding:40px 20px;
+  padding:45px 20px;
   text-align:center;
   border-bottom:1px solid #00ff66;
+
   background:
-    radial-gradient(circle,#073b18 0%,#050505 60%);
+  radial-gradient(
+    circle,
+    #073b18 0%,
+    #050505 65%
+  );
 }
 
 header h1{
@@ -83,7 +88,6 @@ header p{
   margin-top:10px;
 }
 
-/* STATS */
 .stats{
   display:flex;
   justify-content:center;
@@ -98,14 +102,15 @@ header p{
   box-shadow:0 0 10px #003d19;
 }
 
-/* SECTIONS */
 section{
   width:92%;
   max-width:1000px;
   margin:30px auto;
   padding:25px;
+
   border:1px solid #00ff66;
   background:#080808;
+
   box-shadow:0 0 15px #003d19;
 }
 
@@ -113,10 +118,9 @@ h2{
   margin-bottom:20px;
 }
 
-/* CHALLENGES */
 .challenge{
   border:1px solid #176b35;
-  padding:18px;
+  padding:20px;
   margin:15px 0;
 }
 
@@ -124,16 +128,20 @@ h2{
   width:100%;
   padding:12px;
   margin:12px 0;
+
   background:#000;
   border:1px solid #00ff66;
+
   color:#00ff66;
   outline:none;
 }
 
 .btn{
   padding:10px 18px;
+
   background:#00ff66;
   color:#000;
+
   border:none;
   font-weight:bold;
 }
@@ -143,13 +151,15 @@ h2{
 }
 
 .done{
-  color:#888;
+  opacity:.55;
 }
 
-/* GAME PASSES */
 .cards{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(200px,1fr));
+
   gap:15px;
 }
 
@@ -163,26 +173,32 @@ h2{
   margin-bottom:15px;
 }
 
-/* SHOP */
 .shop-card{
   border:1px solid #176b35;
+
   padding:20px;
   margin:15px 0;
+
   display:flex;
+
   justify-content:space-between;
   align-items:center;
+
   gap:15px;
   flex-wrap:wrap;
 }
 
-/* EVENTS */
 .event{
   border:1px solid #176b35;
+
   padding:18px;
   margin:12px 0;
+
   display:flex;
+
   justify-content:space-between;
   align-items:center;
+
   gap:10px;
 }
 
@@ -193,18 +209,25 @@ h2{
 
 #activeEvent{
   margin-top:20px;
+
   padding:20px;
+
   text-align:center;
+
   border:1px solid #00ff66;
+
   display:none;
 }
 
+#eventName{
+  font-size:22px;
+}
+
 #eventTimer{
-  font-size:28px;
+  font-size:30px;
   margin-top:10px;
 }
 
-/* ADMIN */
 .admin{
   border-color:#ffcc00;
 }
@@ -215,240 +238,743 @@ h2{
 
 #adminPanel{
   display:none;
+  margin-top:20px;
 }
 
 .admin-input{
   width:100%;
+
   padding:12px;
+
   background:#000;
   color:#00ff66;
+
   border:1px solid #00ff66;
+
   margin:10px 0;
 }
 
-/* NOTIFICATION */
 #notice{
   position:fixed;
+
   bottom:20px;
   right:20px;
+
   background:#00ff66;
   color:#000;
+
   padding:15px 20px;
+
   display:none;
+
   z-index:5000;
+
   font-weight:bold;
 }
+
+/* PERSONAL CODE */
+
+.personal-code{
+  border:1px solid #00ff66;
+
+  padding:15px;
+
+  margin:15px 0;
+
+  text-align:center;
+
+  font-size:24px;
+
+  letter-spacing:4px;
+
+  text-shadow:0 0 10px #00ff66;
+
+  background:#020702;
+}
+
+.hint{
+  display:none;
+
+  margin:15px 0;
+
+  padding:12px;
+
+  border-left:3px solid #00ff66;
+
+  background:#071207;
+}
+
+/* TACO RAIN */
+
+#tacoRain{
+  position:fixed;
+
+  inset:0;
+
+  pointer-events:none;
+
+  overflow:hidden;
+
+  z-index:3000;
+
+  display:none;
+}
+
+.taco{
+  position:absolute;
+
+  top:-80px;
+
+  animation:
+  tacoFall
+  linear
+  forwards;
+}
+
+@keyframes tacoFall{
+
+  from{
+    transform:
+    translateY(0)
+    rotate(0deg);
+  }
+
+  to{
+    transform:
+    translateY(110vh)
+    rotate(360deg);
+  }
+
+}
+
 </style>
 </head>
 
+
 <body>
 
-<!-- LOADING -->
+
+<!-- =========================
+     LOADER
+========================= -->
+
 <div id="loader">
-  <div class="loader-title">⚡ CYBER LAB ⚡</div>
-  <div class="progress-box">
-    <div id="progress"></div>
+
+  <div class="loader-title">
+    ⚡ CYBER LAB ⚡
   </div>
-  <div id="percent">0%</div>
+
+  <div class="progress-box">
+
+    <div id="progress"></div>
+
+  </div>
+
+  <div id="percent">
+    0%
+  </div>
+
 </div>
+
+
+<!-- TACO EFFECT -->
+
+<div id="tacoRain"></div>
+
+
+<!-- =========================
+     MAIN
+========================= -->
 
 <div id="main">
 
+
 <header>
-  <h1>⚡ CYBER LAB ⚡</h1>
-  <p>SECURITY • TECHNOLOGY • CTF</p>
+
+  <h1>
+    ⚡ CYBER LAB ⚡
+  </h1>
+
+  <p>
+    SECURITY • TECHNOLOGY • CTF
+  </p>
+
 </header>
 
-<!-- STATS -->
+
+<!-- =========================
+     STATS
+========================= -->
+
 <div class="stats">
-  <div class="stat">
-    🪙 Coins: <span id="coins">0</span>
-  </div>
 
   <div class="stat">
-    ⭐ Challenges: <span id="completed">0</span>
+
+    🪙 Coins:
+    <span id="coins">
+      0
+    </span>
+
   </div>
+
+
+  <div class="stat">
+
+    ⭐ Challenges:
+    <span id="completed">
+      0
+    </span>
+
+  </div>
+
 </div>
 
 
-<!-- CHALLENGES -->
+<!-- =========================
+     CHALLENGES
+========================= -->
+
 <section>
-<h2>🎯 CHALLENGES</h2>
 
-<div class="challenge" id="challenge1">
-  <h3>Challenge #1 — Secure Code</h3>
-  <p>Find the secret code:</p>
-  <input id="answer1" placeholder="Enter code">
-  <button class="btn" onclick="checkChallenge(1)">SUBMIT</button>
-  <p id="result1"></p>
+<h2>
+  🎯 CHALLENGES
+</h2>
+
+
+<!-- PERSONAL CHALLENGE -->
+
+<div
+  class="challenge"
+  id="challenge1"
+>
+
+  <h3>
+    Challenge #1 — Personal Code
+  </h3>
+
+  <p style="margin-top:10px;">
+    Every player receives a different code.
+  </p>
+
+
+  <div
+    class="personal-code"
+    id="personalCode"
+  >
+    Loading...
+  </div>
+
+
+  <button
+    class="btn"
+    onclick="showHint()"
+  >
+    💡 HINT
+  </button>
+
+
+  <div
+    class="hint"
+    id="hintText"
+  >
+
+    🔎 Your challenge code is shown
+    above.
+
+    <br><br>
+
+    Enter the exact same code below.
+
+  </div>
+
+
+  <input
+    id="answer1"
+    placeholder="Enter your personal code"
+  >
+
+
+  <button
+    class="btn"
+    onclick="checkPersonalChallenge()"
+  >
+    SUBMIT
+  </button>
+
+
+  <p
+    id="result1"
+    style="margin-top:12px;"
+  ></p>
+
 </div>
 
-<div class="challenge" id="challenge2">
-  <h3>Challenge #2 — Access</h3>
-  <p>Enter the access code:</p>
-  <input id="answer2" placeholder="Enter code">
-  <button class="btn" onclick="checkChallenge(2)">SUBMIT</button>
+
+<!-- CHALLENGE 2 -->
+
+<div
+  class="challenge"
+  id="challenge2"
+>
+
+  <h3>
+    Challenge #2 — Access
+  </h3>
+
+  <p>
+    Enter the access code.
+  </p>
+
+  <input
+    id="answer2"
+    placeholder="Enter code"
+  >
+
+  <button
+    class="btn"
+    onclick="checkChallenge(2)"
+  >
+    SUBMIT
+  </button>
+
   <p id="result2"></p>
+
 </div>
 
-<div class="challenge" id="challenge3">
-  <h3>Challenge #3 — Cyber</h3>
-  <p>Enter the cyber code:</p>
-  <input id="answer3" placeholder="Enter code">
-  <button class="btn" onclick="checkChallenge(3)">SUBMIT</button>
+
+<!-- CHALLENGE 3 -->
+
+<div
+  class="challenge"
+  id="challenge3"
+>
+
+  <h3>
+    Challenge #3 — Cyber
+  </h3>
+
+  <p>
+    Enter the cyber code.
+  </p>
+
+  <input
+    id="answer3"
+    placeholder="Enter code"
+  >
+
+  <button
+    class="btn"
+    onclick="checkChallenge(3)"
+  >
+    SUBMIT
+  </button>
+
   <p id="result3"></p>
+
 </div>
 
-<div class="challenge" id="challenge4">
-  <h3>Challenge #4 — Firewall</h3>
-  <p>What protects a network?</p>
-  <input id="answer4" placeholder="Enter answer">
-  <button class="btn" onclick="checkChallenge(4)">SUBMIT</button>
+
+<!-- CHALLENGE 4 -->
+
+<div
+  class="challenge"
+  id="challenge4"
+>
+
+  <h3>
+    Challenge #4 — Firewall
+  </h3>
+
+  <p>
+    What protects a network?
+  </p>
+
+  <input
+    id="answer4"
+    placeholder="Enter answer"
+  >
+
+  <button
+    class="btn"
+    onclick="checkChallenge(4)"
+  >
+    SUBMIT
+  </button>
+
   <p id="result4"></p>
+
 </div>
 
-<div class="challenge" id="challenge5">
-  <h3>Challenge #5 — Terminal</h3>
-  <p>Type the terminal command:</p>
-  <input id="answer5" placeholder="Enter answer">
-  <button class="btn" onclick="checkChallenge(5)">SUBMIT</button>
+
+<!-- CHALLENGE 5 -->
+
+<div
+  class="challenge"
+  id="challenge5"
+>
+
+  <h3>
+    Challenge #5 — Terminal
+  </h3>
+
+  <p>
+    Type the terminal command.
+  </p>
+
+  <input
+    id="answer5"
+    placeholder="Enter answer"
+  >
+
+  <button
+    class="btn"
+    onclick="checkChallenge(5)"
+  >
+    SUBMIT
+  </button>
+
   <p id="result5"></p>
+
 </div>
 
 </section>
 
 
-<!-- GAME PASSES -->
+<!-- =========================
+     GAME PASSES
+========================= -->
+
 <section>
-<h2>🎟️ GAME PASSES</h2>
+
+<h2>
+  🎟️ GAME PASSES
+</h2>
+
 
 <div class="cards">
 
-<div class="card">
-<h3>👑 Owner Pass</h3>
-<button class="btn" onclick="openPass('1983026270')">
-BUY
-</button>
-</div>
 
 <div class="card">
-<h3>⚡ Cyber Pro</h3>
-<button class="btn" onclick="openPass('1981610268')">
-BUY
-</button>
+
+  <h3>
+    👑 Owner Pass
+  </h3>
+
+  <button
+    class="btn"
+    onclick="openPass('1983026270')"
+  >
+    BUY
+  </button>
+
 </div>
+
 
 <div class="card">
-<h3>💎 VIP Access</h3>
-<button class="btn" onclick="openPass('1981142286')">
-BUY
-</button>
+
+  <h3>
+    ⚡ Cyber Pro
+  </h3>
+
+  <button
+    class="btn"
+    onclick="openPass('1981610268')"
+  >
+    BUY
+  </button>
+
 </div>
+
 
 <div class="card">
-<h3>🔥 Premium Access</h3>
-<button class="btn" onclick="openPass('1981952280')">
-BUY
-</button>
-</div>
+
+  <h3>
+    💎 VIP Access
+  </h3>
+
+  <button
+    class="btn"
+    onclick="openPass('1981142286')"
+  >
+    BUY
+  </button>
 
 </div>
+
+
+<div class="card">
+
+  <h3>
+    🔥 Premium Access
+  </h3>
+
+  <button
+    class="btn"
+    onclick="openPass('1981952280')"
+  >
+    BUY
+  </button>
+
+</div>
+
+
+</div>
+
 </section>
 
 
-<!-- SHOP -->
+<!-- =========================
+     COIN SHOP
+========================= -->
+
 <section>
-<h2>🛒 COIN SHOP</h2>
+
+<h2>
+  🛒 COIN SHOP
+</h2>
+
 
 <div class="shop-card">
-<div>
-<h3>🚀 Starter Pack</h3>
-<p>Reward: +500 Coins</p>
+
+  <div>
+
+    <h3>
+      🚀 Starter Pack
+    </h3>
+
+    <p>
+      Reward: +500 Coins
+    </p>
+
+  </div>
+
+
+  <button
+    class="btn"
+    onclick="buyPack(500,100)"
+  >
+    100 🪙
+  </button>
+
 </div>
 
-<button class="btn" onclick="buyPack(1,100)">
-100 🪙
-</button>
-</div>
 
 <div class="shop-card">
-<div>
-<h3>⚡ Cyber Starter</h3>
-<p>Reward: +1500 Coins</p>
+
+  <div>
+
+    <h3>
+      ⚡ Cyber Starter
+    </h3>
+
+    <p>
+      Reward: +1500 Coins
+    </p>
+
+  </div>
+
+
+  <button
+    class="btn"
+    onclick="buyPack(1500,250)"
+  >
+    250 🪙
+  </button>
+
 </div>
 
-<button class="btn" onclick="buyPack(1500,250)">
-250 🪙
-</button>
-</div>
 
 <div class="shop-card">
-<div>
-<h3>💎 Premium Pack</h3>
-<p>Reward: +5000 Coins</p>
+
+  <div>
+
+    <h3>
+      💎 Premium Pack
+    </h3>
+
+    <p>
+      Reward: +5000 Coins
+    </p>
+
+  </div>
+
+
+  <button
+    class="btn"
+    onclick="buyPack(5000,700)"
+  >
+    700 🪙
+  </button>
+
 </div>
 
-<button class="btn" onclick="buyPack(5000,700)">
-700 🪙
-</button>
+
+<!-- ADMIN STARTER PACK -->
+
+<div class="shop-card">
+
+  <div>
+
+    <h3>
+      👑 Admin Starter Pack
+    </h3>
+
+    <p>
+      Reward: +100,000 Coins
+    </p>
+
+    <p>
+      🔐 Admin Password Required
+    </p>
+
+  </div>
+
+
+  <button
+    class="btn"
+    onclick="buyAdminPack()"
+  >
+    ADMIN
+  </button>
+
 </div>
 
 </section>
 
 
-<!-- EVENTS -->
+<!-- =========================
+     EVENTS
+========================= -->
+
 <section>
-<h2>🎉 EVENTS</h2>
 
-<div class="event" id="eventTaco">
-<div>
-<h3>🌮 Taco Event</h3>
-<p>Event duration: 5 minutes</p>
+<h2>
+  🎉 EVENTS
+</h2>
+
+
+<!-- TACO -->
+
+<div
+  class="event"
+  id="eventTaco"
+>
+
+  <div>
+
+    <h3>
+      🌮 Taco Event
+    </h3>
+
+    <p>
+      Duration: 5 minutes
+    </p>
+
+  </div>
+
+
+  <button
+    class="btn"
+    onclick="activateEvent('🌮 TACO EVENT')"
+  >
+    ACTIVATE
+  </button>
+
 </div>
 
-<button class="btn" onclick="activateEvent('🌮 TACO EVENT')">
-ACTIVATE
-</button>
+
+<!-- CYBER -->
+
+<div
+  class="event"
+  id="eventCyber"
+>
+
+  <div>
+
+    <h3>
+      ⚡ Cyber Event
+    </h3>
+
+    <p>
+      Duration: 5 minutes
+    </p>
+
+  </div>
+
+
+  <button
+    class="btn"
+    onclick="activateEvent('⚡ CYBER EVENT')"
+  >
+    ACTIVATE
+  </button>
+
 </div>
 
 
-<div class="event" id="eventCyber">
-<div>
-<h3>⚡ Cyber Event</h3>
-<p>Event duration: 5 minutes</p>
+<!-- BANN -->
+
+<div
+  class="event"
+  id="eventBann"
+>
+
+  <div>
+
+    <h3>
+      🎁 Bann Event
+    </h3>
+
+    <p>
+      Duration: 5 minutes
+    </p>
+
+  </div>
+
+
+  <button
+    class="btn"
+    onclick="activateEvent('🎁 BANN EVENT')"
+  >
+    ACTIVATE
+  </button>
+
 </div>
 
-<button class="btn" onclick="activateEvent('⚡ CYBER EVENT')">
-ACTIVATE
-</button>
-</div>
 
-
-<div class="event" id="eventBann">
-<div>
-<h3>🎁 Bann Event</h3>
-<p>Event duration: 5 minutes</p>
-</div>
-
-<button class="btn" onclick="activateEvent('🎁 BANN EVENT')">
-ACTIVATE
-</button>
-</div>
-
+<!-- ACTIVE EVENT -->
 
 <div id="activeEvent">
-<div id="eventName"></div>
-<div id="eventTimer">05:00</div>
+
+  <div id="eventName">
+  </div>
+
+
+  <div id="eventTimer">
+    05:00
+  </div>
+
 </div>
 
 </section>
 
 
-<!-- ADMIN -->
-<section class="admin">
-<h2>👑 ADMIN PANEL</h2>
+<!-- =========================
+     ADMIN PANEL
+========================= -->
 
-<p>Admin panel access:</p>
+<section class="admin">
+
+<h2>
+  👑 ADMIN PANEL
+</h2>
+
+
+<p>
+  Enter Admin Password:
+</p>
+
 
 <input
   class="admin-input"
@@ -457,47 +983,90 @@ ACTIVATE
   placeholder="Admin password"
 >
 
-<button class="btn" onclick="loginAdmin()">
-LOGIN
+
+<button
+  class="btn"
+  onclick="loginAdmin()"
+>
+  LOGIN
 </button>
+
 
 <div id="adminPanel">
 
-<hr style="margin:20px 0">
+<hr
+style="margin:20px 0;"
+>
 
-<h3>⚙️ EVENT CONTROL</h3>
 
-<button class="btn"
-onclick="activateEvent('🌮 TACO EVENT')">
-TACO
+<h3>
+  ⚙️ EVENT CONTROL
+</h3>
+
+
+<button
+  class="btn"
+  onclick="activateEvent('🌮 TACO EVENT')"
+>
+  🌮 TACO
 </button>
 
-<button class="btn"
-onclick="activateEvent('⚡ CYBER EVENT')">
-CYBER
+
+<button
+  class="btn"
+  onclick="activateEvent('⚡ CYBER EVENT')"
+>
+  ⚡ CYBER
 </button>
 
-<button class="btn"
-onclick="activateEvent('🎁 BANN EVENT')">
-BANN
+
+<button
+  class="btn"
+  onclick="activateEvent('🎁 BANN EVENT')"
+>
+  🎁 BANN
 </button>
 
-<button class="btn"
-onclick="stopEvent()">
-STOP EVENT
+
+<button
+  class="btn"
+  onclick="stopEvent()"
+>
+  STOP EVENT
 </button>
+
 
 <br><br>
 
-<button class="btn"
-onclick="addCoins(1000)">
-+1000 COINS
+
+<h3>
+  🪙 COIN CONTROL
+</h3>
+
+
+<button
+  class="btn"
+  onclick="addCoins(1000)"
+>
+  +1,000
 </button>
 
-<button class="btn"
-onclick="addCoins(5000)">
-+5000 COINS
+
+<button
+  class="btn"
+  onclick="addCoins(10000)"
+>
+  +10,000
 </button>
+
+
+<button
+  class="btn"
+  onclick="addCoins(100000)"
+>
+  +100,000
+</button>
+
 
 </div>
 
@@ -505,36 +1074,60 @@ onclick="addCoins(5000)">
 
 </div>
 
+
+<!-- NOTIFICATION -->
+
 <div id="notice"></div>
 
 
 <script>
 
-/* LOADER */
+
+/* =========================
+   LOADER
+========================= */
 
 let progress = 0;
 
-let loaderTimer = setInterval(() => {
+
+let loaderTimer =
+setInterval(function(){
 
   progress++;
 
-  document.getElementById("progress").style.width =
+
+  document.getElementById(
+    "progress"
+  ).style.width =
     progress + "%";
 
-  document.getElementById("percent").innerText =
+
+  document.getElementById(
+    "percent"
+  ).innerText =
     progress + "%";
+
 
   if(progress >= 100){
 
-    clearInterval(loaderTimer);
+    clearInterval(
+      loaderTimer
+    );
 
-    setTimeout(() => {
 
-      document.getElementById("loader").style.display =
+    setTimeout(function(){
+
+      document.getElementById(
+        "loader"
+      ).style.display =
         "none";
 
-      document.getElementById("main").style.display =
+
+      document.getElementById(
+        "main"
+      ).style.display =
         "block";
+
 
     },500);
 
@@ -543,49 +1136,227 @@ let loaderTimer = setInterval(() => {
 },30);
 
 
-/* DATA */
+/* =========================
+   PLAYER DATA
+========================= */
 
-let coins = Number(localStorage.getItem("coins")) || 0;
+let coins =
+Number(
+  localStorage.getItem("coins")
+) || 0;
+
 
 let completed =
-Number(localStorage.getItem("completed")) || 0;
+Number(
+  localStorage.getItem("completed")
+) || 0;
+
 
 let completedChallenges =
-JSON.parse(localStorage.getItem("challenges")) || [];
+JSON.parse(
+  localStorage.getItem(
+    "challenges"
+  )
+) || [];
 
-let eventInterval = null;
 
-let eventSeconds = 0;
+/* =========================
+   INDIVIDUAL CODE
+========================= */
+
+function generatePlayerCode(){
+
+  const chars =
+  "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
 
-/* UPDATE */
+  let code =
+    "CYBER-";
+
+
+  for(
+    let i = 0;
+    i < 6;
+    i++
+  ){
+
+    code +=
+      chars[
+        Math.floor(
+          Math.random()
+          * chars.length
+        )
+      ];
+
+  }
+
+
+  return code;
+
+}
+
+
+let playerCode =
+localStorage.getItem(
+  "playerCode"
+);
+
+
+if(!playerCode){
+
+  playerCode =
+    generatePlayerCode();
+
+
+  localStorage.setItem(
+    "playerCode",
+    playerCode
+  );
+
+}
+
+
+document.getElementById(
+  "personalCode"
+).innerText =
+  playerCode;
+
+
+/* =========================
+   STATS
+========================= */
 
 function updateStats(){
 
-  document.getElementById("coins").innerText =
+  document.getElementById(
+    "coins"
+  ).innerText =
     coins;
 
-  document.getElementById("completed").innerText =
+
+  document.getElementById(
+    "completed"
+  ).innerText =
     completed;
 
-  localStorage.setItem("coins",coins);
 
-  localStorage.setItem("completed",completed);
+  localStorage.setItem(
+    "coins",
+    coins
+  );
+
+
+  localStorage.setItem(
+    "completed",
+    completed
+  );
+
 
   localStorage.setItem(
     "challenges",
-    JSON.stringify(completedChallenges)
+    JSON.stringify(
+      completedChallenges
+    )
   );
+
 }
+
 
 updateStats();
 
 
-/* CHALLENGES */
+/* =========================
+   HINT
+========================= */
+
+function showHint(){
+
+  document.getElementById(
+    "hintText"
+  ).style.display =
+    "block";
+
+}
+
+
+/* =========================
+   PERSONAL CHALLENGE
+========================= */
+
+function checkPersonalChallenge(){
+
+  if(
+    completedChallenges.includes(1)
+  ){
+
+    showNotice(
+      "Challenge already completed!"
+    );
+
+    return;
+
+  }
+
+
+  const input =
+    document.getElementById(
+      "answer1"
+    )
+    .value
+    .trim()
+    .toUpperCase();
+
+
+  if(
+    input ===
+    playerCode
+  ){
+
+    completedChallenges.push(1);
+
+    completed++;
+
+    coins += 100;
+
+
+    document.getElementById(
+      "result1"
+    ).innerText =
+      "✓ Correct! +100 Coins";
+
+
+    document.getElementById(
+      "challenge1"
+    ).classList.add(
+      "done"
+    );
+
+
+    updateStats();
+
+
+    showNotice(
+      "🎉 +100 Coins!"
+    );
+
+
+  }else{
+
+    document.getElementById(
+      "result1"
+    ).innerText =
+      "❌ Wrong code. Try again.";
+
+  }
+
+}
+
+
+/* =========================
+   OTHER CHALLENGE ANSWERS
+========================= */
 
 const answers = {
-
-  1:"CYBER2026",
 
   2:"SECURE",
 
@@ -600,242 +1371,564 @@ const answers = {
 
 function checkChallenge(number){
 
-  if(completedChallenges.includes(number)){
+  if(
+    completedChallenges.includes(
+      number
+    )
+  ){
 
-    showNotice("Challenge already completed!");
+    showNotice(
+      "Challenge already completed!"
+    );
 
     return;
+
   }
 
+
   let input =
-    document.getElementById("answer"+number)
+    document.getElementById(
+      "answer" + number
+    )
     .value
     .trim()
     .toUpperCase();
 
-  if(input === answers[number]){
 
-    completedChallenges.push(number);
+  if(
+    input ===
+    answers[number]
+  ){
+
+    completedChallenges.push(
+      number
+    );
 
     completed++;
 
     coins += 100;
 
+
     document.getElementById(
-      "result"+number
+      "result" + number
     ).innerText =
       "✓ Correct! +100 Coins";
 
+
     document.getElementById(
-      "challenge"+number
-    ).classList.add("done");
+      "challenge" + number
+    ).classList.add(
+      "done"
+    );
+
 
     updateStats();
 
-    showNotice("🎉 +100 Coins!");
+
+    showNotice(
+      "🎉 +100 Coins!"
+    );
+
 
   }else{
 
     document.getElementById(
-      "result"+number
+      "result" + number
     ).innerText =
-      "✗ Wrong answer";
+      "❌ Wrong answer";
 
   }
 
 }
 
 
-/* GAME PASS */
+/* =========================
+   GAME PASSES
+========================= */
 
 function openPass(id){
 
   window.open(
-    "https://www.roblox.com/game-pass/"+id,
+    "https://www.roblox.com/game-pass/"
+    + id,
     "_blank"
   );
 
 }
 
 
-/* SHOP */
+/* =========================
+   SHOP
+========================= */
 
-function buyPack(reward,cost){
+function buyPack(
+  reward,
+  cost
+){
 
   if(coins < cost){
 
-    showNotice("❌ Not enough Coins!");
+    showNotice(
+      "❌ Not enough Coins!"
+    );
 
     return;
+
   }
+
 
   coins -= cost;
 
   coins += reward;
 
+
   updateStats();
 
+
   showNotice(
-    "🎁 Pack purchased! +" +
-    reward +
-    " Coins"
+    "🎁 Pack purchased! +"
+    + reward
+    + " Coins"
   );
 
 }
 
 
-/* EVENTS */
+/* =========================
+   ADMIN STARTER PACK
+========================= */
 
-function activateEvent(name){
+function buyAdminPack(){
 
-  clearInterval(eventInterval);
-
-  eventSeconds = 300;
-
-  document.getElementById(
-    "activeEvent"
-  ).style.display = "block";
-
-  document.getElementById(
-    "eventName"
-  ).innerText = name + " ACTIVE";
-
-  document.querySelectorAll(".event")
-  .forEach(e => e.classList.remove("active"));
-
-  if(name.includes("TACO"))
-    document.getElementById("eventTaco")
-    .classList.add("active");
-
-  if(name.includes("CYBER"))
-    document.getElementById("eventCyber")
-    .classList.add("active");
-
-  if(name.includes("BANN"))
-    document.getElementById("eventBann")
-    .classList.add("active");
-
-  updateEventTimer();
-
-  eventInterval = setInterval(() => {
-
-    eventSeconds--;
-
-    updateEventTimer();
-
-    if(eventSeconds <= 0){
-
-      stopEvent();
-
-      showNotice("⏱️ Event finished!");
-
-    }
-
-  },1000);
-
-  showNotice(name + " started!");
-
-}
+  const password =
+    prompt(
+      "Enter Admin Password:"
+    );
 
 
-function updateEventTimer(){
+  if(
+    password ===
+    "CYBERADMIN"
+  ){
 
-  let minutes =
-    Math.floor(eventSeconds / 60);
-
-  let seconds =
-    eventSeconds % 60;
-
-  document.getElementById(
-    "eventTimer"
-  ).innerText =
-    String(minutes).padStart(2,"0")
-    + ":" +
-    String(seconds).padStart(2,"0");
-
-}
+    coins += 100000;
 
 
-function stopEvent(){
-
-  clearInterval(eventInterval);
-
-  eventSeconds = 0;
-
-  document.getElementById(
-    "activeEvent"
-  ).style.display = "none";
-
-  document.querySelectorAll(".event")
-  .forEach(e => e.classList.remove("active"));
-
-}
+    updateStats();
 
 
-/* ADMIN */
+    showNotice(
+      "👑 +100,000 Admin Coins!"
+    );
 
-function loginAdmin(){
-
-  /*
-    DEMO PASSWORD ONLY.
-    GitHub Pages cannot securely hide this password.
-  */
-
-  const password = "CYBERADMIN";
-
-  let input =
-    document.getElementById(
-      "adminPassword"
-    ).value;
-
-  if(input === password){
-
-    document.getElementById(
-      "adminPanel"
-    ).style.display = "block";
-
-    showNotice("👑 Admin access granted!");
 
   }else{
 
-    showNotice("❌ Wrong password!");
+    showNotice(
+      "❌ Wrong Admin Password!"
+    );
 
   }
 
 }
 
 
-/* ADMIN COINS */
+/* =========================
+   TACO RAIN
+========================= */
 
-function addCoins(amount){
+let tacoInterval = null;
 
-  coins += amount;
 
-  updateStats();
+function startTacoRain(){
+
+  const rain =
+    document.getElementById(
+      "tacoRain"
+    );
+
+
+  rain.style.display =
+    "block";
+
+
+  clearInterval(
+    tacoInterval
+  );
+
+
+  tacoInterval =
+  setInterval(function(){
+
+    const taco =
+      document.createElement(
+        "div"
+      );
+
+
+    taco.className =
+      "taco";
+
+
+    taco.innerText =
+      "🌮";
+
+
+    taco.style.left =
+      Math.random() * 100
+      + "%";
+
+
+    taco.style.animationDuration =
+      (
+        2 +
+        Math.random() * 3
+      )
+      + "s";
+
+
+    taco.style.fontSize =
+      (
+        30 +
+        Math.random() * 35
+      )
+      + "px";
+
+
+    rain.appendChild(
+      taco
+    );
+
+
+    setTimeout(
+      function(){
+
+        taco.remove();
+
+      },
+      5000
+    );
+
+
+  },250);
+
+}
+
+
+/* =========================
+   STOP TACO RAIN
+========================= */
+
+function stopTacoRain(){
+
+  clearInterval(
+    tacoInterval
+  );
+
+
+  const rain =
+    document.getElementById(
+      "tacoRain"
+    );
+
+
+  rain.style.display =
+    "none";
+
+
+  rain.innerHTML =
+    "";
+
+}
+
+
+/* =========================
+   EVENT
+========================= */
+
+let eventInterval = null;
+
+let eventSeconds = 0;
+
+
+function activateEvent(name){
+
+  clearInterval(
+    eventInterval
+  );
+
+
+  stopTacoRain();
+
+
+  eventSeconds =
+    300;
+
+
+  document.getElementById(
+    "activeEvent"
+  ).style.display =
+    "block";
+
+
+  document.getElementById(
+    "eventName"
+  ).innerText =
+    name +
+    " ACTIVE";
+
+
+  document.querySelectorAll(
+    ".event"
+  ).forEach(function(event){
+
+    event.classList.remove(
+      "active"
+    );
+
+  });
+
+
+  if(
+    name.includes("TACO")
+  ){
+
+    document.getElementById(
+      "eventTaco"
+    ).classList.add(
+      "active"
+    );
+
+
+    startTacoRain();
+
+  }
+
+
+  if(
+    name.includes("CYBER")
+  ){
+
+    document.getElementById(
+      "eventCyber"
+    ).classList.add(
+      "active"
+    );
+
+  }
+
+
+  if(
+    name.includes("BANN")
+  ){
+
+    document.getElementById(
+      "eventBann"
+    ).classList.add(
+      "active"
+    );
+
+  }
+
+
+  updateEventTimer();
+
+
+  eventInterval =
+  setInterval(function(){
+
+    eventSeconds--;
+
+
+    updateEventTimer();
+
+
+    if(
+      eventSeconds <= 0
+    ){
+
+      stopEvent();
+
+
+      showNotice(
+        "⏱️ Event finished!"
+      );
+
+    }
+
+  },1000);
+
 
   showNotice(
-    "+" + amount + " Coins added!"
+    name +
+    " started!"
   );
 
 }
 
 
-/* NOTICE */
+/* =========================
+   EVENT TIMER
+========================= */
+
+function updateEventTimer(){
+
+  let minutes =
+    Math.floor(
+      eventSeconds / 60
+    );
+
+
+  let seconds =
+    eventSeconds % 60;
+
+
+  document.getElementById(
+    "eventTimer"
+  ).innerText =
+
+    String(minutes)
+    .padStart(2,"0")
+
+    + ":"
+
+    +
+
+    String(seconds)
+    .padStart(2,"0");
+
+}
+
+
+/* =========================
+   STOP EVENT
+========================= */
+
+function stopEvent(){
+
+  clearInterval(
+    eventInterval
+  );
+
+
+  stopTacoRain();
+
+
+  eventSeconds =
+    0;
+
+
+  document.getElementById(
+    "activeEvent"
+  ).style.display =
+    "none";
+
+
+  document.querySelectorAll(
+    ".event"
+  ).forEach(function(event){
+
+    event.classList.remove(
+      "active"
+    );
+
+  });
+
+}
+
+
+/* =========================
+   ADMIN LOGIN
+========================= */
+
+function loginAdmin(){
+
+  const password =
+    "CYBERADMIN";
+
+
+  const input =
+    document.getElementById(
+      "adminPassword"
+    ).value;
+
+
+  if(
+    input === password
+  ){
+
+    document.getElementById(
+      "adminPanel"
+    ).style.display =
+      "block";
+
+
+    showNotice(
+      "👑 Admin access granted!"
+    );
+
+
+  }else{
+
+    showNotice(
+      "❌ Wrong Admin Password!"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   ADMIN COINS
+========================= */
+
+function addCoins(amount){
+
+  coins += amount;
+
+
+  updateStats();
+
+
+  showNotice(
+    "+" +
+    amount +
+    " Coins added!"
+  );
+
+}
+
+
+/* =========================
+   NOTICE
+========================= */
 
 function showNotice(text){
 
-  let notice =
-    document.getElementById("notice");
+  const notice =
+    document.getElementById(
+      "notice"
+    );
 
-  notice.innerText = text;
 
-  notice.style.display = "block";
+  notice.innerText =
+    text;
 
-  setTimeout(() => {
 
-    notice.style.display = "none";
+  notice.style.display =
+    "block";
 
-  },2500);
+
+  setTimeout(
+    function(){
+
+      notice.style.display =
+        "none";
+
+    },
+    2500
+  );
 
 }
 
