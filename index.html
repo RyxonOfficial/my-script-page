@@ -2,1071 +2,710 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>CYBER LAB</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  background:#050505;
-  color:#00ff66;
+  background:#030609;
+  color:#00ff9d;
   font-family:monospace;
   min-height:100vh;
+  overflow-x:hidden;
 }
 
-button{
+button,input{
   font-family:monospace;
-  cursor:pointer;
 }
+
+button{cursor:pointer}
 
 #loader{
   position:fixed;
   inset:0;
-  background:#000;
+  z-index:99999;
+  background:#020305;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   flex-direction:column;
-  z-index:9999;
 }
 
-.loader-title{
+.loaderTitle{
   font-size:30px;
   margin-bottom:20px;
-  text-shadow:0 0 15px #00ff66;
+  text-shadow:0 0 20px #00ff9d;
 }
 
-.progress-box{
+.loaderBar{
   width:80%;
   max-width:500px;
-  height:20px;
-  border:1px solid #00ff66;
+  height:18px;
+  border:1px solid #00ff9d;
+  padding:3px;
 }
 
-#progress{
+#loaderProgress{
   width:0%;
   height:100%;
-  background:#00ff66;
-  box-shadow:0 0 15px #00ff66;
+  background:#00ff9d;
+  box-shadow:0 0 20px #00ff9d;
 }
 
-#percent{
-  margin-top:10px;
-}
-
-#main{
-  display:none;
-  padding-bottom:60px;
-}
+#loaderText{margin-top:12px}
 
 header{
-  padding:45px 20px;
   text-align:center;
-  border-bottom:1px solid #00ff66;
-
-  background:
-  radial-gradient(
-    circle,
-    #073b18 0%,
-    #050505 65%
-  );
+  padding:30px 15px;
+  border-bottom:1px solid #00ff9d55;
+  background:#06100d;
 }
 
 header h1{
-  font-size:42px;
-  text-shadow:0 0 20px #00ff66;
+  font-size:38px;
+  text-shadow:0 0 15px #00ff9d;
 }
 
 header p{
-  margin-top:10px;
+  margin-top:8px;
+  color:#6affc1;
+}
+
+.container{
+  width:94%;
+  max-width:1100px;
+  margin:auto;
 }
 
 .stats{
   display:flex;
   justify-content:center;
-  gap:20px;
+  gap:15px;
   flex-wrap:wrap;
-  margin:25px;
+  padding:20px;
 }
 
 .stat{
-  border:1px solid #00ff66;
-  padding:15px 25px;
-  box-shadow:0 0 10px #003d19;
+  border:1px solid #00ff9d;
+  background:#06100d;
+  padding:12px 25px;
+  box-shadow:0 0 12px #00ff9d22;
 }
 
-section{
-  width:92%;
-  max-width:1000px;
-  margin:30px auto;
-  padding:25px;
-
-  border:1px solid #00ff66;
-  background:#080808;
-
-  box-shadow:0 0 15px #003d19;
+.section{
+  margin:25px 0;
 }
 
-h2{
-  margin-bottom:20px;
+.section h2{
+  color:white;
+  margin-bottom:15px;
+  text-shadow:0 0 10px #00ff9d;
 }
 
-.challenge{
-  border:1px solid #176b35;
-  padding:20px;
-  margin:15px 0;
-}
-
-.challenge input{
-  width:100%;
-  padding:12px;
-  margin:12px 0;
-
-  background:#000;
-  border:1px solid #00ff66;
-
-  color:#00ff66;
-  outline:none;
-}
-
-.btn{
-  padding:10px 18px;
-
-  background:#00ff66;
-  color:#000;
-
-  border:none;
-  font-weight:bold;
-}
-
-.btn:hover{
-  box-shadow:0 0 15px #00ff66;
-}
-
-.done{
-  opacity:.55;
-}
-
-.cards{
+.grid{
   display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(200px,1fr));
-
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
   gap:15px;
 }
 
 .card{
-  border:1px solid #176b35;
-  padding:20px;
-  text-align:center;
+  border:1px solid #00ff9d66;
+  background:#08100e;
+  padding:18px;
+  border-radius:10px;
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+  border-color:#00ff9d;
+  box-shadow:0 0 20px #00ff9d33;
 }
 
 .card h3{
-  margin-bottom:15px;
+  color:white;
+  margin-bottom:10px;
 }
 
-.shop-card{
-  border:1px solid #176b35;
-
-  padding:20px;
-  margin:15px 0;
-
-  display:flex;
-
-  justify-content:space-between;
-  align-items:center;
-
-  gap:15px;
-  flex-wrap:wrap;
+.card p{
+  color:#8effd0;
+  margin:7px 0;
 }
 
-.event{
-  border:1px solid #176b35;
-
-  padding:18px;
-  margin:12px 0;
-
-  display:flex;
-
-  justify-content:space-between;
-  align-items:center;
-
-  gap:10px;
+.btn{
+  border:1px solid #00ff9d;
+  background:#07130f;
+  color:#00ff9d;
+  padding:9px 13px;
+  border-radius:6px;
+  margin-top:9px;
 }
 
-.active{
-  border-color:#00ff66;
-  box-shadow:0 0 15px #00ff66;
+.btn:hover{
+  background:#00ff9d;
+  color:#00150d;
+  box-shadow:0 0 15px #00ff9d;
 }
 
-#activeEvent{
-  margin-top:20px;
+input{
+  width:100%;
+  padding:11px;
+  margin-top:8px;
+  background:#020605;
+  color:#00ff9d;
+  border:1px solid #00ff9d66;
+  border-radius:6px;
+}
 
-  padding:20px;
+input:focus{
+  outline:none;
+  border-color:#00ff9d;
+  box-shadow:0 0 10px #00ff9d33;
+}
 
-  text-align:center;
-
-  border:1px solid #00ff66;
-
+.notice{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:9000;
+  background:#07130f;
+  border:1px solid #00ff9d;
+  color:#00ff9d;
+  padding:14px 18px;
+  border-radius:8px;
   display:none;
+}
+
+/* ACTIVE EVENT */
+#activeEvent{
+  display:none;
+  position:fixed;
+  top:15px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:8000;
+  width:min(92%,700px);
+  text-align:center;
+  padding:18px;
+  border:2px solid #00ff9d;
+  background:#020907ee;
+  box-shadow:0 0 30px #00ff9d88;
+  animation:eventPulse 1s infinite alternate;
 }
 
 #eventName{
-  font-size:22px;
-}
-
-#eventTimer{
-  font-size:30px;
-  margin-top:10px;
-}
-
-.admin{
-  border-color:#ffcc00;
-}
-
-.admin button{
-  margin:5px;
-}
-
-#adminPanel{
-  display:none;
-  margin-top:20px;
-}
-
-.admin-input{
-  width:100%;
-
-  padding:12px;
-
-  background:#000;
-  color:#00ff66;
-
-  border:1px solid #00ff66;
-
-  margin:10px 0;
-}
-
-#notice{
-  position:fixed;
-
-  bottom:20px;
-  right:20px;
-
-  background:#00ff66;
-  color:#000;
-
-  padding:15px 20px;
-
-  display:none;
-
-  z-index:5000;
-
+  font-size:28px;
   font-weight:bold;
 }
 
-/* PERSONAL CODE */
-
-.personal-code{
-  border:1px solid #00ff66;
-
-  padding:15px;
-
-  margin:15px 0;
-
-  text-align:center;
-
-  font-size:24px;
-
-  letter-spacing:4px;
-
-  text-shadow:0 0 10px #00ff66;
-
-  background:#020702;
+#eventTimer{
+  font-size:25px;
+  margin-top:8px;
+  color:white;
 }
 
-.hint{
-  display:none;
-
-  margin:15px 0;
-
-  padding:12px;
-
-  border-left:3px solid #00ff66;
-
-  background:#071207;
+@keyframes eventPulse{
+  from{transform:translateX(-50%) scale(1)}
+  to{transform:translateX(-50%) scale(1.03)}
 }
 
-/* TACO RAIN */
-
-#tacoRain{
+/* EVENT EFFECT LAYERS */
+#effects{
   position:fixed;
-
   inset:0;
-
   pointer-events:none;
-
+  z-index:7000;
   overflow:hidden;
-
-  z-index:3000;
-
   display:none;
 }
 
-.taco{
+.fall{
   position:absolute;
-
   top:-80px;
-
-  animation:
-  tacoFall
-  linear
-  forwards;
+  animation:fall linear forwards;
 }
 
-@keyframes tacoFall{
-
-  from{
-    transform:
-    translateY(0)
-    rotate(0deg);
-  }
-
+@keyframes fall{
   to{
-    transform:
-    translateY(110vh)
-    rotate(360deg);
+    transform:translateY(110vh) rotate(720deg);
   }
-
 }
 
+/* CYBER */
+#cyberFlash{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:6500;
+  display:none;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 5px,
+    #00ff9d0b 6px,
+    transparent 7px
+  );
+  animation:glitch .12s infinite;
+}
+
+@keyframes glitch{
+  0%{opacity:.3}
+  50%{opacity:.8}
+  100%{opacity:.3}
+}
+
+/* SPEED */
+.speedLine{
+  position:absolute;
+  height:2px;
+  background:#fff;
+  animation:speed 1s linear forwards;
+}
+
+@keyframes speed{
+  from{
+    left:100%;
+    width:0;
+  }
+  to{
+    left:-30%;
+    width:35%;
+  }
+}
+
+/* RAINBOW */
+#rainbow{
+  position:fixed;
+  inset:0;
+  z-index:6000;
+  pointer-events:none;
+  display:none;
+  opacity:.25;
+  background:linear-gradient(
+    120deg,
+    #ff0000,
+    #ffff00,
+    #00ff00,
+    #00ffff,
+    #0000ff,
+    #ff00ff
+  );
+  background-size:500% 500%;
+  animation:rainbowMove 3s linear infinite;
+}
+
+@keyframes rainbowMove{
+  0%{background-position:0% 50%}
+  100%{background-position:100% 50%}
+}
+
+/* METEOR */
+.meteor{
+  position:absolute;
+  width:90px;
+  height:4px;
+  background:#fff;
+  box-shadow:0 0 15px #ff9d00;
+  transform:rotate(-35deg);
+  animation:meteor 1.5s linear forwards;
+}
+
+@keyframes meteor{
+  from{
+    left:110%;
+    top:-10%;
+  }
+  to{
+    left:-20%;
+    top:110%;
+  }
+}
+
+/* ADMIN */
+#adminPanel{
+  display:none;
+  border:1px solid #ffcc00;
+  background:#100f04;
+  padding:20px;
+  margin:25px 0;
+  border-radius:10px;
+}
+
+#adminPanel h2{
+  color:#ffcc00;
+}
+
+.adminBox{
+  border:1px solid #ffcc0066;
+  padding:15px;
+  margin-top:15px;
+}
+
+.adminBox h3{
+  color:#fff;
+  margin-bottom:8px;
+}
+
+.adminEventRow{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:8px 0;
+}
+
+/* ACTIVE CARD */
+.eventActive{
+  border-color:#00ff9d !important;
+  box-shadow:0 0 20px #00ff9d66;
+}
+
+/* CUSTOM */
+.customChallenge{
+  border:1px solid #00ff9d66;
+  background:#08100e;
+  padding:18px;
+  border-radius:10px;
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  color:#477b66;
+}
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =========================
-     LOADER
-========================= -->
-
+<!-- LOADER -->
 <div id="loader">
-
-  <div class="loader-title">
-    ⚡ CYBER LAB ⚡
+  <div class="loaderTitle">⚡ CYBER LAB ⚡</div>
+  <div class="loaderBar">
+    <div id="loaderProgress"></div>
   </div>
-
-  <div class="progress-box">
-
-    <div id="progress"></div>
-
-  </div>
-
-  <div id="percent">
-    0%
-  </div>
-
+  <div id="loaderText">0%</div>
 </div>
-
-
-<!-- TACO EFFECT -->
-
-<div id="tacoRain"></div>
-
-
-<!-- =========================
-     MAIN
-========================= -->
-
-<div id="main">
-
 
 <header>
-
-  <h1>
-    ⚡ CYBER LAB ⚡
-  </h1>
-
-  <p>
-    SECURITY • TECHNOLOGY • CTF
-  </p>
-
+  <h1>⚡ CYBER LAB ⚡</h1>
+  <p>SECURITY • TECHNOLOGY • CTF • EVENTS</p>
 </header>
 
-
-<!-- =========================
-     STATS
-========================= -->
-
 <div class="stats">
-
-  <div class="stat">
-
-    🪙 Coins:
-    <span id="coins">
-      0
-    </span>
-
-  </div>
-
-
-  <div class="stat">
-
-    ⭐ Challenges:
-    <span id="completed">
-      0
-    </span>
-
-  </div>
-
+  <div class="stat">🪙 Coins: <b id="coins">0</b></div>
+  <div class="stat">🧩 Challenges: <b id="completed">0</b></div>
+  <div class="stat">👤 Code: <b id="playerCode">---</b></div>
 </div>
 
+<div class="container">
 
-<!-- =========================
-     CHALLENGES
-========================= -->
+<!-- CHALLENGES -->
+<section class="section">
+<h2>🧩 Challenges</h2>
 
-<section>
-
-<h2>
-  🎯 CHALLENGES
-</h2>
-
-
-<!-- PERSONAL CHALLENGE -->
-
-<div
-  class="challenge"
-  id="challenge1"
->
-
-  <h3>
-    Challenge #1 — Personal Code
-  </h3>
-
-  <p style="margin-top:10px;">
-    Every player receives a different code.
-  </p>
-
-
-  <div
-    class="personal-code"
-    id="personalCode"
-  >
-    Loading...
-  </div>
-
-
-  <button
-    class="btn"
-    onclick="showHint()"
-  >
-    💡 HINT
-  </button>
-
-
-  <div
-    class="hint"
-    id="hintText"
-  >
-
-    🔎 Your challenge code is shown
-    above.
-
-    <br><br>
-
-    Enter the exact same code below.
-
-  </div>
-
-
-  <input
-    id="answer1"
-    placeholder="Enter your personal code"
-  >
-
-
-  <button
-    class="btn"
-    onclick="checkPersonalChallenge()"
-  >
-    SUBMIT
-  </button>
-
-
-  <p
-    id="result1"
-    style="margin-top:12px;"
-  ></p>
-
-</div>
-
-
-<!-- CHALLENGE 2 -->
-
-<div
-  class="challenge"
-  id="challenge2"
->
-
-  <h3>
-    Challenge #2 — Access
-  </h3>
-
-  <p>
-    Enter the access code.
-  </p>
-
-  <input
-    id="answer2"
-    placeholder="Enter code"
-  >
-
-  <button
-    class="btn"
-    onclick="checkChallenge(2)"
-  >
-    SUBMIT
-  </button>
-
-  <p id="result2"></p>
-
-</div>
-
-
-<!-- CHALLENGE 3 -->
-
-<div
-  class="challenge"
-  id="challenge3"
->
-
-  <h3>
-    Challenge #3 — Cyber
-  </h3>
-
-  <p>
-    Enter the cyber code.
-  </p>
-
-  <input
-    id="answer3"
-    placeholder="Enter code"
-  >
-
-  <button
-    class="btn"
-    onclick="checkChallenge(3)"
-  >
-    SUBMIT
-  </button>
-
-  <p id="result3"></p>
-
-</div>
-
-
-<!-- CHALLENGE 4 -->
-
-<div
-  class="challenge"
-  id="challenge4"
->
-
-  <h3>
-    Challenge #4 — Firewall
-  </h3>
-
-  <p>
-    What protects a network?
-  </p>
-
-  <input
-    id="answer4"
-    placeholder="Enter answer"
-  >
-
-  <button
-    class="btn"
-    onclick="checkChallenge(4)"
-  >
-    SUBMIT
-  </button>
-
-  <p id="result4"></p>
-
-</div>
-
-
-<!-- CHALLENGE 5 -->
-
-<div
-  class="challenge"
-  id="challenge5"
->
-
-  <h3>
-    Challenge #5 — Terminal
-  </h3>
-
-  <p>
-    Type the terminal command.
-  </p>
-
-  <input
-    id="answer5"
-    placeholder="Enter answer"
-  >
-
-  <button
-    class="btn"
-    onclick="checkChallenge(5)"
-  >
-    SUBMIT
-  </button>
-
-  <p id="result5"></p>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     GAME PASSES
-========================= -->
-
-<section>
-
-<h2>
-  🎟️ GAME PASSES
-</h2>
-
-
-<div class="cards">
-
+<div class="grid">
 
 <div class="card">
-
-  <h3>
-    👑 Owner Pass
-  </h3>
-
-  <button
-    class="btn"
-    onclick="openPass('1983026270')"
-  >
-    BUY
-  </button>
-
+<h3>🧠 Challenge 1 — Number Puzzle</h3>
+<p>2, 6, 12, 20, 30, ?</p>
+<p>💡 Hint: n × (n + 1)</p>
+<input id="answer1" placeholder="Your answer">
+<button class="btn" onclick="checkChallenge(1,42,100)">
+CHECK
+</button>
 </div>
-
 
 <div class="card">
-
-  <h3>
-    ⚡ Cyber Pro
-  </h3>
-
-  <button
-    class="btn"
-    onclick="openPass('1981610268')"
-  >
-    BUY
-  </button>
-
+<h3>🔢 Challenge 2 — Pattern</h3>
+<p>3, 9, 27, 81, ?</p>
+<p>💡 Hint: multiply by 3.</p>
+<input id="answer2" placeholder="Your answer">
+<button class="btn" onclick="checkChallenge(2,243,100)">
+CHECK
+</button>
 </div>
-
 
 <div class="card">
-
-  <h3>
-    💎 VIP Access
-  </h3>
-
-  <button
-    class="btn"
-    onclick="openPass('1981142286')"
-  >
-    BUY
-  </button>
-
+<h3>🧩 Challenge 3 — Missing Number</h3>
+<p>5, 10, 20, 40, ?</p>
+<p>💡 Hint: ×2</p>
+<input id="answer3" placeholder="Your answer">
+<button class="btn" onclick="checkChallenge(3,80,100)">
+CHECK
+</button>
 </div>
-
 
 <div class="card">
-
-  <h3>
-    🔥 Premium Access
-  </h3>
-
-  <button
-    class="btn"
-    onclick="openPass('1981952280')"
-  >
-    BUY
-  </button>
-
+<h3>🕵️ Challenge 4 — Hidden Word</h3>
+<p>Find the word:</p>
+<p><b>C Y B E R</b></p>
+<input id="answer4" placeholder="Your answer">
+<button class="btn" onclick="checkChallenge(4,'CYBER',100)">
+CHECK
+</button>
 </div>
 
-
+<div class="card">
+<h3>⚡ Challenge 5 — Logic</h3>
+<p>If 1 + 2 = 6</p>
+<p>2 + 3 = 15</p>
+<p>3 + 4 = 28</p>
+<p>4 + 5 = ?</p>
+<p>💡 Hint: a × (a+b)</p>
+<input id="answer5" placeholder="Your answer">
+<button class="btn" onclick="checkChallenge(5,36,100)">
+CHECK
+</button>
 </div>
 
+<div class="card">
+<h3>🔐 Challenge 6 — Secret Code</h3>
+<p>What comes next?</p>
+<p>A, C, F, J, O, ?</p>
+<p>💡 Hint: +2, +3, +4, +5...</p>
+<input id="answer6" placeholder="Your answer">
+<button class="btn" onclick="checkChallenge(6,'U',100)">
+CHECK
+</button>
+</div>
+
+<div class="card">
+<h3>🧠 Challenge 7 — Quick Math</h3>
+<p>12 × 4 − 8 = ?</p>
+<input id="answer7" placeholder="Your answer">
+<button class="btn" onclick="checkChallenge(7,40,100)">
+CHECK
+</button>
+</div>
+
+<div class="card">
+<h3>🧩 Challenge 8 — Pattern</h3>
+<p>1, 4, 9, 16, 25, ?</p>
+<p>💡 Hint: square numbers.</p>
+<input id="answer8" placeholder="Your answer">
+<button class="btn" onclick="checkChallenge(8,36,100)">
+CHECK
+</button>
+</div>
+
+</div>
 </section>
 
+<!-- EVENTS DISPLAY -->
+<section class="section">
+<h2>🎮 Events</h2>
 
-<!-- =========================
-     COIN SHOP
-========================= -->
+<div class="grid">
 
-<section>
-
-<h2>
-  🛒 COIN SHOP
-</h2>
-
-
-<div class="shop-card">
-
-  <div>
-
-    <h3>
-      🚀 Starter Pack
-    </h3>
-
-    <p>
-      Reward: +500 Coins
-    </p>
-
-  </div>
-
-
-  <button
-    class="btn"
-    onclick="buyPack(500,100)"
-  >
-    100 🪙
-  </button>
-
+<div class="card" id="eventTaco">
+<h3>🌮 Taco Rain</h3>
+<p>Falling taco animation.</p>
+<p>Duration: 5:00</p>
 </div>
 
-
-<div class="shop-card">
-
-  <div>
-
-    <h3>
-      ⚡ Cyber Starter
-    </h3>
-
-    <p>
-      Reward: +1500 Coins
-    </p>
-
-  </div>
-
-
-  <button
-    class="btn"
-    onclick="buyPack(1500,250)"
-  >
-    250 🪙
-  </button>
-
+<div class="card" id="eventCyber">
+<h3>⚡ Cyber Event</h3>
+<p>Glitch + cyber scan animation.</p>
+<p>Duration: 5:00</p>
 </div>
 
-
-<div class="shop-card">
-
-  <div>
-
-    <h3>
-      💎 Premium Pack
-    </h3>
-
-    <p>
-      Reward: +5000 Coins
-    </p>
-
-  </div>
-
-
-  <button
-    class="btn"
-    onclick="buyPack(5000,700)"
-  >
-    700 🪙
-  </button>
-
+<div class="card" id="eventBann">
+<h3>🚨 Bann Event</h3>
+<p>Warning animation.</p>
+<p>Duration: 5:00</p>
 </div>
 
-
-<!-- ADMIN STARTER PACK -->
-
-<div class="shop-card">
-
-  <div>
-
-    <h3>
-      👑 Admin Starter Pack
-    </h3>
-
-    <p>
-      Reward: +100,000 Coins
-    </p>
-
-    <p>
-      🔐 Admin Password Required
-    </p>
-
-  </div>
-
-
-  <button
-    class="btn"
-    onclick="buyAdminPack()"
-  >
-    ADMIN
-  </button>
-
+<div class="card" id="event5x">
+<h3>💰 5X Coins</h3>
+<p>Coin rain + 5X rewards.</p>
+<p>Duration: 5:00</p>
 </div>
 
+<div class="card">
+<h3>🪙 Coin Rain</h3>
+<p>Coins fall from the sky.</p>
+<p>Duration: 5:00</p>
+</div>
+
+<div class="card">
+<h3>🚀 Speed Event</h3>
+<p>Speed-line screen animation.</p>
+<p>Duration: 5:00</p>
+</div>
+
+<div class="card">
+<h3>🌈 Rainbow Event</h3>
+<p>Animated rainbow screen.</p>
+<p>Duration: 5:00</p>
+</div>
+
+<div class="card">
+<h3>☄️ Meteor Event</h3>
+<p>Meteor animation across the screen.</p>
+<p>Duration: 5:00</p>
+</div>
+
+</div>
 </section>
 
+<!-- GAME PASSES -->
+<section class="section">
+<h2>🎟️ Game Passes</h2>
 
-<!-- =========================
-     EVENTS
-========================= -->
+<div class="grid">
 
-<section>
-
-<h2>
-  🎉 EVENTS
-</h2>
-
-
-<!-- TACO -->
-
-<div
-  class="event"
-  id="eventTaco"
->
-
-  <div>
-
-    <h3>
-      🌮 Taco Event
-    </h3>
-
-    <p>
-      Duration: 5 minutes
-    </p>
-
-  </div>
-
-
-  <button
-    class="btn"
-    onclick="activateEvent('🌮 TACO EVENT')"
-  >
-    ACTIVATE
-  </button>
-
+<div class="card">
+<h3>👑 Owner Pass</h3>
+<p>ID: 1983026270</p>
+<button class="btn" onclick="openPass(1983026270)">OPEN PASS</button>
 </div>
 
-
-<!-- CYBER -->
-
-<div
-  class="event"
-  id="eventCyber"
->
-
-  <div>
-
-    <h3>
-      ⚡ Cyber Event
-    </h3>
-
-    <p>
-      Duration: 5 minutes
-    </p>
-
-  </div>
-
-
-  <button
-    class="btn"
-    onclick="activateEvent('⚡ CYBER EVENT')"
-  >
-    ACTIVATE
-  </button>
-
+<div class="card">
+<h3>⚡ Cyber Pro</h3>
+<p>ID: 1981610268</p>
+<button class="btn" onclick="openPass(1981610268)">OPEN PASS</button>
 </div>
 
-
-<!-- BANN -->
-
-<div
-  class="event"
-  id="eventBann"
->
-
-  <div>
-
-    <h3>
-      🎁 Bann Event
-    </h3>
-
-    <p>
-      Duration: 5 minutes
-    </p>
-
-  </div>
-
-
-  <button
-    class="btn"
-    onclick="activateEvent('🎁 BANN EVENT')"
-  >
-    ACTIVATE
-  </button>
-
+<div class="card">
+<h3>💎 VIP Access</h3>
+<p>ID: 1981142286</p>
+<button class="btn" onclick="openPass(1981142286)">OPEN PASS</button>
 </div>
 
-
-<!-- ACTIVE EVENT -->
-
-<div id="activeEvent">
-
-  <div id="eventName">
-  </div>
-
-
-  <div id="eventTimer">
-    05:00
-  </div>
-
+<div class="card">
+<h3>💠 Premium Access</h3>
+<p>ID: 1981952280</p>
+<button class="btn" onclick="openPass(1981952280)">OPEN PASS</button>
 </div>
 
+</div>
 </section>
 
+<!-- SHOP -->
+<section class="section">
+<h2>🛒 Coin Shop</h2>
 
-<!-- =========================
-     ADMIN PANEL
-========================= -->
+<div class="grid">
 
-<section class="admin">
+<div class="card">
+<h3>Starter Pack</h3>
+<p>Cost: 100 Coins</p>
+<p>Reward: +500 Coins</p>
+<button class="btn" onclick="buyPack(500,100)">
+BUY
+</button>
+</div>
 
-<h2>
-  👑 ADMIN PANEL
-</h2>
+<div class="card">
+<h3>Cyber Starter</h3>
+<p>Cost: 250 Coins</p>
+<p>Reward: +1,500 Coins</p>
+<button class="btn" onclick="buyPack(1500,250)">
+BUY
+</button>
+</div>
 
+<div class="card">
+<h3>Premium Pack</h3>
+<p>Cost: 700 Coins</p>
+<p>Reward: +5,000 Coins</p>
+<button class="btn" onclick="buyPack(5000,700)">
+BUY
+</button>
+</div>
 
-<p>
-  Enter Admin Password:
+<div class="card">
+<h3>👑 Admin Starter Pack</h3>
+<p>Reward: +100,000 Coins</p>
+<p>Admin password required.</p>
+<button class="btn" onclick="buyAdminPack()">
+GET ADMIN PACK
+</button>
+</div>
+
+</div>
+</section>
+
+<!-- ADMIN -->
+<section id="adminPanel">
+
+<h2>👑 DEMO ADMIN PANEL</h2>
+
+<p style="color:#ffcc00;margin-top:8px">
+Demo browser-based admin panel.
 </p>
 
+<div class="adminBox">
 
-<input
-  class="admin-input"
-  id="adminPassword"
-  type="password"
-  placeholder="Admin password"
->
+<h3>🎮 Event Control</h3>
 
+<div class="adminEventRow">
+<button class="btn" onclick="activateEvent('TACO')">🌮 TACO</button>
+<button class="btn" onclick="activateEvent('CYBER')">⚡ CYBER</button>
+<button class="btn" onclick="activateEvent('BANN')">🚨 BANN</button>
+<button class="btn" onclick="activateEvent('5X')">💰 5X COINS</button>
+</div>
 
-<button
-  class="btn"
-  onclick="loginAdmin()"
->
-  LOGIN
+<div class="adminEventRow">
+<button class="btn" onclick="activateEvent('COIN')">🪙 COIN RAIN</button>
+<button class="btn" onclick="activateEvent('SPEED')">🚀 SPEED</button>
+<button class="btn" onclick="activateEvent('RAINBOW')">🌈 RAINBOW</button>
+<button class="btn" onclick="activateEvent('METEOR')">☄️ METEOR</button>
+<button class="btn" onclick="stopEvent()">⛔ STOP</button>
+</div>
+
+</div>
+
+<div class="adminBox">
+
+<h3>🪙 Admin Coins</h3>
+
+<button class="btn" onclick="adminCoins(1000)">
++1,000
 </button>
 
-
-<div id="adminPanel">
-
-<hr
-style="margin:20px 0;"
->
-
-
-<h3>
-  ⚙️ EVENT CONTROL
-</h3>
-
-
-<button
-  class="btn"
-  onclick="activateEvent('🌮 TACO EVENT')"
->
-  🌮 TACO
+<button class="btn" onclick="adminCoins(10000)">
++10,000
 </button>
 
-
-<button
-  class="btn"
-  onclick="activateEvent('⚡ CYBER EVENT')"
->
-  ⚡ CYBER
+<button class="btn" onclick="adminCoins(100000)">
++100,000
 </button>
 
+</div>
 
-<button
-  class="btn"
-  onclick="activateEvent('🎁 BANN EVENT')"
->
-  🎁 BANN
+<div class="adminBox">
+
+<h3>➕ Add Custom Event</h3>
+
+<input id="newEventName" placeholder="Event name">
+<input id="newEventEmoji" placeholder="Emoji e.g. 🎉">
+<input id="newEventDuration" type="number" placeholder="Duration in seconds" value="300">
+<input id="newEventMultiplier" type="number" placeholder="Coin multiplier" value="1">
+
+<button class="btn" onclick="addCustomEvent()">
+ADD EVENT
 </button>
 
+<div id="customEvents"></div>
 
-<button
-  class="btn"
-  onclick="stopEvent()"
->
-  STOP EVENT
+</div>
+
+<div class="adminBox">
+
+<h3>🧩 Add Custom Challenge</h3>
+
+<input id="customTitle" placeholder="Challenge title">
+<input id="customQuestion" placeholder="Question">
+<input id="customAnswer" placeholder="Answer">
+<input id="customHint" placeholder="Hint">
+<input id="customReward" type="number" placeholder="Reward" value="100">
+
+<button class="btn" onclick="addCustomChallenge()">
+ADD CHALLENGE
 </button>
-
-
-<br><br>
-
-
-<h3>
-  🪙 COIN CONTROL
-</h3>
-
-
-<button
-  class="btn"
-  onclick="addCoins(1000)"
->
-  +1,000
-</button>
-
-
-<button
-  class="btn"
-  onclick="addCoins(10000)"
->
-  +10,000
-</button>
-
-
-<button
-  class="btn"
-  onclick="addCoins(100000)"
->
-  +100,000
-</button>
-
 
 </div>
 
@@ -1074,152 +713,96 @@ style="margin:20px 0;"
 
 </div>
 
+<!-- EVENT BANNER -->
+<div id="activeEvent">
+  <div id="eventName">EVENT ACTIVE</div>
+  <div id="eventTimer">05:00</div>
+</div>
 
-<!-- NOTIFICATION -->
+<!-- EFFECTS -->
+<div id="effects"></div>
+<div id="cyberFlash"></div>
+<div id="rainbow"></div>
 
-<div id="notice"></div>
+<div class="notice" id="notice"></div>
 
+<footer>
+⚡ CYBER LAB • Safe CTF Demo
+</footer>
 
 <script>
-
 
 /* =========================
    LOADER
 ========================= */
 
-let progress = 0;
+let progress=0;
 
-
-let loaderTimer =
-setInterval(function(){
-
+const loaderInterval=setInterval(()=>{
   progress++;
+  document.getElementById("loaderProgress").style.width=progress+"%";
+  document.getElementById("loaderText").innerText=progress+"%";
 
+  if(progress>=100){
+    clearInterval(loaderInterval);
 
-  document.getElementById(
-    "progress"
-  ).style.width =
-    progress + "%";
-
-
-  document.getElementById(
-    "percent"
-  ).innerText =
-    progress + "%";
-
-
-  if(progress >= 100){
-
-    clearInterval(
-      loaderTimer
-    );
-
-
-    setTimeout(function(){
-
-      document.getElementById(
-        "loader"
-      ).style.display =
-        "none";
-
-
-      document.getElementById(
-        "main"
-      ).style.display =
-        "block";
-
-
-    },500);
-
+    setTimeout(()=>{
+      document.getElementById("loader").style.display="none";
+    },400);
   }
-
-},30);
+},20);
 
 
 /* =========================
-   PLAYER DATA
+   STORAGE
 ========================= */
 
-let coins =
-Number(
-  localStorage.getItem("coins")
-) || 0;
+let coins=parseInt(localStorage.getItem("coins")||"0");
 
+let completedChallenges=
+JSON.parse(localStorage.getItem("completedChallenges")||"[]");
 
-let completed =
-Number(
-  localStorage.getItem("completed")
-) || 0;
+let playerCode=
+localStorage.getItem("playerCode");
 
+let customEvents=
+JSON.parse(localStorage.getItem("customEvents")||"[]");
 
-let completedChallenges =
-JSON.parse(
-  localStorage.getItem(
-    "challenges"
-  )
-) || [];
+let customChallenges=
+JSON.parse(localStorage.getItem("customChallenges")||"[]");
+
+let coinMultiplier=1;
+
+let eventTimer=null;
+let eventSeconds=0;
+let currentEvent=null;
+
+const ADMIN_PASSWORD="CYBERADMIN";
 
 
 /* =========================
-   INDIVIDUAL CODE
+   PLAYER CODE
 ========================= */
 
 function generatePlayerCode(){
 
-  const chars =
-  "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
+  let code="CYBER-";
 
-  let code =
-    "CYBER-";
-
-
-  for(
-    let i = 0;
-    i < 6;
-    i++
-  ){
-
-    code +=
-      chars[
-        Math.floor(
-          Math.random()
-          * chars.length
-        )
-      ];
-
+  for(let i=0;i<6;i++){
+    code+=chars[Math.floor(Math.random()*chars.length)];
   }
 
-
   return code;
-
 }
-
-
-let playerCode =
-localStorage.getItem(
-  "playerCode"
-);
-
 
 if(!playerCode){
-
-  playerCode =
-    generatePlayerCode();
-
-
-  localStorage.setItem(
-    "playerCode",
-    playerCode
-  );
-
+  playerCode=generatePlayerCode();
+  localStorage.setItem("playerCode",playerCode);
 }
 
-
-document.getElementById(
-  "personalCode"
-).innerText =
-  playerCode;
+document.getElementById("playerCode").innerText=playerCode;
 
 
 /* =========================
@@ -1228,232 +811,96 @@ document.getElementById(
 
 function updateStats(){
 
-  document.getElementById(
-    "coins"
-  ).innerText =
-    coins;
+  document.getElementById("coins").innerText=coins;
 
+  document.getElementById("completed").innerText=
+    completedChallenges.length;
 
-  document.getElementById(
-    "completed"
-  ).innerText =
-    completed;
-
+  localStorage.setItem("coins",coins);
 
   localStorage.setItem(
-    "coins",
-    coins
+    "completedChallenges",
+    JSON.stringify(completedChallenges)
   );
-
-
-  localStorage.setItem(
-    "completed",
-    completed
-  );
-
-
-  localStorage.setItem(
-    "challenges",
-    JSON.stringify(
-      completedChallenges
-    )
-  );
-
 }
-
 
 updateStats();
 
 
 /* =========================
-   HINT
+   NOTICE
 ========================= */
 
-function showHint(){
+let noticeTimeout;
 
-  document.getElementById(
-    "hintText"
-  ).style.display =
-    "block";
+function showNotice(text){
 
+  const n=document.getElementById("notice");
+
+  n.innerText=text;
+  n.style.display="block";
+
+  clearTimeout(noticeTimeout);
+
+  noticeTimeout=setTimeout(()=>{
+    n.style.display="none";
+  },2500);
 }
 
 
 /* =========================
-   PERSONAL CHALLENGE
+   CHALLENGES
 ========================= */
 
-function checkPersonalChallenge(){
+function getReward(base){
 
-  if(
-    completedChallenges.includes(1)
-  ){
+  return base*coinMultiplier;
+}
 
-    showNotice(
-      "Challenge already completed!"
-    );
+function checkChallenge(id,answer,baseReward){
 
+  if(completedChallenges.includes(id)){
+    showNotice("✅ Challenge already completed!");
     return;
-
   }
 
+  const input=document.getElementById("answer"+id);
 
-  const input =
-    document.getElementById(
-      "answer1"
-    )
-    .value
-    .trim()
-    .toUpperCase();
+  if(!input)return;
 
+  const value=input.value.trim().toUpperCase();
 
-  if(
-    input ===
-    playerCode
-  ){
+  if(value===String(answer).toUpperCase()){
 
-    completedChallenges.push(1);
+    const reward=getReward(baseReward);
 
-    completed++;
+    completedChallenges.push(id);
 
-    coins += 100;
-
-
-    document.getElementById(
-      "result1"
-    ).innerText =
-      "✓ Correct! +100 Coins";
-
-
-    document.getElementById(
-      "challenge1"
-    ).classList.add(
-      "done"
-    );
-
+    coins+=reward;
 
     updateStats();
 
+    input.disabled=true;
 
-    showNotice(
-      "🎉 +100 Coins!"
-    );
-
+    showNotice("🎉 Correct! +"+reward+" Coins");
 
   }else{
 
-    document.getElementById(
-      "result1"
-    ).innerText =
-      "❌ Wrong code. Try again.";
-
+    showNotice("❌ Wrong answer!");
   }
-
 }
 
 
 /* =========================
-   OTHER CHALLENGE ANSWERS
-========================= */
-
-const answers = {
-
-  2:"SECURE",
-
-  3:"ACCESS",
-
-  4:"FIREWALL",
-
-  5:"HELP"
-
-};
-
-
-function checkChallenge(number){
-
-  if(
-    completedChallenges.includes(
-      number
-    )
-  ){
-
-    showNotice(
-      "Challenge already completed!"
-    );
-
-    return;
-
-  }
-
-
-  let input =
-    document.getElementById(
-      "answer" + number
-    )
-    .value
-    .trim()
-    .toUpperCase();
-
-
-  if(
-    input ===
-    answers[number]
-  ){
-
-    completedChallenges.push(
-      number
-    );
-
-    completed++;
-
-    coins += 100;
-
-
-    document.getElementById(
-      "result" + number
-    ).innerText =
-      "✓ Correct! +100 Coins";
-
-
-    document.getElementById(
-      "challenge" + number
-    ).classList.add(
-      "done"
-    );
-
-
-    updateStats();
-
-
-    showNotice(
-      "🎉 +100 Coins!"
-    );
-
-
-  }else{
-
-    document.getElementById(
-      "result" + number
-    ).innerText =
-      "❌ Wrong answer";
-
-  }
-
-}
-
-
-/* =========================
-   GAME PASSES
+   GAME PASS
 ========================= */
 
 function openPass(id){
 
   window.open(
-    "https://www.roblox.com/game-pass/"
-    + id,
+    "https://www.roblox.com/game-pass/"+id,
     "_blank"
   );
-
 }
 
 
@@ -1461,342 +908,444 @@ function openPass(id){
    SHOP
 ========================= */
 
-function buyPack(
-  reward,
-  cost
-){
+function buyPack(reward,cost){
 
-  if(coins < cost){
+  if(coins<cost){
 
-    showNotice(
-      "❌ Not enough Coins!"
-    );
+    showNotice("❌ Not enough Coins!");
 
     return;
-
   }
 
-
-  coins -= cost;
-
-  coins += reward;
-
+  coins-=cost;
+  coins+=reward;
 
   updateStats();
 
-
-  showNotice(
-    "🎁 Pack purchased! +"
-    + reward
-    + " Coins"
-  );
-
+  showNotice("🪙 Pack activated! +"+reward+" Coins");
 }
 
 
 /* =========================
-   ADMIN STARTER PACK
+   ADMIN PACK
 ========================= */
 
 function buyAdminPack(){
 
-  const password =
-    prompt(
-      "Enter Admin Password:"
-    );
+  const password=prompt("Enter Admin Password:");
 
+  if(password===ADMIN_PASSWORD){
 
-  if(
-    password ===
-    "CYBERADMIN"
-  ){
-
-    coins += 100000;
-
+    coins+=100000;
 
     updateStats();
 
-
-    showNotice(
-      "👑 +100,000 Admin Coins!"
-    );
-
+    showNotice("👑 +100,000 Admin Coins!");
 
   }else{
 
-    showNotice(
-      "❌ Wrong Admin Password!"
-    );
-
+    showNotice("❌ Wrong Admin Password!");
   }
+}
+
+
+/* =========================
+   ADMIN PANEL
+========================= */
+
+function openAdmin(){
+
+  const password=prompt("Admin Password:");
+
+  if(password===ADMIN_PASSWORD){
+
+    document.getElementById("adminPanel").style.display="block";
+
+    showNotice("👑 Admin Panel opened!");
+
+  }else{
+
+    showNotice("❌ Wrong Admin Password!");
+  }
+}
+
+
+/* =========================
+   ADMIN BUTTON
+========================= */
+
+const adminButton=document.createElement("button");
+
+adminButton.className="btn";
+
+adminButton.innerText="👑 OPEN ADMIN PANEL";
+
+adminButton.style.display="block";
+adminButton.style.margin="25px auto";
+
+adminButton.onclick=openAdmin;
+
+document.querySelector(".container").appendChild(adminButton);
+
+
+/* =========================
+   EFFECT SYSTEM
+========================= */
+
+function clearEffects(){
+
+  document.getElementById("effects").innerHTML="";
+
+  document.getElementById("effects").style.display="none";
+
+  document.getElementById("cyberFlash").style.display="none";
+
+  document.getElementById("rainbow").style.display="none";
+}
+
+
+/* =========================
+   FALLING EMOJI
+========================= */
+
+let fallInterval=null;
+
+function startEmojiRain(emoji){
+
+  clearEffects();
+
+  const effects=document.getElementById("effects");
+
+  effects.style.display="block";
+
+  clearInterval(fallInterval);
+
+  fallInterval=setInterval(()=>{
+
+    const item=document.createElement("div");
+
+    item.className="fall";
+
+    item.innerText=emoji;
+
+    item.style.left=Math.random()*100+"%";
+
+    item.style.fontSize=
+      (25+Math.random()*35)+"px";
+
+    item.style.animationDuration=
+      (2+Math.random()*3)+"s";
+
+    effects.appendChild(item);
+
+    setTimeout(()=>{
+      item.remove();
+    },5500);
+
+  },180);
+
+}
+
+function stopEmojiRain(){
+
+  clearInterval(fallInterval);
+}
+
+
+/* =========================
+   CYBER
+========================= */
+
+let cyberInterval=null;
+
+function startCyber(){
+
+  clearEffects();
+
+  document.getElementById("cyberFlash").style.display="block";
+
+  clearInterval(cyberInterval);
+
+  cyberInterval=setInterval(()=>{
+
+    const line=document.createElement("div");
+
+    line.className="speedLine";
+
+    line.style.top=Math.random()*100+"%";
+
+    document.getElementById("effects")
+      .appendChild(line);
+
+    setTimeout(()=>{
+      line.remove();
+    },1000);
+
+  },120);
+
+}
+
+function stopCyber(){
+
+  clearInterval(cyberInterval);
 
 }
 
 
 /* =========================
-   TACO RAIN
+   SPEED
 ========================= */
 
-let tacoInterval = null;
+let speedInterval=null;
 
+function startSpeed(){
 
-function startTacoRain(){
+  clearEffects();
 
-  const rain =
-    document.getElementById(
-      "tacoRain"
-    );
+  const effects=document.getElementById("effects");
 
+  effects.style.display="block";
 
-  rain.style.display =
-    "block";
+  clearInterval(speedInterval);
 
+  speedInterval=setInterval(()=>{
 
-  clearInterval(
-    tacoInterval
-  );
+    const line=document.createElement("div");
 
+    line.className="speedLine";
 
-  tacoInterval =
-  setInterval(function(){
+    line.style.top=Math.random()*100+"%";
 
-    const taco =
-      document.createElement(
-        "div"
-      );
+    effects.appendChild(line);
 
+    setTimeout(()=>{
+      line.remove();
+    },1000);
 
-    taco.className =
-      "taco";
+  },80);
+}
 
+function stopSpeed(){
 
-    taco.innerText =
-      "🌮";
-
-
-    taco.style.left =
-      Math.random() * 100
-      + "%";
-
-
-    taco.style.animationDuration =
-      (
-        2 +
-        Math.random() * 3
-      )
-      + "s";
-
-
-    taco.style.fontSize =
-      (
-        30 +
-        Math.random() * 35
-      )
-      + "px";
-
-
-    rain.appendChild(
-      taco
-    );
-
-
-    setTimeout(
-      function(){
-
-        taco.remove();
-
-      },
-      5000
-    );
-
-
-  },250);
-
+  clearInterval(speedInterval);
 }
 
 
 /* =========================
-   STOP TACO RAIN
+   METEOR
 ========================= */
 
-function stopTacoRain(){
+let meteorInterval=null;
 
-  clearInterval(
-    tacoInterval
-  );
+function startMeteor(){
 
+  clearEffects();
 
-  const rain =
-    document.getElementById(
-      "tacoRain"
-    );
+  const effects=document.getElementById("effects");
 
+  effects.style.display="block";
 
-  rain.style.display =
-    "none";
+  clearInterval(meteorInterval);
 
+  meteorInterval=setInterval(()=>{
 
-  rain.innerHTML =
-    "";
+    const meteor=document.createElement("div");
 
+    meteor.className="meteor";
+
+    effects.appendChild(meteor);
+
+    setTimeout(()=>{
+      meteor.remove();
+    },1600);
+
+  },350);
+}
+
+function stopMeteor(){
+
+  clearInterval(meteorInterval);
 }
 
 
 /* =========================
-   EVENT
+   EVENT BANNER
 ========================= */
 
-let eventInterval = null;
+function showEventBanner(name,emoji){
 
-let eventSeconds = 0;
+  document.getElementById("activeEvent").style.display="block";
 
-
-function activateEvent(name){
-
-  clearInterval(
-    eventInterval
-  );
-
-
-  stopTacoRain();
-
-
-  eventSeconds =
-    300;
-
-
-  document.getElementById(
-    "activeEvent"
-  ).style.display =
-    "block";
-
-
-  document.getElementById(
-    "eventName"
-  ).innerText =
-    name +
-    " ACTIVE";
-
-
-  document.querySelectorAll(
-    ".event"
-  ).forEach(function(event){
-
-    event.classList.remove(
-      "active"
-    );
-
-  });
-
-
-  if(
-    name.includes("TACO")
-  ){
-
-    document.getElementById(
-      "eventTaco"
-    ).classList.add(
-      "active"
-    );
-
-
-    startTacoRain();
-
-  }
-
-
-  if(
-    name.includes("CYBER")
-  ){
-
-    document.getElementById(
-      "eventCyber"
-    ).classList.add(
-      "active"
-    );
-
-  }
-
-
-  if(
-    name.includes("BANN")
-  ){
-
-    document.getElementById(
-      "eventBann"
-    ).classList.add(
-      "active"
-    );
-
-  }
-
+  document.getElementById("eventName").innerText=
+    emoji+" "+name;
 
   updateEventTimer();
+}
+
+function updateEventTimer(){
+
+  const minutes=Math.floor(eventSeconds/60);
+
+  const seconds=eventSeconds%60;
+
+  document.getElementById("eventTimer").innerText=
+    String(minutes).padStart(2,"0")+":"+
+    String(seconds).padStart(2,"0");
+}
 
 
-  eventInterval =
-  setInterval(function(){
+/* =========================
+   EVENT ACTIVATION
+========================= */
+
+function activateEvent(type,custom=null){
+
+  stopEvent(false);
+
+  let name="";
+  let emoji="⚡";
+  let multiplier=1;
+
+  if(custom){
+
+    name=custom.name;
+    emoji=custom.emoji||"🎉";
+    eventSeconds=custom.duration||300;
+    multiplier=custom.multiplier||1;
+
+  }else{
+
+    eventSeconds=300;
+
+    if(type==="TACO"){
+      name="TACO RAIN";
+      emoji="🌮";
+    }
+
+    if(type==="CYBER"){
+      name="CYBER EVENT";
+      emoji="⚡";
+    }
+
+    if(type==="BANN"){
+      name="BANN EVENT";
+      emoji="🚨";
+    }
+
+    if(type==="5X"){
+      name="5X COINS";
+      emoji="💰";
+      multiplier=5;
+    }
+
+    if(type==="COIN"){
+      name="COIN RAIN";
+      emoji="🪙";
+    }
+
+    if(type==="SPEED"){
+      name="SPEED EVENT";
+      emoji="🚀";
+    }
+
+    if(type==="RAINBOW"){
+      name="RAINBOW EVENT";
+      emoji="🌈";
+    }
+
+    if(type==="METEOR"){
+      name="METEOR EVENT";
+      emoji="☄️";
+    }
+  }
+
+  currentEvent={
+    name:name,
+    emoji:emoji
+  };
+
+  coinMultiplier=multiplier;
+
+  showEventBanner(name,emoji);
+
+  document
+    .querySelectorAll(".card")
+    .forEach(card=>{
+      card.classList.remove("eventActive");
+    });
+
+  if(type==="TACO"){
+    document.getElementById("eventTaco")
+      .classList.add("eventActive");
+
+    startEmojiRain("🌮");
+  }
+
+  else if(type==="CYBER"){
+
+    document.getElementById("eventCyber")
+      .classList.add("eventActive");
+
+    startCyber();
+  }
+
+  else if(type==="BANN"){
+
+    document.getElementById("eventBann")
+      .classList.add("eventActive");
+
+    startEmojiRain("🚨");
+  }
+
+  else if(type==="5X"){
+
+    document.getElementById("event5x")
+      .classList.add("eventActive");
+
+    startEmojiRain("🪙");
+  }
+
+  else if(type==="COIN"){
+
+    startEmojiRain("🪙");
+  }
+
+  else if(type==="SPEED"){
+
+    startSpeed();
+  }
+
+  else if(type==="RAINBOW"){
+
+    clearEffects();
+
+    document.getElementById("rainbow")
+      .style.display="block";
+  }
+
+  else if(type==="METEOR"){
+
+    startMeteor();
+  }
+
+  eventTimer=setInterval(()=>{
 
     eventSeconds--;
 
-
     updateEventTimer();
 
-
-    if(
-      eventSeconds <= 0
-    ){
+    if(eventSeconds<=0){
 
       stopEvent();
 
-
-      showNotice(
-        "⏱️ Event finished!"
-      );
-
+      showNotice("⏱️ Event finished!");
     }
 
   },1000);
 
-
   showNotice(
-    name +
-    " started!"
+    emoji+" "+name+" started!"
   );
-
-}
-
-
-/* =========================
-   EVENT TIMER
-========================= */
-
-function updateEventTimer(){
-
-  let minutes =
-    Math.floor(
-      eventSeconds / 60
-    );
-
-
-  let seconds =
-    eventSeconds % 60;
-
-
-  document.getElementById(
-    "eventTimer"
-  ).innerText =
-
-    String(minutes)
-    .padStart(2,"0")
-
-    + ":"
-
-    +
-
-    String(seconds)
-    .padStart(2,"0");
-
 }
 
 
@@ -1804,133 +1353,286 @@ function updateEventTimer(){
    STOP EVENT
 ========================= */
 
-function stopEvent(){
+function stopEvent(showMessage=true){
 
-  clearInterval(
-    eventInterval
-  );
+  clearInterval(eventTimer);
 
+  eventTimer=null;
 
-  stopTacoRain();
+  stopEmojiRain();
+  stopCyber();
+  stopSpeed();
+  stopMeteor();
 
+  clearEffects();
 
-  eventSeconds =
-    0;
+  coinMultiplier=1;
 
+  currentEvent=null;
 
-  document.getElementById(
-    "activeEvent"
-  ).style.display =
-    "none";
+  document.getElementById("activeEvent")
+    .style.display="none";
 
+  document
+    .querySelectorAll(".card")
+    .forEach(card=>{
+      card.classList.remove("eventActive");
+    });
 
-  document.querySelectorAll(
-    ".event"
-  ).forEach(function(event){
-
-    event.classList.remove(
-      "active"
-    );
-
-  });
-
+  if(showMessage){
+    showNotice("⛔ Event stopped!");
+  }
 }
 
 
 /* =========================
-   ADMIN LOGIN
+   CUSTOM EVENTS
 ========================= */
 
-function loginAdmin(){
+function addCustomEvent(){
 
-  const password =
-    "CYBERADMIN";
+  const name=
+    document.getElementById("newEventName")
+      .value.trim();
 
+  const emoji=
+    document.getElementById("newEventEmoji")
+      .value.trim()||"🎉";
 
-  const input =
-    document.getElementById(
-      "adminPassword"
-    ).value;
+  const duration=
+    parseInt(
+      document.getElementById("newEventDuration").value
+    )||300;
 
+  const multiplier=
+    parseInt(
+      document.getElementById("newEventMultiplier").value
+    )||1;
 
-  if(
-    input === password
-  ){
+  if(!name){
 
-    document.getElementById(
-      "adminPanel"
-    ).style.display =
-      "block";
+    showNotice("❌ Enter event name!");
 
-
-    showNotice(
-      "👑 Admin access granted!"
-    );
-
-
-  }else{
-
-    showNotice(
-      "❌ Wrong Admin Password!"
-    );
-
+    return;
   }
 
+  customEvents.push({
+    id:Date.now(),
+    name:name,
+    emoji:emoji,
+    duration:duration,
+    multiplier:multiplier
+  });
+
+  localStorage.setItem(
+    "customEvents",
+    JSON.stringify(customEvents)
+  );
+
+  renderCustomEvents();
+
+  showNotice("✅ Event added!");
 }
+
+
+function renderCustomEvents(){
+
+  const box=document.getElementById("customEvents");
+
+  box.innerHTML="";
+
+  customEvents.forEach(event=>{
+
+    const row=document.createElement("div");
+
+    row.className="adminEventRow";
+
+    const button=document.createElement("button");
+
+    button.className="btn";
+
+    button.innerText=
+      event.emoji+" "+event.name+
+      " ("+event.multiplier+"X)";
+
+    button.onclick=()=>{
+      activateEvent(null,event);
+    };
+
+    row.appendChild(button);
+
+    box.appendChild(row);
+  });
+}
+
+renderCustomEvents();
 
 
 /* =========================
-   ADMIN COINS
+   CUSTOM CHALLENGES
 ========================= */
 
-function addCoins(amount){
+function addCustomChallenge(){
 
-  coins += amount;
+  const title=
+    document.getElementById("customTitle")
+      .value.trim();
 
+  const question=
+    document.getElementById("customQuestion")
+      .value.trim();
 
-  updateStats();
+  const answer=
+    document.getElementById("customAnswer")
+      .value.trim();
 
+  const hint=
+    document.getElementById("customHint")
+      .value.trim();
 
-  showNotice(
-    "+" +
-    amount +
-    " Coins added!"
+  const reward=
+    parseInt(
+      document.getElementById("customReward").value
+    )||100;
+
+  if(!title||!question||!answer){
+
+    showNotice("❌ Fill title, question and answer!");
+
+    return;
+  }
+
+  customChallenges.push({
+    id:Date.now(),
+    title:title,
+    question:question,
+    answer:answer,
+    hint:hint,
+    reward:reward
+  });
+
+  localStorage.setItem(
+    "customChallenges",
+    JSON.stringify(customChallenges)
   );
 
+  renderCustomChallenges();
+
+  showNotice("🧩 Challenge added!");
 }
 
 
-/* =========================
-   NOTICE
-========================= */
+function renderCustomChallenges(){
 
-function showNotice(text){
+  let section=document.getElementById("customChallengeSection");
 
-  const notice =
-    document.getElementById(
-      "notice"
-    );
+  if(!section){
 
+    section=document.createElement("section");
 
-  notice.innerText =
-    text;
+    section.id="customChallengeSection";
 
+    section.className="section";
 
-  notice.style.display =
-    "block";
+    section.innerHTML=
+      "<h2>🧩 Extra Challenges</h2>"+
+      "<div class='grid' id='customChallengeGrid'></div>";
 
+    document
+      .querySelector(".container")
+      .insertBefore(
+        section,
+        document.getElementById("adminPanel")
+      );
+  }
 
-  setTimeout(
-    function(){
+  const grid=
+    document.getElementById("customChallengeGrid");
 
-      notice.style.display =
-        "none";
+  grid.innerHTML="";
 
-    },
-    2500
-  );
+  customChallenges.forEach(challenge=>{
 
+    const card=document.createElement("div");
+
+    card.className="customChallenge";
+
+    const title=document.createElement("h3");
+
+    title.innerText=
+      "🧩 "+challenge.title;
+
+    const question=document.createElement("p");
+
+    question.innerText=
+      challenge.question;
+
+    const hint=document.createElement("p");
+
+    hint.innerText=
+      "💡 "+challenge.hint;
+
+    const input=document.createElement("input");
+
+    input.placeholder="Your answer";
+
+    input.id="custom_"+challenge.id;
+
+    const button=document.createElement("button");
+
+    button.className="btn";
+
+    button.innerText="CHECK";
+
+    button.onclick=()=>{
+
+      if(
+        completedChallenges
+          .includes(challenge.id)
+      ){
+
+        showNotice("✅ Already completed!");
+
+        return;
+      }
+
+      if(
+        input.value.trim().toUpperCase()===
+        challenge.answer.trim().toUpperCase()
+      ){
+
+        const reward=
+          getReward(challenge.reward);
+
+        completedChallenges.push(challenge.id);
+
+        coins+=reward;
+
+        updateStats();
+
+        input.disabled=true;
+
+        showNotice(
+          "🎉 Correct! +"+reward+" Coins"
+        );
+
+      }else{
+
+        showNotice("❌ Wrong answer!");
+      }
+    };
+
+    card.appendChild(title);
+    card.appendChild(question);
+    card.appendChild(hint);
+    card.appendChild(input);
+    card.appendChild(button);
+
+    grid.appendChild(card);
+  });
 }
+
+renderCustomChallenges();
 
 </script>
 
