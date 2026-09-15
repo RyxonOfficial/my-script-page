@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>CYBER LAB</title>
+<title>CYBER WIN LAB</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -22,55 +22,21 @@ button,input{
 
 button{cursor:pointer}
 
-#loader{
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  background:#020305;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-}
-
-.loaderTitle{
-  font-size:30px;
-  margin-bottom:20px;
-  text-shadow:0 0 20px #00ff9d;
-}
-
-.loaderBar{
-  width:80%;
-  max-width:500px;
-  height:18px;
-  border:1px solid #00ff9d;
-  padding:3px;
-}
-
-#loaderProgress{
-  width:0%;
-  height:100%;
-  background:#00ff9d;
-  box-shadow:0 0 20px #00ff9d;
-}
-
-#loaderText{margin-top:12px}
-
 header{
   text-align:center;
-  padding:30px 15px;
+  padding:28px 12px;
   border-bottom:1px solid #00ff9d55;
   background:#06100d;
 }
 
 header h1{
-  font-size:38px;
-  text-shadow:0 0 15px #00ff9d;
+  font-size:36px;
+  text-shadow:0 0 18px #00ff9d;
 }
 
 header p{
+  color:#75ffc8;
   margin-top:8px;
-  color:#6affc1;
 }
 
 .container{
@@ -84,24 +50,20 @@ header p{
   justify-content:center;
   gap:15px;
   flex-wrap:wrap;
-  padding:20px;
+  padding:18px;
 }
 
 .stat{
   border:1px solid #00ff9d;
-  background:#06100d;
-  padding:12px 25px;
-  box-shadow:0 0 12px #00ff9d22;
+  background:#07100d;
+  padding:12px 22px;
 }
 
-.section{
-  margin:25px 0;
-}
+.section{margin:25px 0}
 
 .section h2{
   color:white;
-  margin-bottom:15px;
-  text-shadow:0 0 10px #00ff9d;
+  margin-bottom:14px;
 }
 
 .grid{
@@ -111,22 +73,20 @@ header p{
 }
 
 .card{
-  border:1px solid #00ff9d66;
+  border:1px solid #00ff9d55;
   background:#08100e;
   padding:18px;
   border-radius:10px;
-  transition:.2s;
 }
 
 .card:hover{
-  transform:translateY(-3px);
   border-color:#00ff9d;
-  box-shadow:0 0 20px #00ff9d33;
+  box-shadow:0 0 18px #00ff9d33;
 }
 
 .card h3{
   color:white;
-  margin-bottom:10px;
+  margin-bottom:9px;
 }
 
 .card p{
@@ -140,7 +100,7 @@ header p{
   color:#00ff9d;
   padding:9px 13px;
   border-radius:6px;
-  margin-top:9px;
+  margin-top:8px;
 }
 
 .btn:hover{
@@ -151,79 +111,147 @@ header p{
 
 input{
   width:100%;
-  padding:11px;
-  margin-top:8px;
+  padding:10px;
   background:#020605;
   color:#00ff9d;
   border:1px solid #00ff9d66;
   border-radius:6px;
+  margin-top:7px;
 }
 
-input:focus{
-  outline:none;
-  border-color:#00ff9d;
-  box-shadow:0 0 10px #00ff9d33;
+/* NPC WORLD */
+#world{
+  position:relative;
+  height:330px;
+  margin-top:20px;
+  overflow:hidden;
+  border:1px solid #00ff9d55;
+  border-radius:12px;
+  background:
+    linear-gradient(#00ff9d08 1px,transparent 1px),
+    linear-gradient(90deg,#00ff9d08 1px,transparent 1px);
+  background-size:35px 35px;
 }
 
-.notice{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  z-index:9000;
-  background:#07130f;
-  border:1px solid #00ff9d;
-  color:#00ff9d;
-  padding:14px 18px;
-  border-radius:8px;
+#npc{
+  position:absolute;
+  left:30px;
+  bottom:65px;
+  font-size:58px;
+  transition:left .05s linear;
+  filter:drop-shadow(0 0 12px #00ff9d);
+}
+
+#winZone{
+  position:absolute;
+  right:25px;
+  bottom:35px;
+  width:120px;
+  height:170px;
+  border:3px solid #00ff9d;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  font-size:30px;
+  font-weight:bold;
+  box-shadow:0 0 30px #00ff9d66;
+  animation:winPulse 1s infinite alternate;
+}
+
+@keyframes winPulse{
+  from{box-shadow:0 0 10px #00ff9d55}
+  to{box-shadow:0 0 35px #00ff9d}
+}
+
+.road{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:30px;
+  height:8px;
+  background:#00ff9d;
+  box-shadow:0 0 15px #00ff9d;
+}
+
+/* WIN SCREEN */
+#winScreen{
   display:none;
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:#000;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
 }
 
-/* ACTIVE EVENT */
-#activeEvent{
+#winScreen h1{
+  font-size:90px;
+  color:#00ff9d;
+  text-shadow:
+    0 0 10px #00ff9d,
+    0 0 40px #00ff9d;
+  animation:winText .7s infinite alternate;
+}
+
+#winScreen p{
+  color:white;
+  font-size:20px;
+  margin-top:15px;
+}
+
+@keyframes winText{
+  from{transform:scale(1)}
+  to{transform:scale(1.08)}
+}
+
+/* EVENT BANNER */
+#eventBanner{
   display:none;
   position:fixed;
   top:15px;
   left:50%;
   transform:translateX(-50%);
-  z-index:8000;
+  z-index:9000;
   width:min(92%,700px);
   text-align:center;
   padding:18px;
   border:2px solid #00ff9d;
   background:#020907ee;
   box-shadow:0 0 30px #00ff9d88;
-  animation:eventPulse 1s infinite alternate;
+  animation:bannerPulse .7s infinite alternate;
 }
 
-#eventName{
-  font-size:28px;
+#eventTitle{
+  font-size:29px;
   font-weight:bold;
 }
 
-#eventTimer{
-  font-size:25px;
-  margin-top:8px;
+#eventTime{
   color:white;
+  font-size:24px;
+  margin-top:6px;
 }
 
-@keyframes eventPulse{
+@keyframes bannerPulse{
   from{transform:translateX(-50%) scale(1)}
   to{transform:translateX(-50%) scale(1.03)}
 }
 
-/* EVENT EFFECT LAYERS */
+/* EFFECTS */
 #effects{
+  display:none;
   position:fixed;
   inset:0;
+  z-index:8000;
   pointer-events:none;
-  z-index:7000;
   overflow:hidden;
-  display:none;
 }
 
 .fall{
   position:absolute;
-  top:-80px;
+  top:-70px;
   animation:fall linear forwards;
 }
 
@@ -233,107 +261,75 @@ input:focus{
   }
 }
 
-/* CYBER */
-#cyberFlash{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:6500;
-  display:none;
-  background:repeating-linear-gradient(
-    0deg,
-    transparent 0px,
-    transparent 5px,
-    #00ff9d0b 6px,
-    transparent 7px
-  );
-  animation:glitch .12s infinite;
-}
-
-@keyframes glitch{
-  0%{opacity:.3}
-  50%{opacity:.8}
-  100%{opacity:.3}
-}
-
-/* SPEED */
-.speedLine{
-  position:absolute;
-  height:2px;
-  background:#fff;
-  animation:speed 1s linear forwards;
-}
-
-@keyframes speed{
-  from{
-    left:100%;
-    width:0;
-  }
-  to{
-    left:-30%;
-    width:35%;
-  }
-}
-
-/* RAINBOW */
 #rainbow{
+  display:none;
   position:fixed;
   inset:0;
-  z-index:6000;
+  z-index:7000;
   pointer-events:none;
-  display:none;
-  opacity:.25;
+  opacity:.22;
   background:linear-gradient(
     120deg,
-    #ff0000,
-    #ffff00,
-    #00ff00,
-    #00ffff,
-    #0000ff,
-    #ff00ff
+    red,orange,yellow,green,cyan,blue,violet,red
   );
   background-size:500% 500%;
-  animation:rainbowMove 3s linear infinite;
+  animation:rainbow 3s linear infinite;
 }
 
-@keyframes rainbowMove{
-  0%{background-position:0% 50%}
-  100%{background-position:100% 50%}
+@keyframes rainbow{
+  from{background-position:0 50%}
+  to{background-position:100% 50%}
 }
 
-/* METEOR */
-.meteor{
-  position:absolute;
-  width:90px;
-  height:4px;
-  background:#fff;
-  box-shadow:0 0 15px #ff9d00;
-  transform:rotate(-35deg);
-  animation:meteor 1.5s linear forwards;
+/* KEYBOARD GAME */
+#keyGame{
+  text-align:center;
+  border:1px solid #00ff9d66;
+  background:#07100d;
+  padding:25px;
+  border-radius:12px;
 }
 
-@keyframes meteor{
-  from{
-    left:110%;
-    top:-10%;
-  }
-  to{
-    left:-20%;
-    top:110%;
-  }
+#keyDisplay{
+  font-size:75px;
+  color:white;
+  text-shadow:0 0 25px #00ff9d;
+  margin:15px;
+}
+
+#keyScore{
+  font-size:22px;
+}
+
+#keyMessage{
+  min-height:25px;
+  margin-top:10px;
+}
+
+.touchKeys{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.touchKeys button{
+  width:60px;
+  height:60px;
+  font-size:22px;
 }
 
 /* ADMIN */
-#adminPanel{
+#admin{
   display:none;
   border:1px solid #ffcc00;
-  background:#100f04;
+  background:#111004;
   padding:20px;
-  margin:25px 0;
   border-radius:10px;
 }
 
-#adminPanel h2{
+#admin h2{
   color:#ffcc00;
 }
 
@@ -344,29 +340,21 @@ input:focus{
 }
 
 .adminBox h3{
-  color:#fff;
-  margin-bottom:8px;
+  color:white;
+  margin-bottom:10px;
 }
 
-.adminEventRow{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin:8px 0;
-}
-
-/* ACTIVE CARD */
-.eventActive{
-  border-color:#00ff9d !important;
-  box-shadow:0 0 20px #00ff9d66;
-}
-
-/* CUSTOM */
-.customChallenge{
-  border:1px solid #00ff9d66;
-  background:#08100e;
-  padding:18px;
-  border-radius:10px;
+.notice{
+  display:none;
+  position:fixed;
+  right:15px;
+  bottom:15px;
+  z-index:10000;
+  padding:13px 17px;
+  border:1px solid #00ff9d;
+  background:#07130f;
+  color:#00ff9d;
+  border-radius:7px;
 }
 
 footer{
@@ -379,27 +367,143 @@ footer{
 
 <body>
 
-<!-- LOADER -->
-<div id="loader">
-  <div class="loaderTitle">⚡ CYBER LAB ⚡</div>
-  <div class="loaderBar">
-    <div id="loaderProgress"></div>
-  </div>
-  <div id="loaderText">0%</div>
-</div>
-
 <header>
-  <h1>⚡ CYBER LAB ⚡</h1>
-  <p>SECURITY • TECHNOLOGY • CTF • EVENTS</p>
+<h1>⚡ CYBER WIN LAB ⚡</h1>
+<p>EVENTS • SPEED • KEYBOARD • CHALLENGES</p>
 </header>
 
 <div class="stats">
-  <div class="stat">🪙 Coins: <b id="coins">0</b></div>
-  <div class="stat">🧩 Challenges: <b id="completed">0</b></div>
-  <div class="stat">👤 Code: <b id="playerCode">---</b></div>
+<div class="stat">🪙 Coins: <b id="coins">0</b></div>
+<div class="stat">🏆 Wins: <b id="wins">0</b></div>
+<div class="stat">🔥 Combo: <b id="combo">0</b></div>
 </div>
 
 <div class="container">
+
+<!-- NPC -->
+<section class="section">
+<h2>🤖 NPC → WIN</h2>
+
+<div id="world">
+  <div class="road"></div>
+
+  <div id="npc">🤖</div>
+
+  <div id="winZone">
+    🏁<br>WIN
+  </div>
+</div>
+
+<button class="btn" onclick="startNPC()">
+▶ START NPC
+</button>
+
+<button class="btn" onclick="resetNPC()">
+↩ RESET
+</button>
+</section>
+
+
+<!-- 2X SPEED -->
+<section class="section">
+<h2>⚡ Speed Pass</h2>
+
+<div class="card">
+<h3>⚡ 2X SPEED</h3>
+<p>Demo Game Pass</p>
+<p>ID: <b>1983026270</b></p>
+
+<button class="btn" onclick="openPass(1983026270)">
+🎟️ OPEN GAME PASS
+</button>
+
+<button class="btn" onclick="activateSpeed()">
+⚡ ACTIVATE DEMO 2X
+</button>
+</div>
+</section>
+
+
+<!-- KEYBOARD -->
+<section class="section">
+<h2>⌨️ Speed Keyboard Game</h2>
+
+<div id="keyGame">
+
+<p>Press the key shown on screen!</p>
+
+<div id="keyDisplay">READY</div>
+
+<div id="keyScore">
+Score: <b id="score">0</b>
+&nbsp; | &nbsp;
+Best Combo: <b id="bestCombo">0</b>
+</div>
+
+<div id="keyMessage">
+Press START
+</div>
+
+<button class="btn" onclick="startKeyboardGame()">
+▶ START GAME
+</button>
+
+<div class="touchKeys">
+<button onclick="touchKey('W')">W</button>
+<button onclick="touchKey('A')">A</button>
+<button onclick="touchKey('S')">S</button>
+<button onclick="touchKey('D')">D</button>
+</div>
+
+</div>
+</section>
+
+
+<!-- EVENTS -->
+<section class="section">
+<h2>🎮 Events</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>🌮 Taco Event</h3>
+<p>🌮 Falling tacos</p>
+<p>Duration: 5:00</p>
+</div>
+
+<div class="card">
+<h3>⚡ Cyber Event</h3>
+<p>⚡ Cyber screen effect</p>
+<p>Duration: 5:00</p>
+</div>
+
+<div class="card">
+<h3>🚨 Bann Event</h3>
+<p>🚨 Warning rain</p>
+<p>Duration: 5:00</p>
+</div>
+
+<div class="card">
+<h3>💰 5X Coins</h3>
+<p>🪙 Coin rain</p>
+<p>Reward multiplier: 5X</p>
+</div>
+
+<div class="card">
+<h3>🌈 Rainbow</h3>
+<p>🌈 Animated screen</p>
+<p>Duration: 5:00</p>
+</div>
+
+<div class="card">
+<h3>☄️ Meteor</h3>
+<p>☄️ Meteor animation</p>
+<p>Duration: 5:00</p>
+</div>
+
+</div>
+</section>
+
 
 <!-- CHALLENGES -->
 <section class="section">
@@ -408,84 +512,38 @@ footer{
 <div class="grid">
 
 <div class="card">
-<h3>🧠 Challenge 1 — Number Puzzle</h3>
+<h3>🧠 Number Puzzle</h3>
 <p>2, 6, 12, 20, 30, ?</p>
-<p>💡 Hint: n × (n + 1)</p>
-<input id="answer1" placeholder="Your answer">
-<button class="btn" onclick="checkChallenge(1,42,100)">
+<p>💡 n × (n + 1)</p>
+<input id="c1" placeholder="Answer">
+<button class="btn" onclick="challenge(1,'42',100)">
 CHECK
 </button>
 </div>
 
 <div class="card">
-<h3>🔢 Challenge 2 — Pattern</h3>
+<h3>🔢 Pattern</h3>
 <p>3, 9, 27, 81, ?</p>
-<p>💡 Hint: multiply by 3.</p>
-<input id="answer2" placeholder="Your answer">
-<button class="btn" onclick="checkChallenge(2,243,100)">
+<input id="c2" placeholder="Answer">
+<button class="btn" onclick="challenge(2,'243',100)">
 CHECK
 </button>
 </div>
 
 <div class="card">
-<h3>🧩 Challenge 3 — Missing Number</h3>
-<p>5, 10, 20, 40, ?</p>
-<p>💡 Hint: ×2</p>
-<input id="answer3" placeholder="Your answer">
-<button class="btn" onclick="checkChallenge(3,80,100)">
-CHECK
-</button>
-</div>
-
-<div class="card">
-<h3>🕵️ Challenge 4 — Hidden Word</h3>
-<p>Find the word:</p>
-<p><b>C Y B E R</b></p>
-<input id="answer4" placeholder="Your answer">
-<button class="btn" onclick="checkChallenge(4,'CYBER',100)">
-CHECK
-</button>
-</div>
-
-<div class="card">
-<h3>⚡ Challenge 5 — Logic</h3>
-<p>If 1 + 2 = 6</p>
-<p>2 + 3 = 15</p>
-<p>3 + 4 = 28</p>
-<p>4 + 5 = ?</p>
-<p>💡 Hint: a × (a+b)</p>
-<input id="answer5" placeholder="Your answer">
-<button class="btn" onclick="checkChallenge(5,36,100)">
-CHECK
-</button>
-</div>
-
-<div class="card">
-<h3>🔐 Challenge 6 — Secret Code</h3>
-<p>What comes next?</p>
-<p>A, C, F, J, O, ?</p>
-<p>💡 Hint: +2, +3, +4, +5...</p>
-<input id="answer6" placeholder="Your answer">
-<button class="btn" onclick="checkChallenge(6,'U',100)">
-CHECK
-</button>
-</div>
-
-<div class="card">
-<h3>🧠 Challenge 7 — Quick Math</h3>
-<p>12 × 4 − 8 = ?</p>
-<input id="answer7" placeholder="Your answer">
-<button class="btn" onclick="checkChallenge(7,40,100)">
-CHECK
-</button>
-</div>
-
-<div class="card">
-<h3>🧩 Challenge 8 — Pattern</h3>
+<h3>🧩 Square Numbers</h3>
 <p>1, 4, 9, 16, 25, ?</p>
-<p>💡 Hint: square numbers.</p>
-<input id="answer8" placeholder="Your answer">
-<button class="btn" onclick="checkChallenge(8,36,100)">
+<input id="c3" placeholder="Answer">
+<button class="btn" onclick="challenge(3,'36',100)">
+CHECK
+</button>
+</div>
+
+<div class="card">
+<h3>⚡ Quick Math</h3>
+<p>12 × 4 − 8 = ?</p>
+<input id="c4" placeholder="Answer">
+<button class="btn" onclick="challenge(4,'40',100)">
 CHECK
 </button>
 </div>
@@ -493,62 +551,6 @@ CHECK
 </div>
 </section>
 
-<!-- EVENTS DISPLAY -->
-<section class="section">
-<h2>🎮 Events</h2>
-
-<div class="grid">
-
-<div class="card" id="eventTaco">
-<h3>🌮 Taco Rain</h3>
-<p>Falling taco animation.</p>
-<p>Duration: 5:00</p>
-</div>
-
-<div class="card" id="eventCyber">
-<h3>⚡ Cyber Event</h3>
-<p>Glitch + cyber scan animation.</p>
-<p>Duration: 5:00</p>
-</div>
-
-<div class="card" id="eventBann">
-<h3>🚨 Bann Event</h3>
-<p>Warning animation.</p>
-<p>Duration: 5:00</p>
-</div>
-
-<div class="card" id="event5x">
-<h3>💰 5X Coins</h3>
-<p>Coin rain + 5X rewards.</p>
-<p>Duration: 5:00</p>
-</div>
-
-<div class="card">
-<h3>🪙 Coin Rain</h3>
-<p>Coins fall from the sky.</p>
-<p>Duration: 5:00</p>
-</div>
-
-<div class="card">
-<h3>🚀 Speed Event</h3>
-<p>Speed-line screen animation.</p>
-<p>Duration: 5:00</p>
-</div>
-
-<div class="card">
-<h3>🌈 Rainbow Event</h3>
-<p>Animated rainbow screen.</p>
-<p>Duration: 5:00</p>
-</div>
-
-<div class="card">
-<h3>☄️ Meteor Event</h3>
-<p>Meteor animation across the screen.</p>
-<p>Duration: 5:00</p>
-</div>
-
-</div>
-</section>
 
 <!-- GAME PASSES -->
 <section class="section">
@@ -559,335 +561,178 @@ CHECK
 <div class="card">
 <h3>👑 Owner Pass</h3>
 <p>ID: 1983026270</p>
-<button class="btn" onclick="openPass(1983026270)">OPEN PASS</button>
+<button class="btn" onclick="openPass(1983026270)">
+OPEN
+</button>
 </div>
 
 <div class="card">
 <h3>⚡ Cyber Pro</h3>
 <p>ID: 1981610268</p>
-<button class="btn" onclick="openPass(1981610268)">OPEN PASS</button>
+<button class="btn" onclick="openPass(1981610268)">
+OPEN
+</button>
 </div>
 
 <div class="card">
 <h3>💎 VIP Access</h3>
 <p>ID: 1981142286</p>
-<button class="btn" onclick="openPass(1981142286)">OPEN PASS</button>
+<button class="btn" onclick="openPass(1981142286)">
+OPEN
+</button>
 </div>
 
 <div class="card">
 <h3>💠 Premium Access</h3>
 <p>ID: 1981952280</p>
-<button class="btn" onclick="openPass(1981952280)">OPEN PASS</button>
-</div>
-
-</div>
-</section>
-
-<!-- SHOP -->
-<section class="section">
-<h2>🛒 Coin Shop</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>Starter Pack</h3>
-<p>Cost: 100 Coins</p>
-<p>Reward: +500 Coins</p>
-<button class="btn" onclick="buyPack(500,100)">
-BUY
-</button>
-</div>
-
-<div class="card">
-<h3>Cyber Starter</h3>
-<p>Cost: 250 Coins</p>
-<p>Reward: +1,500 Coins</p>
-<button class="btn" onclick="buyPack(1500,250)">
-BUY
-</button>
-</div>
-
-<div class="card">
-<h3>Premium Pack</h3>
-<p>Cost: 700 Coins</p>
-<p>Reward: +5,000 Coins</p>
-<button class="btn" onclick="buyPack(5000,700)">
-BUY
-</button>
-</div>
-
-<div class="card">
-<h3>👑 Admin Starter Pack</h3>
-<p>Reward: +100,000 Coins</p>
-<p>Admin password required.</p>
-<button class="btn" onclick="buyAdminPack()">
-GET ADMIN PACK
+<button class="btn" onclick="openPass(1981952280)">
+OPEN
 </button>
 </div>
 
 </div>
 </section>
+
 
 <!-- ADMIN -->
-<section id="adminPanel">
+<section class="section">
+<button class="btn" onclick="openAdmin()">
+👑 OPEN ADMIN PANEL
+</button>
 
-<h2>👑 DEMO ADMIN PANEL</h2>
+<div id="admin">
+
+<h2>👑 ADMIN PANEL</h2>
 
 <p style="color:#ffcc00;margin-top:8px">
-Demo browser-based admin panel.
+Demo browser admin panel
 </p>
 
 <div class="adminBox">
+<h3>🎮 Events</h3>
 
-<h3>🎮 Event Control</h3>
+<button class="btn" onclick="activateEvent('TACO')">
+🌮 TACO
+</button>
 
-<div class="adminEventRow">
-<button class="btn" onclick="activateEvent('TACO')">🌮 TACO</button>
-<button class="btn" onclick="activateEvent('CYBER')">⚡ CYBER</button>
-<button class="btn" onclick="activateEvent('BANN')">🚨 BANN</button>
-<button class="btn" onclick="activateEvent('5X')">💰 5X COINS</button>
-</div>
+<button class="btn" onclick="activateEvent('CYBER')">
+⚡ CYBER
+</button>
 
-<div class="adminEventRow">
-<button class="btn" onclick="activateEvent('COIN')">🪙 COIN RAIN</button>
-<button class="btn" onclick="activateEvent('SPEED')">🚀 SPEED</button>
-<button class="btn" onclick="activateEvent('RAINBOW')">🌈 RAINBOW</button>
-<button class="btn" onclick="activateEvent('METEOR')">☄️ METEOR</button>
-<button class="btn" onclick="stopEvent()">⛔ STOP</button>
-</div>
+<button class="btn" onclick="activateEvent('BANN')">
+🚨 BANN
+</button>
+
+<button class="btn" onclick="activateEvent('5X')">
+💰 5X COINS
+</button>
+
+<button class="btn" onclick="activateEvent('RAINBOW')">
+🌈 RAINBOW
+</button>
+
+<button class="btn" onclick="activateEvent('METEOR')">
+☄️ METEOR
+</button>
+
+<button class="btn" onclick="stopEvent()">
+⛔ STOP
+</button>
 
 </div>
 
 <div class="adminBox">
+<h3>🪙 Coins</h3>
 
-<h3>🪙 Admin Coins</h3>
-
-<button class="btn" onclick="adminCoins(1000)">
+<button class="btn" onclick="addCoins(1000)">
 +1,000
 </button>
 
-<button class="btn" onclick="adminCoins(10000)">
+<button class="btn" onclick="addCoins(10000)">
 +10,000
 </button>
 
-<button class="btn" onclick="adminCoins(100000)">
+<button class="btn" onclick="addCoins(100000)">
 +100,000
 </button>
 
 </div>
 
 <div class="adminBox">
+<h3>📢 Add Event Banner</h3>
 
-<h3>➕ Add Custom Event</h3>
+<input id="bannerName" placeholder="Event name">
+<input id="bannerEmoji" placeholder="Emoji e.g. 🔥">
 
-<input id="newEventName" placeholder="Event name">
-<input id="newEventEmoji" placeholder="Emoji e.g. 🎉">
-<input id="newEventDuration" type="number" placeholder="Duration in seconds" value="300">
-<input id="newEventMultiplier" type="number" placeholder="Coin multiplier" value="1">
-
-<button class="btn" onclick="addCustomEvent()">
-ADD EVENT
+<button class="btn" onclick="addBanner()">
+➕ ADD BANNER
 </button>
 
-<div id="customEvents"></div>
-
+<div id="banners"></div>
 </div>
 
-<div class="adminBox">
-
-<h3>🧩 Add Custom Challenge</h3>
-
-<input id="customTitle" placeholder="Challenge title">
-<input id="customQuestion" placeholder="Question">
-<input id="customAnswer" placeholder="Answer">
-<input id="customHint" placeholder="Hint">
-<input id="customReward" type="number" placeholder="Reward" value="100">
-
-<button class="btn" onclick="addCustomChallenge()">
-ADD CHALLENGE
-</button>
-
 </div>
-
 </section>
 
 </div>
 
-<!-- EVENT BANNER -->
-<div id="activeEvent">
-  <div id="eventName">EVENT ACTIVE</div>
-  <div id="eventTimer">05:00</div>
+
+<!-- EVENT -->
+<div id="eventBanner">
+<div id="eventTitle">EVENT</div>
+<div id="eventTime">05:00</div>
 </div>
 
-<!-- EFFECTS -->
 <div id="effects"></div>
-<div id="cyberFlash"></div>
 <div id="rainbow"></div>
 
-<div class="notice" id="notice"></div>
+<!-- WIN -->
+<div id="winScreen">
+<h1>WIN</h1>
+<p>🏆 Congratulations!</p>
+<button class="btn" onclick="closeWin()">
+CONTINUE
+</button>
+</div>
+
+<div id="notice" class="notice"></div>
 
 <footer>
-⚡ CYBER LAB • Safe CTF Demo
+⚡ CYBER WIN LAB
 </footer>
 
+
 <script>
-
-/* =========================
-   LOADER
-========================= */
-
-let progress=0;
-
-const loaderInterval=setInterval(()=>{
-  progress++;
-  document.getElementById("loaderProgress").style.width=progress+"%";
-  document.getElementById("loaderText").innerText=progress+"%";
-
-  if(progress>=100){
-    clearInterval(loaderInterval);
-
-    setTimeout(()=>{
-      document.getElementById("loader").style.display="none";
-    },400);
-  }
-},20);
-
 
 /* =========================
    STORAGE
 ========================= */
 
-let coins=parseInt(localStorage.getItem("coins")||"0");
+let coins=Number(localStorage.getItem("coins")||0);
+let wins=Number(localStorage.getItem("wins")||0);
 
-let completedChallenges=
-JSON.parse(localStorage.getItem("completedChallenges")||"[]");
-
-let playerCode=
-localStorage.getItem("playerCode");
-
-let customEvents=
-JSON.parse(localStorage.getItem("customEvents")||"[]");
-
-let customChallenges=
-JSON.parse(localStorage.getItem("customChallenges")||"[]");
-
-let coinMultiplier=1;
-
-let eventTimer=null;
-let eventSeconds=0;
-let currentEvent=null;
-
-const ADMIN_PASSWORD="CYBERADMIN";
-
-
-/* =========================
-   PLAYER CODE
-========================= */
-
-function generatePlayerCode(){
-
-  const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-  let code="CYBER-";
-
-  for(let i=0;i<6;i++){
-    code+=chars[Math.floor(Math.random()*chars.length)];
-  }
-
-  return code;
-}
-
-if(!playerCode){
-  playerCode=generatePlayerCode();
-  localStorage.setItem("playerCode",playerCode);
-}
-
-document.getElementById("playerCode").innerText=playerCode;
-
-
-/* =========================
-   STATS
-========================= */
-
-function updateStats(){
-
-  document.getElementById("coins").innerText=coins;
-
-  document.getElementById("completed").innerText=
-    completedChallenges.length;
-
-  localStorage.setItem("coins",coins);
-
-  localStorage.setItem(
-    "completedChallenges",
-    JSON.stringify(completedChallenges)
-  );
-}
-
-updateStats();
+document.getElementById("coins").innerText=coins;
+document.getElementById("wins").innerText=wins;
 
 
 /* =========================
    NOTICE
 ========================= */
 
-let noticeTimeout;
+let noticeTimer;
 
-function showNotice(text){
+function notice(text){
 
-  const n=document.getElementById("notice");
+  const box=document.getElementById("notice");
 
-  n.innerText=text;
-  n.style.display="block";
+  box.innerText=text;
+  box.style.display="block";
 
-  clearTimeout(noticeTimeout);
+  clearTimeout(noticeTimer);
 
-  noticeTimeout=setTimeout(()=>{
-    n.style.display="none";
+  noticeTimer=setTimeout(()=>{
+    box.style.display="none";
   },2500);
-}
-
-
-/* =========================
-   CHALLENGES
-========================= */
-
-function getReward(base){
-
-  return base*coinMultiplier;
-}
-
-function checkChallenge(id,answer,baseReward){
-
-  if(completedChallenges.includes(id)){
-    showNotice("✅ Challenge already completed!");
-    return;
-  }
-
-  const input=document.getElementById("answer"+id);
-
-  if(!input)return;
-
-  const value=input.value.trim().toUpperCase();
-
-  if(value===String(answer).toUpperCase()){
-
-    const reward=getReward(baseReward);
-
-    completedChallenges.push(id);
-
-    coins+=reward;
-
-    updateStats();
-
-    input.disabled=true;
-
-    showNotice("🎉 Correct! +"+reward+" Coins");
-
-  }else{
-
-    showNotice("❌ Wrong answer!");
-  }
 }
 
 
@@ -905,133 +750,327 @@ function openPass(id){
 
 
 /* =========================
-   SHOP
+   2X SPEED DEMO
 ========================= */
 
-function buyPack(reward,cost){
+let speed2x=false;
 
-  if(coins<cost){
+function activateSpeed(){
 
-    showNotice("❌ Not enough Coins!");
+  speed2x=true;
+
+  notice("⚡ 2X SPEED activated!");
+}
+
+
+/* =========================
+   NPC
+========================= */
+
+let npcTimer=null;
+let npcPosition=30;
+
+function startNPC(){
+
+  clearInterval(npcTimer);
+
+  npcPosition=30;
+
+  document.getElementById("npc")
+    .style.left=npcPosition+"px";
+
+  npcTimer=setInterval(()=>{
+
+    const world=
+      document.getElementById("world");
+
+    const npc=
+      document.getElementById("npc");
+
+    const win=
+      document.getElementById("winZone");
+
+    const max=
+      world.clientWidth-
+      win.offsetWidth-
+      50;
+
+    let speed=speed2x?4:2;
+
+    npcPosition+=speed;
+
+    npc.style.left=npcPosition+"px";
+
+    if(npcPosition>=max){
+
+      clearInterval(npcTimer);
+
+      showWin();
+    }
+
+  },50);
+
+  notice("🤖 NPC is moving to WIN!");
+}
+
+function resetNPC(){
+
+  clearInterval(npcTimer);
+
+  npcPosition=30;
+
+  document.getElementById("npc")
+    .style.left="30px";
+}
+
+
+/* =========================
+   WIN
+========================= */
+
+function showWin(){
+
+  wins++;
+
+  localStorage.setItem("wins",wins);
+
+  document.getElementById("wins")
+    .innerText=wins;
+
+  document.getElementById("winScreen")
+    .style.display="flex";
+}
+
+function closeWin(){
+
+  document.getElementById("winScreen")
+    .style.display="none";
+
+  resetNPC();
+}
+
+
+/* =========================
+   CHALLENGES
+========================= */
+
+let completed=
+JSON.parse(
+  localStorage.getItem("completed")||"[]"
+);
+
+function challenge(id,answer,reward){
+
+  if(completed.includes(id)){
+
+    notice("✅ Already completed!");
 
     return;
   }
 
-  coins-=cost;
-  coins+=reward;
+  const input=
+    document.getElementById("c"+id);
 
-  updateStats();
+  if(
+    input.value.trim().toUpperCase()===
+    String(answer).toUpperCase()
+  ){
 
-  showNotice("🪙 Pack activated! +"+reward+" Coins");
-}
+    completed.push(id);
 
+    let finalReward=
+      reward*(currentMultiplier||1);
 
-/* =========================
-   ADMIN PACK
-========================= */
+    coins+=finalReward;
 
-function buyAdminPack(){
+    localStorage.setItem(
+      "coins",coins
+    );
 
-  const password=prompt("Enter Admin Password:");
+    localStorage.setItem(
+      "completed",
+      JSON.stringify(completed)
+    );
 
-  if(password===ADMIN_PASSWORD){
+    document.getElementById("coins")
+      .innerText=coins;
 
-    coins+=100000;
+    input.disabled=true;
 
-    updateStats();
-
-    showNotice("👑 +100,000 Admin Coins!");
+    notice(
+      "🎉 Correct! +"+
+      finalReward+
+      " Coins"
+    );
 
   }else{
 
-    showNotice("❌ Wrong Admin Password!");
+    notice("❌ Wrong answer!");
   }
 }
 
 
 /* =========================
-   ADMIN PANEL
+   EVENTS
 ========================= */
 
-function openAdmin(){
+let eventInterval=null;
+let eventSeconds=0;
+let currentMultiplier=1;
+let currentEvent=null;
+let effectInterval=null;
 
-  const password=prompt("Admin Password:");
+function activateEvent(type){
 
-  if(password===ADMIN_PASSWORD){
+  stopEvent(false);
 
-    document.getElementById("adminPanel").style.display="block";
+  eventSeconds=300;
+  currentMultiplier=1;
 
-    showNotice("👑 Admin Panel opened!");
+  let title="";
+  let emoji="⚡";
 
-  }else{
+  if(type==="TACO"){
+    title="TACO RAIN";
+    emoji="🌮";
+    startRain("🌮");
+  }
 
-    showNotice("❌ Wrong Admin Password!");
+  if(type==="CYBER"){
+    title="CYBER EVENT";
+    emoji="⚡";
+    startCyber();
+  }
+
+  if(type==="BANN"){
+    title="BANN EVENT";
+    emoji="🚨";
+    startRain("🚨");
+  }
+
+  if(type==="5X"){
+    title="5X COINS";
+    emoji="💰";
+    currentMultiplier=5;
+    startRain("🪙");
+  }
+
+  if(type==="RAINBOW"){
+    title="RAINBOW EVENT";
+    emoji="🌈";
+
+    document.getElementById("rainbow")
+      .style.display="block";
+  }
+
+  if(type==="METEOR"){
+    title="METEOR EVENT";
+    emoji="☄️";
+    startRain("☄️");
+  }
+
+  currentEvent=title;
+
+  document.getElementById("eventBanner")
+    .style.display="block";
+
+  document.getElementById("eventTitle")
+    .innerText=emoji+" "+title;
+
+  updateEventTime();
+
+  eventInterval=setInterval(()=>{
+
+    eventSeconds--;
+
+    updateEventTime();
+
+    if(eventSeconds<=0){
+
+      stopEvent();
+
+      notice("⏱️ Event finished!");
+    }
+
+  },1000);
+
+  notice(
+    emoji+" "+title+" started!"
+  );
+}
+
+
+function updateEventTime(){
+
+  const m=
+    Math.floor(eventSeconds/60);
+
+  const s=
+    eventSeconds%60;
+
+  document.getElementById("eventTime")
+    .innerText=
+    String(m).padStart(2,"0")+
+    ":"+
+    String(s).padStart(2,"0");
+}
+
+
+function stopEvent(show=true){
+
+  clearInterval(eventInterval);
+  clearInterval(effectInterval);
+
+  eventInterval=null;
+  effectInterval=null;
+
+  currentMultiplier=1;
+  currentEvent=null;
+
+  document.getElementById("eventBanner")
+    .style.display="none";
+
+  document.getElementById("effects")
+    .innerHTML="";
+
+  document.getElementById("effects")
+    .style.display="none";
+
+  document.getElementById("rainbow")
+    .style.display="none";
+
+  if(show){
+    notice("⛔ Event stopped!");
   }
 }
 
 
 /* =========================
-   ADMIN BUTTON
+   RAIN EFFECT
 ========================= */
 
-const adminButton=document.createElement("button");
+function startRain(emoji){
 
-adminButton.className="btn";
+  const effects=
+    document.getElementById("effects");
 
-adminButton.innerText="👑 OPEN ADMIN PANEL";
-
-adminButton.style.display="block";
-adminButton.style.margin="25px auto";
-
-adminButton.onclick=openAdmin;
-
-document.querySelector(".container").appendChild(adminButton);
-
-
-/* =========================
-   EFFECT SYSTEM
-========================= */
-
-function clearEffects(){
-
-  document.getElementById("effects").innerHTML="";
-
-  document.getElementById("effects").style.display="none";
-
-  document.getElementById("cyberFlash").style.display="none";
-
-  document.getElementById("rainbow").style.display="none";
-}
-
-
-/* =========================
-   FALLING EMOJI
-========================= */
-
-let fallInterval=null;
-
-function startEmojiRain(emoji){
-
-  clearEffects();
-
-  const effects=document.getElementById("effects");
-
+  effects.innerHTML="";
   effects.style.display="block";
 
-  clearInterval(fallInterval);
+  effectInterval=setInterval(()=>{
 
-  fallInterval=setInterval(()=>{
-
-    const item=document.createElement("div");
+    const item=
+      document.createElement("div");
 
     item.className="fall";
 
     item.innerText=emoji;
 
-    item.style.left=Math.random()*100+"%";
+    item.style.left=
+      Math.random()*100+"%";
 
     item.style.fontSize=
-      (25+Math.random()*35)+"px";
+      (25+Math.random()*40)+"px";
 
     item.style.animationDuration=
       (2+Math.random()*3)+"s";
@@ -1043,596 +1082,307 @@ function startEmojiRain(emoji){
     },5500);
 
   },180);
-
-}
-
-function stopEmojiRain(){
-
-  clearInterval(fallInterval);
 }
 
 
 /* =========================
-   CYBER
+   CYBER EFFECT
 ========================= */
-
-let cyberInterval=null;
 
 function startCyber(){
 
-  clearEffects();
+  const effects=
+    document.getElementById("effects");
 
-  document.getElementById("cyberFlash").style.display="block";
-
-  clearInterval(cyberInterval);
-
-  cyberInterval=setInterval(()=>{
-
-    const line=document.createElement("div");
-
-    line.className="speedLine";
-
-    line.style.top=Math.random()*100+"%";
-
-    document.getElementById("effects")
-      .appendChild(line);
-
-    setTimeout(()=>{
-      line.remove();
-    },1000);
-
-  },120);
-
-}
-
-function stopCyber(){
-
-  clearInterval(cyberInterval);
-
-}
-
-
-/* =========================
-   SPEED
-========================= */
-
-let speedInterval=null;
-
-function startSpeed(){
-
-  clearEffects();
-
-  const effects=document.getElementById("effects");
-
+  effects.innerHTML="";
   effects.style.display="block";
 
-  clearInterval(speedInterval);
+  effectInterval=setInterval(()=>{
 
-  speedInterval=setInterval(()=>{
+    const line=
+      document.createElement("div");
 
-    const line=document.createElement("div");
+    line.className="fall";
 
-    line.className="speedLine";
+    line.innerText=
+      Math.random()>0.5
+      ?"010101"
+      :"CYBER";
 
-    line.style.top=Math.random()*100+"%";
+    line.style.left=
+      Math.random()*100+"%";
+
+    line.style.fontSize="18px";
+
+    line.style.animationDuration=
+      (1+Math.random()*2)+"s";
 
     effects.appendChild(line);
 
     setTimeout(()=>{
       line.remove();
-    },1000);
+    },3500);
 
-  },80);
-}
-
-function stopSpeed(){
-
-  clearInterval(speedInterval);
+  },100);
 }
 
 
 /* =========================
-   METEOR
+   ADMIN
 ========================= */
 
-let meteorInterval=null;
+const ADMIN_PASSWORD="CYBERADMIN";
 
-function startMeteor(){
+function openAdmin(){
 
-  clearEffects();
+  const pass=
+    prompt("Enter Admin Password:");
 
-  const effects=document.getElementById("effects");
+  if(pass===ADMIN_PASSWORD){
 
-  effects.style.display="block";
+    document.getElementById("admin")
+      .style.display="block";
 
-  clearInterval(meteorInterval);
-
-  meteorInterval=setInterval(()=>{
-
-    const meteor=document.createElement("div");
-
-    meteor.className="meteor";
-
-    effects.appendChild(meteor);
-
-    setTimeout(()=>{
-      meteor.remove();
-    },1600);
-
-  },350);
-}
-
-function stopMeteor(){
-
-  clearInterval(meteorInterval);
-}
-
-
-/* =========================
-   EVENT BANNER
-========================= */
-
-function showEventBanner(name,emoji){
-
-  document.getElementById("activeEvent").style.display="block";
-
-  document.getElementById("eventName").innerText=
-    emoji+" "+name;
-
-  updateEventTimer();
-}
-
-function updateEventTimer(){
-
-  const minutes=Math.floor(eventSeconds/60);
-
-  const seconds=eventSeconds%60;
-
-  document.getElementById("eventTimer").innerText=
-    String(minutes).padStart(2,"0")+":"+
-    String(seconds).padStart(2,"0");
-}
-
-
-/* =========================
-   EVENT ACTIVATION
-========================= */
-
-function activateEvent(type,custom=null){
-
-  stopEvent(false);
-
-  let name="";
-  let emoji="⚡";
-  let multiplier=1;
-
-  if(custom){
-
-    name=custom.name;
-    emoji=custom.emoji||"🎉";
-    eventSeconds=custom.duration||300;
-    multiplier=custom.multiplier||1;
+    notice("👑 Admin Panel opened!");
 
   }else{
 
-    eventSeconds=300;
-
-    if(type==="TACO"){
-      name="TACO RAIN";
-      emoji="🌮";
-    }
-
-    if(type==="CYBER"){
-      name="CYBER EVENT";
-      emoji="⚡";
-    }
-
-    if(type==="BANN"){
-      name="BANN EVENT";
-      emoji="🚨";
-    }
-
-    if(type==="5X"){
-      name="5X COINS";
-      emoji="💰";
-      multiplier=5;
-    }
-
-    if(type==="COIN"){
-      name="COIN RAIN";
-      emoji="🪙";
-    }
-
-    if(type==="SPEED"){
-      name="SPEED EVENT";
-      emoji="🚀";
-    }
-
-    if(type==="RAINBOW"){
-      name="RAINBOW EVENT";
-      emoji="🌈";
-    }
-
-    if(type==="METEOR"){
-      name="METEOR EVENT";
-      emoji="☄️";
-    }
+    notice("❌ Wrong Admin Password!");
   }
+}
 
-  currentEvent={
-    name:name,
-    emoji:emoji
-  };
+function addCoins(amount){
 
-  coinMultiplier=multiplier;
+  coins+=amount;
 
-  showEventBanner(name,emoji);
-
-  document
-    .querySelectorAll(".card")
-    .forEach(card=>{
-      card.classList.remove("eventActive");
-    });
-
-  if(type==="TACO"){
-    document.getElementById("eventTaco")
-      .classList.add("eventActive");
-
-    startEmojiRain("🌮");
-  }
-
-  else if(type==="CYBER"){
-
-    document.getElementById("eventCyber")
-      .classList.add("eventActive");
-
-    startCyber();
-  }
-
-  else if(type==="BANN"){
-
-    document.getElementById("eventBann")
-      .classList.add("eventActive");
-
-    startEmojiRain("🚨");
-  }
-
-  else if(type==="5X"){
-
-    document.getElementById("event5x")
-      .classList.add("eventActive");
-
-    startEmojiRain("🪙");
-  }
-
-  else if(type==="COIN"){
-
-    startEmojiRain("🪙");
-  }
-
-  else if(type==="SPEED"){
-
-    startSpeed();
-  }
-
-  else if(type==="RAINBOW"){
-
-    clearEffects();
-
-    document.getElementById("rainbow")
-      .style.display="block";
-  }
-
-  else if(type==="METEOR"){
-
-    startMeteor();
-  }
-
-  eventTimer=setInterval(()=>{
-
-    eventSeconds--;
-
-    updateEventTimer();
-
-    if(eventSeconds<=0){
-
-      stopEvent();
-
-      showNotice("⏱️ Event finished!");
-    }
-
-  },1000);
-
-  showNotice(
-    emoji+" "+name+" started!"
+  localStorage.setItem(
+    "coins",coins
   );
+
+  document.getElementById("coins")
+    .innerText=coins;
+
+  notice("🪙 +"+amount+" Coins");
 }
 
 
 /* =========================
-   STOP EVENT
+   CUSTOM BANNERS
 ========================= */
 
-function stopEvent(showMessage=true){
+let customBanners=
+JSON.parse(
+  localStorage.getItem("customBanners")||"[]"
+);
 
-  clearInterval(eventTimer);
-
-  eventTimer=null;
-
-  stopEmojiRain();
-  stopCyber();
-  stopSpeed();
-  stopMeteor();
-
-  clearEffects();
-
-  coinMultiplier=1;
-
-  currentEvent=null;
-
-  document.getElementById("activeEvent")
-    .style.display="none";
-
-  document
-    .querySelectorAll(".card")
-    .forEach(card=>{
-      card.classList.remove("eventActive");
-    });
-
-  if(showMessage){
-    showNotice("⛔ Event stopped!");
-  }
-}
-
-
-/* =========================
-   CUSTOM EVENTS
-========================= */
-
-function addCustomEvent(){
+function addBanner(){
 
   const name=
-    document.getElementById("newEventName")
+    document.getElementById("bannerName")
       .value.trim();
 
   const emoji=
-    document.getElementById("newEventEmoji")
-      .value.trim()||"🎉";
-
-  const duration=
-    parseInt(
-      document.getElementById("newEventDuration").value
-    )||300;
-
-  const multiplier=
-    parseInt(
-      document.getElementById("newEventMultiplier").value
-    )||1;
+    document.getElementById("bannerEmoji")
+      .value.trim()||"📢";
 
   if(!name){
 
-    showNotice("❌ Enter event name!");
+    notice("❌ Enter banner name!");
 
     return;
   }
 
-  customEvents.push({
-    id:Date.now(),
+  customBanners.push({
     name:name,
-    emoji:emoji,
-    duration:duration,
-    multiplier:multiplier
+    emoji:emoji
   });
 
   localStorage.setItem(
-    "customEvents",
-    JSON.stringify(customEvents)
+    "customBanners",
+    JSON.stringify(customBanners)
   );
 
-  renderCustomEvents();
+  renderBanners();
 
-  showNotice("✅ Event added!");
+  notice("📢 Banner added!");
 }
 
+function renderBanners(){
 
-function renderCustomEvents(){
-
-  const box=document.getElementById("customEvents");
+  const box=
+    document.getElementById("banners");
 
   box.innerHTML="";
 
-  customEvents.forEach(event=>{
+  customBanners.forEach(b=>{
 
-    const row=document.createElement("div");
-
-    row.className="adminEventRow";
-
-    const button=document.createElement("button");
+    const button=
+      document.createElement("button");
 
     button.className="btn";
 
     button.innerText=
-      event.emoji+" "+event.name+
-      " ("+event.multiplier+"X)";
+      b.emoji+" "+b.name;
 
     button.onclick=()=>{
-      activateEvent(null,event);
+
+      stopEvent(false);
+
+      eventSeconds=300;
+
+      document.getElementById("eventBanner")
+        .style.display="block";
+
+      document.getElementById("eventTitle")
+        .innerText=
+        b.emoji+" "+b.name;
+
+      updateEventTime();
+
+      eventInterval=setInterval(()=>{
+
+        eventSeconds--;
+
+        updateEventTime();
+
+        if(eventSeconds<=0){
+
+          stopEvent();
+
+        }
+
+      },1000);
+
+      notice(
+        b.emoji+" "+b.name+" started!"
+      );
     };
 
-    row.appendChild(button);
-
-    box.appendChild(row);
+    box.appendChild(button);
   });
 }
 
-renderCustomEvents();
+renderBanners();
 
 
 /* =========================
-   CUSTOM CHALLENGES
+   KEYBOARD GAME
 ========================= */
 
-function addCustomChallenge(){
+const keys=["W","A","S","D"];
 
-  const title=
-    document.getElementById("customTitle")
-      .value.trim();
+let gameRunning=false;
+let currentKey="";
+let score=0;
+let combo=0;
+let bestCombo=0;
 
-  const question=
-    document.getElementById("customQuestion")
-      .value.trim();
+function nextKey(){
 
-  const answer=
-    document.getElementById("customAnswer")
-      .value.trim();
+  currentKey=
+    keys[Math.floor(Math.random()*keys.length)];
 
-  const hint=
-    document.getElementById("customHint")
-      .value.trim();
-
-  const reward=
-    parseInt(
-      document.getElementById("customReward").value
-    )||100;
-
-  if(!title||!question||!answer){
-
-    showNotice("❌ Fill title, question and answer!");
-
-    return;
-  }
-
-  customChallenges.push({
-    id:Date.now(),
-    title:title,
-    question:question,
-    answer:answer,
-    hint:hint,
-    reward:reward
-  });
-
-  localStorage.setItem(
-    "customChallenges",
-    JSON.stringify(customChallenges)
-  );
-
-  renderCustomChallenges();
-
-  showNotice("🧩 Challenge added!");
+  document.getElementById("keyDisplay")
+    .innerText=currentKey;
 }
 
+function startKeyboardGame(){
 
-function renderCustomChallenges(){
+  gameRunning=true;
+  score=0;
+  combo=0;
 
-  let section=document.getElementById("customChallengeSection");
+  document.getElementById("score")
+    .innerText=score;
 
-  if(!section){
+  document.getElementById("bestCombo")
+    .innerText=bestCombo;
 
-    section=document.createElement("section");
+  document.getElementById("keyMessage")
+    .innerText="GO!";
 
-    section.id="customChallengeSection";
+  nextKey();
+}
 
-    section.className="section";
+function touchKey(key){
 
-    section.innerHTML=
-      "<h2>🧩 Extra Challenges</h2>"+
-      "<div class='grid' id='customChallengeGrid'></div>";
+  if(gameRunning){
 
-    document
-      .querySelector(".container")
-      .insertBefore(
-        section,
-        document.getElementById("adminPanel")
+    handleKey(key);
+  }
+}
+
+function handleKey(key){
+
+  if(!gameRunning)return;
+
+  if(key===currentKey){
+
+    combo++;
+
+    if(combo>bestCombo){
+      bestCombo=combo;
+    }
+
+    score+=10+combo;
+
+    document.getElementById("score")
+      .innerText=score;
+
+    document.getElementById("bestCombo")
+      .innerText=bestCombo;
+
+    document.getElementById("keyMessage")
+      .innerText="⚡ PERFECT!";
+
+    nextKey();
+
+    if(score>=500){
+
+      gameRunning=false;
+
+      coins+=
+        500*(currentMultiplier||1);
+
+      localStorage.setItem(
+        "coins",coins
       );
+
+      document.getElementById("coins")
+        .innerText=coins;
+
+      notice("🏆 Keyboard WIN!");
+
+    }
+
+  }else{
+
+    combo=0;
+
+    document.getElementById("keyMessage")
+      .innerText="❌ WRONG KEY";
+
+    nextKey();
   }
-
-  const grid=
-    document.getElementById("customChallengeGrid");
-
-  grid.innerHTML="";
-
-  customChallenges.forEach(challenge=>{
-
-    const card=document.createElement("div");
-
-    card.className="customChallenge";
-
-    const title=document.createElement("h3");
-
-    title.innerText=
-      "🧩 "+challenge.title;
-
-    const question=document.createElement("p");
-
-    question.innerText=
-      challenge.question;
-
-    const hint=document.createElement("p");
-
-    hint.innerText=
-      "💡 "+challenge.hint;
-
-    const input=document.createElement("input");
-
-    input.placeholder="Your answer";
-
-    input.id="custom_"+challenge.id;
-
-    const button=document.createElement("button");
-
-    button.className="btn";
-
-    button.innerText="CHECK";
-
-    button.onclick=()=>{
-
-      if(
-        completedChallenges
-          .includes(challenge.id)
-      ){
-
-        showNotice("✅ Already completed!");
-
-        return;
-      }
-
-      if(
-        input.value.trim().toUpperCase()===
-        challenge.answer.trim().toUpperCase()
-      ){
-
-        const reward=
-          getReward(challenge.reward);
-
-        completedChallenges.push(challenge.id);
-
-        coins+=reward;
-
-        updateStats();
-
-        input.disabled=true;
-
-        showNotice(
-          "🎉 Correct! +"+reward+" Coins"
-        );
-
-      }else{
-
-        showNotice("❌ Wrong answer!");
-      }
-    };
-
-    card.appendChild(title);
-    card.appendChild(question);
-    card.appendChild(hint);
-    card.appendChild(input);
-    card.appendChild(button);
-
-    grid.appendChild(card);
-  });
 }
 
-renderCustomChallenges();
+document.addEventListener(
+  "keydown",
+  function(e){
+
+    const key=
+      e.key.toUpperCase();
+
+    if(
+      ["W","A","S","D"].includes(key)
+    ){
+
+      e.preventDefault();
+
+      handleKey(key);
+    }
+  }
+);
 
 </script>
 
